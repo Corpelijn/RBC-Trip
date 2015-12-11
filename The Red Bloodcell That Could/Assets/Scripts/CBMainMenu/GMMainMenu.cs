@@ -9,9 +9,11 @@ public class GMMainMenu : MonoBehaviour
     public Slider sliderStart;
     public Slider sliderQuit;
     public Slider sliderOptions;
+    //public Slider sliderOptionsTerug;
     public GameObject start;
     public GameObject quit;
     public GameObject options;
+    //public GameObject optionsVelden;
 
     //Slider values
     public float maxSliderValue;            //50f
@@ -26,6 +28,13 @@ public class GMMainMenu : MonoBehaviour
     private Vector3 startTarget;
     private Vector3 quitTarget;
     private Vector3 optionsTarget;
+
+    //Camera rotation
+    //private Quaternion camCurrent;
+    //private Quaternion camOptions;
+    //private Quaternion camOptionsValues;
+    //public float smooth;                    //2.0f
+    //public float tiltAngle;                 //30f
 
     //Movespeed
     public float movespeed;                 //0.5f
@@ -74,7 +83,7 @@ public class GMMainMenu : MonoBehaviour
                 } //when slider full
                 else if (sliderStart.value == maxSliderValue)
                 {
-                    //Play();
+                    Play();
                 }
             }
             else if (hit.collider.tag == "MMOptions")
@@ -162,7 +171,7 @@ public class GMMainMenu : MonoBehaviour
 
     public void Play()
     {
-        Application.LoadLevel("Game");
+        Application.LoadLevel("TestMap");
     }
 
     public void Quit()
