@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 9ca11d33573f84548aa9f297ac79ab82
-timeCreated: 1449737351
+guid: 2939599ae5642f347981aa375d1946d6
+timeCreated: 1449754355
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: normal bocht
+    4300000: normal turn
   materials:
     importMaterials: 1
     materialName: 0

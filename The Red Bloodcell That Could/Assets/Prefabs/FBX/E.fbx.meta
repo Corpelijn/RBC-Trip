@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 321a1221bc9117847b3c1c42232519bd
-timeCreated: 1449737350
+guid: 8788d4f7ac09d184e93f4520bfb0fbfc
+timeCreated: 1449754355
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: normal -> normal & smal
+    4300000: normal -> normal & small
   materials:
     importMaterials: 1
     materialName: 0
