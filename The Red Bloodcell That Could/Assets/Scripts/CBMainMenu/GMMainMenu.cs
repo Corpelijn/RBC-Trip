@@ -9,9 +9,12 @@ public class GMMainMenu : MonoBehaviour
     public Slider sliderStart;
     public Slider sliderQuit;
     public Slider sliderOptions;
+    //public Slider sliderOptionsTerug;
     public GameObject start;
     public GameObject quit;
     public GameObject options;
+    //public GameObject optionsVelden;
+    public GameObject UI;
 
     //Slider values
     public float maxSliderValue;            //50f
@@ -26,6 +29,13 @@ public class GMMainMenu : MonoBehaviour
     private Vector3 startTarget;
     private Vector3 quitTarget;
     private Vector3 optionsTarget;
+
+    //Camera rotation
+    //private Quaternion camCurrent;
+    //private Quaternion camOptions;
+    //private Quaternion camOptionsValues;
+    //public float smooth;                    //2.0f
+    //public float tiltAngle;                 //30f
 
     //Movespeed
     public float movespeed;                 //0.5f
@@ -50,6 +60,9 @@ public class GMMainMenu : MonoBehaviour
         startTarget = new Vector3(start.transform.position.x, start.transform.position.y, start.transform.position.z - 1);
         quitTarget = new Vector3(quit.transform.position.x + 1, quit.transform.position.y, quit.transform.position.z);
         optionsTarget = new Vector3(options.transform.position.x - 1, options.transform.position.y, options.transform.position.z);
+
+        //cam.transform.LookAt(startOriginal);
+        UI.transform.rotation = new Quaternion(UI.transform.rotation.x, cam.transform.rotation.y, UI.transform.rotation.z, UI.transform.rotation.w);
     }
 
     // Update is called once per frame
@@ -74,7 +87,7 @@ public class GMMainMenu : MonoBehaviour
                 } //when slider full
                 else if (sliderStart.value == maxSliderValue)
                 {
-                    //Play();
+                    Play();
                 }
             }
             else if (hit.collider.tag == "MMOptions")
@@ -162,7 +175,7 @@ public class GMMainMenu : MonoBehaviour
 
     public void Play()
     {
-        Application.LoadLevel("Game");
+        Application.LoadLevel("TestMap");
     }
 
     public void Quit()
