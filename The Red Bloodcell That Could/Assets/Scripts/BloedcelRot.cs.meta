@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:The Red Bloodcell That Could/Assets/Scripts/BloedcelRot.cs.meta
+guid: 11910622093c8984a8781ae044b0c924
+timeCreated: 1449839021
+=======
 guid: 10cbe0bfa3faf7d44a5d73cbf7415fff
 timeCreated: 1449839090
+>>>>>>> origin/master:The Red Bloodcell That Could/Assets/Scripts/BloedcelRot.cs.meta
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
