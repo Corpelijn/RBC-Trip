@@ -14,6 +14,7 @@ public class GMMainMenu : MonoBehaviour
     public GameObject quit;
     public GameObject options;
     //public GameObject optionsVelden;
+    public GameObject UI;
 
     //Slider values
     public float maxSliderValue;            //50f
@@ -59,6 +60,9 @@ public class GMMainMenu : MonoBehaviour
         startTarget = new Vector3(start.transform.position.x, start.transform.position.y, start.transform.position.z - 1);
         quitTarget = new Vector3(quit.transform.position.x + 1, quit.transform.position.y, quit.transform.position.z);
         optionsTarget = new Vector3(options.transform.position.x - 1, options.transform.position.y, options.transform.position.z);
+
+        //cam.transform.LookAt(startOriginal);
+        UI.transform.rotation = new Quaternion(UI.transform.rotation.x, cam.transform.rotation.y, UI.transform.rotation.z, UI.transform.rotation.w);
     }
 
     // Update is called once per frame
