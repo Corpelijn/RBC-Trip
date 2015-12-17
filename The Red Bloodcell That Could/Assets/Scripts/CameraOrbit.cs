@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraOrbit : MonoBehaviour {
 
-    public Transform target;
+    public GameObject target;
     public float distance = 10f;            //10f
     public float xSpeed = 250f;             //250f
     public float ySpeed = 120f;             //120f
@@ -12,9 +12,12 @@ public class CameraOrbit : MonoBehaviour {
     private float x = 0.0f;                 //0.0f
     private float y = 0.0f;                 //0.0f
 
+    public Vector3 directionToMove;
+
 	// Use this for initialization
 	void Start ()
     {
+        
         Vector3 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
@@ -34,7 +37,7 @@ public class CameraOrbit : MonoBehaviour {
             y = ClampAngle(y, yMinLimit, yMaxLimit);
 
             var rotation = Quaternion.Euler(y, x, 0);
-            var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.position;
+            var position = rotation * new Vector3(0.0f, 0.0f, -distance) + target.transform.position;
 
             distance += Input.GetAxis("Mouse ScrollWheel");
             distance = Mathf.Clamp(distance, 1.5f, 5.0f);
@@ -44,6 +47,10 @@ public class CameraOrbit : MonoBehaviour {
         }
 	}
 
+    void FixedUpdate()
+    {
+        movePlayer();
+    }
     public float ClampAngle(float angle, float min, float max)
     {
         if (angle < -360)
@@ -51,5 +58,13 @@ public class CameraOrbit : MonoBehaviour {
         if (angle > 360)
             angle -= 360;
         return Mathf.Clamp(angle, min, max);
+    }
+
+    public void movePlayer()
+    {
+        directionToMove = target.transform.position - this.transform.position;
+        directionToMove.x = 0;
+        Debug.Log("direction to Move: " + directionToMove.ToString());
+        target.GetComponent<Rigidbody>().AddForce(directionToMove/1000);
     }
 }
