@@ -16,7 +16,7 @@ using UnityEngine;
 /// @ingroup Scripts
 /// Encapsulates a rotation and a translation.  This is a convenience class that allows
 /// construction and value access either by Matrix4x4 or Quaternion + Vector3 types.
-public class Pose3D {
+public class Pose3D: MonoBehaviour {
   /// Right-handed to left-handed matrix converter (and vice versa).
   protected static readonly Matrix4x4 flipZ = Matrix4x4.Scale(new Vector3(1, 1, -1));
 
