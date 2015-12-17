@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace Assets.Scripts.VainBuilder
 {
@@ -10,12 +11,17 @@ namespace Assets.Scripts.VainBuilder
         private List<VainExit> exits;
         private List<Vain> vains;
 
-        private Vain[] lastVains;
+        public int renderAmount = 5;
 
-        public void Start()
+        public static VainBuilder Instance { get; private set; }
+        private List<Vain> visible;
+
+        private void Start()
         {
+            Instance = this;
             exits = new List<VainExit>();
             vains = new List<Vain>();
+            visible = new List<Vain>();
 
             // Quickly read the data from the file and put it in some classes for later
             string[] lines = vainData.text.Split(new string[] {"\n"}, System.StringSplitOptions.RemoveEmptyEntries);
@@ -44,14 +50,43 @@ namespace Assets.Scripts.VainBuilder
 
             if (vains.Count > 0)
             {
-                vains[0].DrawMe(this.transform);
-                lastVains = new Vain[]{vains[0]};
+                //vains[0].DrawMe(this.transform);
+                visible.Add(vains[0]);
             }
         }
 
-        public void Update()
+        private void Update()
         {
-            
+            // Check what vains need to be drawn
+            Vain currentVain = GetVain(Player.Instance.currentVain);
+            visible.Add(currentVain);
+
+            Vain lastVain = null;
+            VainDrawer nextPosition = new VainDrawer();
+            for (int i = 0; i < renderAmount; i++)
+            {
+                try
+                {
+                    Debug.Log(i + ":" + lastVain);
+                    Vain newVain = currentVain.GetStraight(lastVain);
+                    lastVain = currentVain;
+                    currentVain = newVain;
+                    if (currentVain != null)
+                    {
+                        currentVain.DrawMe(this.transform);
+                        currentVain.SetTransform(nextPosition);
+                        visible.Add(currentVain);
+
+                        nextPosition = currentVain.CalculateNextPosition();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log(i);
+                }
+            }
+
+            visible.Clear();
         }
 
         private Vain GetVain(int id)
@@ -65,6 +100,27 @@ namespace Assets.Scripts.VainBuilder
             }
 
             return null;
+        }
+
+        private Vain GetVain(GameObject obj)
+        {
+            foreach (Vain v in vains)
+            {
+                if (v.GameObject == obj)
+                {
+                    return v;
+                }
+            }
+
+            return null;
+        }
+
+        public Vain GetNext(Vain previous, Vain current)
+        {
+            int exit = current.GetNext(previous);
+            if (exit == -1)
+                return null;
+            return current.GetExit(exit);
         }
     }
 }
