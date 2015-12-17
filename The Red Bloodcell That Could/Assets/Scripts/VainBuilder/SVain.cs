@@ -36,5 +36,35 @@ namespace Assets.Scripts.VainBuilder
 
             return base.DrawNext(ingang, parent);
         }
+
+        public override GameObject DrawMe(Transform parent, GameObject previous)
+        {
+            GameObject go = DrawMe(parent);
+            
+
+            if (previous != null)
+            {
+                Transform prev = previous.transform;
+                go.transform.position = new Vector3(prev.position.x, prev.position.y, prev.position.z + 3);
+            }
+            
+            return go;
+        }
+
+        public override Vain GetStraight(Vain previous)
+        {
+            if (previous == null)
+                return this.exits[1];
+            return base.GetStraight(previous);
+        }
+
+        public override VainDrawer CalculateNextPosition()
+        {
+            Vector3 position = new Vector3(this.obj.transform.position.x, this.obj.transform.position.y, this.obj.transform.position.z + 3);
+            Vector3 rotation = new Vector3();
+            Vector3 exit = new Vector3(0, 0, 0);
+
+            return new VainDrawer(position, rotation, exit);
+        }
     }
 }
