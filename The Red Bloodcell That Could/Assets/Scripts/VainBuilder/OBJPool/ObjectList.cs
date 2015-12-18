@@ -19,7 +19,7 @@ namespace Assets.Scripts.VainBuilder.OBJPool
 
         public GameObject GetNextAvailable()
         {
-            if(objects.Count == 0)
+            if (objects.Count == 0)
                 return null;
 
             GameObject next = objects[0];
@@ -27,10 +27,15 @@ namespace Assets.Scripts.VainBuilder.OBJPool
             return next;
         }
 
-        public void GiveObject(GameObject obj)
+        public void AddObject(GameObject obj)
         {
-            if(!this.objects.Contains(obj))
+            if (!this.objects.Contains(obj))
                 this.objects.Add(obj);
+        }
+
+        public Type Type
+        { 
+            get { return type; } 
         }
     }
 }

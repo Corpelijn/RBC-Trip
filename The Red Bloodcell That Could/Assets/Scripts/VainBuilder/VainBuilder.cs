@@ -11,7 +11,7 @@ namespace Assets.Scripts.VainBuilder
         private List<VainExit> exits;
         private List<Vain> vains;
 
-        public int renderAmount = 5;
+        public int renderDistance = 5;
 
         public static VainBuilder Instance { get; private set; }
         private List<Vain> visible;
@@ -80,18 +80,20 @@ namespace Assets.Scripts.VainBuilder
                     return;
             }
 
+            Vain previous = null;
+
             // Continue here to see if there are more vains needed to be drawn
-            for (int i = 0; i < renderAmount; i++)
+            for (int i = 0; i < renderDistance; i++)
             {
                 // Get the next vain
-                Vain next = lastVain.GetStraight();
+                Vain next = lastVain.GetStraight(previous);
 
                 // Check if the vain is not empty
                 if (next == null)
                     continue;
 
                 // Get the information where the next object should be drawed
-                VainDrawer drawinfo = lastVain.CalculateNextPosition();
+                VainDrawer drawinfo = lastVain.CalculateNextPosition(previous);
                 
                 // Get the exit to wich the last vain was connected
                 int exit = next.GetExit(lastVain);
@@ -109,7 +111,7 @@ namespace Assets.Scripts.VainBuilder
                 next.DrawMe(this.transform, drawinfo);
 
                 // Add the vain to the visible object
-                if(!visible.Contains(next))
+                if (!visible.Contains(next))
                     visible.Add(next);
 
                 // Set the next vain as the last
@@ -117,27 +119,7 @@ namespace Assets.Scripts.VainBuilder
             }
 
             // Check if there are items that can be removed
-            //List<string> toRemove = new List<string>();
-            //for(int i = 0; i<visible.Count; i++)
-            //{
-            //    if (!visible[i].HasDrawcalls())
-            //    {
-            //        toRemove.Add(i.ToString());
-            //    }
-            //    else
-            //        visible[i].LowerDrawcall();
-            //}
-
-            //Debug.Log(String.Join(", ", toRemove.ToArray()));
-            if (visible.Count > 0 && lastVain != null)
-            {
-                if (visible[0] != GetVain(Player.Instance.currentVain))
-                {
-                    Debug.Log(visible[0].GetID().ToString() + " : " + lastVain.GetID().ToString());
-                    visible[0].DestroyMe();
-                    visible.RemoveAt(0);
-                }
-            }
+            // :TODO: !!
         }
 
         private Vain GetVain(int id)

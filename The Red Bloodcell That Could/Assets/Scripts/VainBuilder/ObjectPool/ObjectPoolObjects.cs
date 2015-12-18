@@ -12,6 +12,7 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
         public GameObject VainY = null;
         public GameObject VainT = null;
         public GameObject VainD = null;
+        public GameObject VainE = null;
 
         public static ObjectPoolObjects Instance { get; private set; }
 

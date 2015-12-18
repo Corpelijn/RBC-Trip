@@ -14,7 +14,7 @@ namespace Assets.Scripts.VainBuilder
             this.exits = new Vain[2];
         }
 
-        public override Vain GetStraight()
+        public override Vain GetStraight(Vain last)
         {
             // Find the end of the vain that is already drawn
             int found = -1;
@@ -51,10 +51,10 @@ namespace Assets.Scripts.VainBuilder
             }
         }
 
-        public override VainDrawer CalculateNextPosition()
+        public override VainDrawer CalculateNextPosition(Vain last)
         {
             // Get the vain we are moving towards
-            Vain v = GetStraight();
+            Vain v = GetStraight(last);
 
             // Define some variables
             Vector3 position = this.obj.transform.position;
