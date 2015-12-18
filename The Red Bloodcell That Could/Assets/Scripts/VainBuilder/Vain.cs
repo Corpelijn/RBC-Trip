@@ -22,6 +22,8 @@ namespace Assets.Scripts.VainBuilder
 
         protected Vector3 size;
 
+        public int DrawCalls = 10;
+
         #endregion
 
         #region "Constructors"

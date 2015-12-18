@@ -15,7 +15,9 @@ namespace Assets.Scripts.VainBuilder
 
         public static VainBuilder Instance { get; private set; }
         private List<Vain> visible;
-        private Vain lastVain = null;
+
+        private Vain currentPlayerVain = null;
+        private Vain lastPlayerVain = null;
 
         private void Start()
         {
@@ -63,10 +65,12 @@ namespace Assets.Scripts.VainBuilder
                     vains[0].DrawMe(this.transform, new VainDrawer());
 
                     // Set the vain as the last vain
-                    lastVain = vains[0];
+                    //currentPlayerVain = vains[0];
 
                     // Add the vain to the visible object
                     visible.Add(vains[0]);
+                    currentPlayerVain = vains[0];
+                    lastPlayerVain = vains[0].GetExit(0);
 
                     // Return the method. We do not want to draw anything else at the moment
                     return;
@@ -75,28 +79,35 @@ namespace Assets.Scripts.VainBuilder
             else
             {
                 // If the last vain is already set, set it to the current vain of the player
-                lastVain = GetVain(Player.Instance.currentVain);
-                if (lastVain == null)
+                Vain cv = GetVain(Player.Instance.currentVain);
+                if (cv == null)
                     return;
+
+                if (cv != currentPlayerVain)
+                {
+                    lastPlayerVain = currentPlayerVain;
+                    currentPlayerVain = cv;
+                }
             }
 
-            Vain previous = null;
+            Vain currentVain = currentPlayerVain;
+            Vain lastVain = lastPlayerVain;
 
             // Continue here to see if there are more vains needed to be drawn
             for (int i = 0; i < renderDistance; i++)
             {
                 // Get the next vain
-                Vain next = lastVain.GetStraight(previous);
+                Vain next = currentVain.GetStraight(lastVain);
 
                 // Check if the vain is not empty
                 if (next == null)
                     continue;
 
                 // Get the information where the next object should be drawed
-                VainDrawer drawinfo = lastVain.CalculateNextPosition(previous);
+                VainDrawer drawinfo = currentVain.CalculateNextPosition(lastVain);
                 
                 // Get the exit to wich the last vain was connected
-                int exit = next.GetExit(lastVain);
+                int exit = next.GetExit(currentVain);
 
                 // Check if the exit id not equals -1
                 if (exit == -1)
@@ -110,16 +121,38 @@ namespace Assets.Scripts.VainBuilder
                 // Draw the next vain
                 next.DrawMe(this.transform, drawinfo);
 
+                next.DrawCalls++;
+
                 // Add the vain to the visible object
                 if (!visible.Contains(next))
                     visible.Add(next);
 
                 // Set the next vain as the last
-                lastVain = next;
+                lastVain = currentVain;
+                currentVain = next;
             }
 
             // Check if there are items that can be removed
-            // :TODO: !!
+            int index = 0;
+            while (index < visible.Count)
+            {
+                if (visible[index].DrawCalls > -1)
+                {
+                    visible[index].DrawCalls--;
+                }
+                else
+                {
+                    if (visible[index] == lastPlayerVain || visible[index] == currentPlayerVain)
+                    {
+                        index++;
+                        continue;
+                    }
+                    visible[index].DestroyMe();
+                    visible.RemoveAt(index);
+                    continue;
+                }
+                index++;
+            }
         }
 
         private Vain GetVain(int id)
