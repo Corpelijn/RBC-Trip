@@ -4,10 +4,12 @@ using System.Collections;
 public class ParticleShooter : MonoBehaviour {
 
 	public ParticleSystem oxygen;
+    public GameObject doel;
 	public float distance;
+    public Color lerpedColor = Color.white;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
 		distance = 10;
 		//particleHolder.transform.position = transform.position;
 	}
@@ -23,6 +25,7 @@ public class ParticleShooter : MonoBehaviour {
             {
                 if (!oxygen.isPlaying)
                     oxygen.Play();
+                    lerpedColor = Color.Lerp(Color.white, Color.black, Time.time);
             }
         }
         else
