@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.VainBuilder.OBJPool;
-//using Assets.Scripts.MapGeneration.ObjectPool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace Assets.Scripts.VainBuilder
 
         protected Vector3 size;
 
-        public int DrawCalls = 10;
+        private int drawcalls = 1;
 
         #endregion
 
@@ -88,6 +87,21 @@ namespace Assets.Scripts.VainBuilder
         public void SetID(int value)
         {
             this.id = value;
+        }
+
+        public bool HasDrawcalls()
+        {
+            return drawcalls > -1;
+        }
+
+        public void AddDrawcall()
+        {
+            drawcalls++;
+        }
+
+        public void RemoveDrawcall()
+        {
+            drawcalls--;
         }
 
         public bool IsDrawn()

@@ -65,12 +65,12 @@ namespace Assets.Scripts.VainBuilder
                     vains[0].DrawMe(this.transform, new VainDrawer());
 
                     // Set the vain as the last vain
-                    //currentPlayerVain = vains[0];
+                    currentPlayerVain = vains[0];
+                    lastPlayerVain = vains[0].GetExit(0);
 
                     // Add the vain to the visible object
                     visible.Add(vains[0]);
-                    currentPlayerVain = vains[0];
-                    lastPlayerVain = vains[0].GetExit(0);
+                    
 
                     // Return the method. We do not want to draw anything else at the moment
                     return;
@@ -121,7 +121,7 @@ namespace Assets.Scripts.VainBuilder
                 // Draw the next vain
                 next.DrawMe(this.transform, drawinfo);
 
-                next.DrawCalls++;
+                next.AddDrawcall();
 
                 // Add the vain to the visible object
                 if (!visible.Contains(next))
@@ -136,9 +136,9 @@ namespace Assets.Scripts.VainBuilder
             int index = 0;
             while (index < visible.Count)
             {
-                if (visible[index].DrawCalls > -1)
+                if (visible[index].HasDrawcalls())
                 {
-                    visible[index].DrawCalls--;
+                    visible[index].RemoveDrawcall();
                 }
                 else
                 {

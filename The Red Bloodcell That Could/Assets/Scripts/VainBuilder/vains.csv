@@ -1,9 +1,9 @@
 Vain;Index;Type;Scale;Zrotation;Flip
 Exit;Vain1_id;Vain1_exit;Vain2_id;Vain2_exit;
 v;1;S;1;;
-v;2;S;1;;
-v;3;S;1;;
-v;4;S;1;;
+v;2;D;1;;
+v;3;S;0.5;;
+v;4;D;1;;180
 v;5;S;1;;
 v;6;S;1;;
 v;7;S;1;;
