@@ -19,7 +19,7 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
 
         public bool IsBeschikbaar()
         {
-            return this.transform.position.z <= -9;
+            return this.transform.parent == ObjectPoolObjects.Instance.transform;
         }
     }
 }

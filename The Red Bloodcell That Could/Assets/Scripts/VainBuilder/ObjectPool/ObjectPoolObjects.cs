@@ -8,9 +8,10 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
 {
     class ObjectPoolObjects : MonoBehaviour
     {
-        public GameObject VainS;
-        public GameObject VainY;
-        public GameObject VainT;
+        public GameObject VainS = null;
+        public GameObject VainY = null;
+        public GameObject VainT = null;
+        public GameObject VainD = null;
 
         public static ObjectPoolObjects Instance { get; private set; }
 

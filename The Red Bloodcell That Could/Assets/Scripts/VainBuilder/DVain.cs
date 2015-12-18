@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.VainBuilder
 {
-    class SVain : Vain
+    class DVain : Vain
     {
-        public SVain()
+        public DVain()
             : base()
         {
             this.exits = new Vain[2];
