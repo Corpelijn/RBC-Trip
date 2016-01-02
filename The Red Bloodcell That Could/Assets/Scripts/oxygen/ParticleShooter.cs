@@ -7,13 +7,11 @@ public class ParticleShooter : MonoBehaviour
     public ParticleSystem oxygen;
     public GameObject doel;
     public float distance;
-    public Color lerpedColor = Color.white;
 
     // Use this for initialization
     void Start()
     {
         distance = 10;
-        //particleHolder.transform.position = transform.position;
     }
 
     // Update is called once per frame
@@ -26,9 +24,15 @@ public class ParticleShooter : MonoBehaviour
         {
             if (hit.collider.tag == "target")
             {
-                if (!oxygen.isPlaying)
+                if (hit.collider.GetComponent<colorChanger>().canShoot == true)
+                {
+                    if (!oxygen.isPlaying)
                     oxygen.Play();
-                lerpedColor = Color.Lerp(Color.white, Color.black, Time.time);
+                }
+                else
+                {
+                    oxygen.Stop();
+                }                
             }
         }
         else
