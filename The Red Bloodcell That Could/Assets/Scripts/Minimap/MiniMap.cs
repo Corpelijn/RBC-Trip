@@ -20,15 +20,21 @@ public class MiniMap : MonoBehaviour {
 
     public float increaseOxygenAmount;
 
-    private bool canReduceOxygen;
+    private bool canReduceOxygen = true;
 
     private List<Slider> sliders;
+
+    private bool canIncreaseHead = true;
+    private bool canIncreaseLiver = true;
+    private bool canIncreaseIntestines = true;
+    private bool canIncreaseStomach = true;
+    private bool canIncreaseKidneyLeft = true;
+    private bool canIncreaseKidneyRight = true;
 
     // Use this for initialization
     void Start ()
     {
         sliders = new List<Slider>();
-        canReduceOxygen = true;
         sliders.Add(head);
         sliders.Add(liver);
         sliders.Add(intestines);
@@ -67,6 +73,25 @@ public class MiniMap : MonoBehaviour {
         {
             if (canReduceOxygen)
                 StartCoroutine(ReduceOxygen());
+
+            if (canIncreaseHead)
+                StartCoroutine(IncreaseOxygenHead());
+
+            if (canIncreaseIntestines)
+                StartCoroutine(IncreaseOxygenIntestines());
+
+            if (canIncreaseKidneyLeft)
+                StartCoroutine(IncreaseOxygenKidneyLeft());
+
+            if (canIncreaseKidneyRight)
+                StartCoroutine(IncreaseOxygenKidneyRight());
+
+            if (canIncreaseLiver)
+                StartCoroutine(IncreaseOxygenLiver());
+
+            if (canIncreaseStomach)
+                StartCoroutine(IncreaseOxygenStomach());
+
         }
 	}
 
@@ -81,5 +106,59 @@ public class MiniMap : MonoBehaviour {
         kidneyleft.value -= kidneysOxygenReduceSpeed;
         kidneyright.value -= kidneysOxygenReduceSpeed;
         canReduceOxygen = true;
+    }
+
+    IEnumerator IncreaseOxygenHead()
+    {
+        canIncreaseHead = false;
+        float time = Random.Range(10, 20);
+        yield return new WaitForSeconds(time);
+        head.value += increaseOxygenAmount;
+        canIncreaseHead = true;
+    }
+
+    IEnumerator IncreaseOxygenLiver()
+    {
+        canIncreaseLiver = false;
+        float time = Random.Range(20, 30);
+        yield return new WaitForSeconds(time);
+        liver.value += increaseOxygenAmount;
+        canIncreaseLiver = true;
+    }
+
+    IEnumerator IncreaseOxygenIntestines()
+    {
+        canIncreaseIntestines = false;
+        float time = Random.Range(20, 30);
+        yield return new WaitForSeconds(time);
+        intestines.value += increaseOxygenAmount;
+        canIncreaseIntestines = true;
+    }
+
+    IEnumerator IncreaseOxygenStomach()
+    {
+        canIncreaseStomach = false;
+        float time = Random.Range(20, 30);
+        yield return new WaitForSeconds(time);
+        stomach.value += increaseOxygenAmount;
+        canIncreaseStomach = true;
+    }
+
+    IEnumerator IncreaseOxygenKidneyLeft()
+    {
+        canIncreaseKidneyLeft = false;
+        float time = Random.Range(20, 30);
+        yield return new WaitForSeconds(time);
+        kidneyleft.value += increaseOxygenAmount;
+        canIncreaseKidneyLeft = true;
+    }
+
+    IEnumerator IncreaseOxygenKidneyRight()
+    {
+        canIncreaseKidneyRight = false;
+        float time = Random.Range(20, 30);
+        yield return new WaitForSeconds(time);
+        kidneyright.value += increaseOxygenAmount;
+        canIncreaseKidneyRight = true;
     }
 }
