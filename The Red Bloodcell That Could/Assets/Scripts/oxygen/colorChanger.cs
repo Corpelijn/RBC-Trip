@@ -5,10 +5,12 @@ public class colorChanger : MonoBehaviour {
 
     public Color lerpedColordoel;
     public Color lerpedColorCel;
-    public float lerpTimer = 0;
+    public float doelTimer = 0;
+    public float celTimer = 0;
+    //public float lerpTimer = 0;
     public float lerpSpeed = 2;
     public bool canShoot = true;
-    public bool canGet = true;
+    public bool canGet = false;
     public GameObject cel;
     public int timesShot = 0;
 
@@ -20,42 +22,59 @@ public class colorChanger : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
         this.GetComponent<Renderer>().material.color = lerpedColordoel;
         cel.GetComponent<Renderer>().material.color = lerpedColorCel;
+        if (doelTimer > 0)
+        {
+            doelTimer -= 0.001f;
+            lerpedColordoel = Color.Lerp(Color.blue, Color.white, doelTimer);
+        }
     }
 
-    void OnParticleCollision(GameObject other)
+    void OnParticleCollision()
     {
         if (canShoot)
         {
             timesShot++;
-        }
-        lerpTimer += Time.deltaTime * 4;
-        lerpedColordoel = Color.Lerp(Color.blue, Color.white, lerpTimer);
-        lerpedColorCel = Color.Lerp(Color.white, Color.blue, lerpTimer);
-        if (lerpedColordoel.r == 1.000f)
-        {
-            canShoot = false;
+            doelTimer += 0.1f;
+            celTimer += 0.1f;
             canGet = true;
-            Debug.Log(timesShot);
-        }
-        
+
+            Debug.Log("doel "+ doelTimer);
+            Debug.Log("cel "+celTimer);
+            lerpedColordoel = Color.Lerp(Color.blue, Color.white, doelTimer);
+            lerpedColorCel = Color.Lerp(Color.white, Color.blue, celTimer);
+            if (celTimer >= 1 || doelTimer >=1)
+            {
+                celTimer = 1;
+                doelTimer = 1;               
+                canShoot = false;
+                canGet = true;
+                Debug.Log(timesShot);
+                timesShot = 0;
+            }
+        }        
     }
     
     public void getOxigen()
     {
         if (canGet)
         {
-            timesShot++;
-        }
-        lerpTimer += Time.deltaTime * 4;
-        lerpedColorCel = Color.Lerp(Color.blue, Color.white, lerpTimer);
-        if (lerpedColorCel.r == 1.000f)
-        {
+            celTimer -= 0.1f;
             canShoot = true;
-            canGet = false;
-            Debug.Log(timesShot);
-        }
+
+            Debug.Log("cel " + celTimer);
+            timesShot++;
+            lerpedColorCel = Color.Lerp(Color.white, Color.blue, celTimer);
+            if (celTimer <= 0)
+            {
+                celTimer = 0;
+                canShoot = true;
+                canGet = false;
+                Debug.Log(timesShot);
+                timesShot = 0;
+            }
+        }        
     }
 }
