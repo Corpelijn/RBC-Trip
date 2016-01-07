@@ -8,37 +8,46 @@ namespace Assets.Scripts.VainBuilder
 {
     public class VainDrawer
     {
-        private Vector3 position;
-        private Vector3 rotation;
-        private Vector3 exitCenter;
+        private Vector3 exitPosition;
+        private Vector3 exitRotation;
+        private int destinationExit;
 
-        public VainDrawer(Vector3 p, Vector3 r, Vector3 ec)
+        public VainDrawer(Vector3 ep, Vector3 er)
         {
-            this.position = p;
-            this.rotation = r;
-            this.exitCenter = ec;
+            this.exitPosition = ep;
+            this.exitRotation = er;
+            this.destinationExit = -1;
         }
 
         public VainDrawer()
         {
-            this.position = new Vector3(0,0,0);
-            this.rotation = new Vector3(0, 0, 0);
-            this.exitCenter = new Vector3(0, 0, 0);
+            this.exitPosition = new Vector3(0, 0, 0);
+            this.exitRotation = new Vector3(0, 0, 0);
         }
 
-        public Vector3 Position
+        public Vector3 ExitPosition
         {
-            get { return this.position; }
+            get { return this.exitPosition; }
         }
 
-        public Vector3 Rotation
+        public Vector3 ExitRotation
         {
-            get { return this.rotation; }
+            get { return this.exitRotation; }
         }
 
-        public Vector3 ExitCenter
+        public int DestinationExit
         {
-            get { return this.exitCenter; }
+            set { this.destinationExit = value; }
+            get { return this.destinationExit; }
+        }
+
+        public bool IsEmpty()
+        {
+            if (this.exitPosition == new Vector3(0, 0, 0) && this.exitRotation == new Vector3(0, 0, 0))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

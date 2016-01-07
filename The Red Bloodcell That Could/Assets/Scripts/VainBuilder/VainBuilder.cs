@@ -11,10 +11,13 @@ namespace Assets.Scripts.VainBuilder
         private List<VainExit> exits;
         private List<Vain> vains;
 
-        public int renderAmount = 5;
+        public int renderDistance = 5;
 
         public static VainBuilder Instance { get; private set; }
         private List<Vain> visible;
+
+        private Vain currentPlayerVain = null;
+        private Vain lastPlayerVain = null;
 
         private void Start()
         {
@@ -24,7 +27,7 @@ namespace Assets.Scripts.VainBuilder
             visible = new List<Vain>();
 
             // Quickly read the data from the file and put it in some classes for later
-            string[] lines = vainData.text.Split(new string[] {"\n"}, System.StringSplitOptions.RemoveEmptyEntries);
+            string[] lines = vainData.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < lines.Length; i++)
             {
                 if (lines[i].StartsWith("e"))
@@ -47,53 +50,116 @@ namespace Assets.Scripts.VainBuilder
                 vain1.SetExit(ve.Vain1Exit, vain2);
                 vain2.SetExit(ve.Vain2Exit, vain1);
             }
-
-            if (vains.Count > 0)
-            {
-                //vains[0].DrawMe(this.transform);
-                visible.Add(vains[0]);
-            }
         }
 
         private void Update()
         {
-            // Check what vains need to be drawn
-            Vain currentVain = GetVain(Player.Instance.currentVain);
-            visible.Add(currentVain);
-
-            Vain lastVain = null;
-            VainDrawer nextPosition = new VainDrawer();
-            for (int i = 0; i < renderAmount; i++)
+            // Check if there is any vain drawn ever
+            if (visible.Count == 0)
             {
-                try
+                // There are no vains drawn yet. 
+                // Draw the first vain in the list if there is one
+                if (vains.Count > 0)
                 {
-                    Debug.Log(i + ":" + lastVain);
-                    Vain newVain = currentVain.GetStraight(lastVain);
-                    lastVain = currentVain;
-                    currentVain = newVain;
-                    if (currentVain != null)
-                    {
-                        currentVain.DrawMe(this.transform);
-                        currentVain.SetTransform(nextPosition);
-                        visible.Add(currentVain);
+                    // Draw the vain
+                    vains[0].DrawMe(this.transform, new VainDrawer());
 
-                        nextPosition = currentVain.CalculateNextPosition();
-                    }
+                    // Set the vain as the last vain
+                    currentPlayerVain = vains[0];
+                    lastPlayerVain = vains[0].GetExit(0);
+
+                    // Add the vain to the visible object
+                    visible.Add(vains[0]);
+                    
+
+                    // Return the method. We do not want to draw anything else at the moment
+                    return;
                 }
-                catch (Exception ex)
+            }
+            else
+            {
+                // If the last vain is already set, set it to the current vain of the player
+                Vain cv = GetVain(Player.Instance.currentVain);
+                if (cv == null)
+                    return;
+
+                if (cv != currentPlayerVain)
                 {
-                    Debug.Log(i);
+                    lastPlayerVain = currentPlayerVain;
+                    currentPlayerVain = cv;
                 }
             }
 
-            visible.Clear();
+            Vain currentVain = currentPlayerVain;
+            Vain lastVain = lastPlayerVain;
+
+            // Continue here to see if there are more vains needed to be drawn
+            for (int i = 0; i < renderDistance; i++)
+            {
+                // Get the next vain
+                Vain next = currentVain.GetStraight(lastVain);
+
+                // Check if the vain is not empty
+                if (next == null)
+                    continue;
+
+                // Get the information where the next object should be drawed
+                VainDrawer drawinfo = currentVain.CalculateNextPosition(lastVain);
+                
+                // Get the exit to wich the last vain was connected
+                int exit = next.GetExit(currentVain);
+
+                // Check if the exit id not equals -1
+                if (exit == -1)
+                {
+                    throw new Exception("Seriously?!?! How did you manage to trigger this exception?!?!");
+                }
+
+                // Put the information into the drawinformation
+                drawinfo.DestinationExit = exit;
+
+                // Draw the next vain
+                next.DrawMe(this.transform, drawinfo);
+
+                next.AddDrawcall();
+
+                // Add the vain to the visible object
+                if (!visible.Contains(next))
+                    visible.Add(next);
+
+                // Set the next vain as the last
+                lastVain = currentVain;
+                currentVain = next;
+            }
+
+            // Check if there are items that can be removed
+            int index = 0;
+            while (index < visible.Count)
+            {
+                if (visible[index].HasDrawcalls())
+                {
+                    visible[index].RemoveDrawcall();
+                }
+                else
+                {
+                    if (visible[index] == lastPlayerVain || visible[index] == currentPlayerVain)
+                    {
+                        index++;
+                        continue;
+                    }
+                    visible[index].DestroyMe();
+                    visible.RemoveAt(index);
+                    continue;
+                }
+                index++;
+            }
         }
 
         private Vain GetVain(int id)
         {
             foreach (Vain v in vains)
             {
-                if (v.ID == id)
+                if (v.GetID() == id)
                 {
                     return v;
                 }
@@ -106,21 +172,13 @@ namespace Assets.Scripts.VainBuilder
         {
             foreach (Vain v in vains)
             {
-                if (v.GameObject == obj)
+                if (v.GetGameObject() == obj)
                 {
                     return v;
                 }
             }
 
             return null;
-        }
-
-        public Vain GetNext(Vain previous, Vain current)
-        {
-            int exit = current.GetNext(previous);
-            if (exit == -1)
-                return null;
-            return current.GetExit(exit);
         }
     }
 }

@@ -57,8 +57,8 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
 
         public void SetBeschikbaar(int obj)
         {
-            this.list[obj].transform.position = new Vector3(this.list[obj].transform.position.x, this.list[obj].transform.position.y, -10);
-            this.list[obj].transform.parent = null;
+            this.list[obj].transform.position = new Vector3();
+            this.list[obj].transform.parent = ObjectPoolObjects.Instance.transform;
         }
 
         public int GetObjectCount()

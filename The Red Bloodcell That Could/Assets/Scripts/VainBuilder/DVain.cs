@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.MapGeneration.ObjectPool;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,50 +6,21 @@ using UnityEngine;
 
 namespace Assets.Scripts.VainBuilder
 {
-    class YVain : Vain
+    class DVain : Vain
     {
-        public YVain()
+        public DVain()
             : base()
         {
-            this.exits = new Vain[3];
-            this.size = new Vector3(1.75f, 1, 3);
+            this.exits = new Vain[2];
+            this.size = new Vector3(1, 1, 3);
         }
 
         public override Vain GetStraight(Vain last)
         {
-            // Find the end of the vain that is already drawn
-            int found = -1;
-            for (int i = 0; i < exits.Length; i++)
-            {
-                if (exits[i] == null)
-                    continue;
-                if (exits[i].IsDrawn())
-                {
-                    // You found the vain that is drawn at the moment
-                    // End your quest
-                    found = i;
-                    break;
-                }
-            }
-
-            // Return the opposite exit of the found one
-            if (found == 0)
-            {
-                // Return the opposite exit from the 0-exit
-                return this.exits[1];
-            }
-            else if (found == 1)
-            {
-                // Return the opposite exit from the 1-exit
-                return this.exits[0];
-            }
+            if (exits[0] == last)
+                return exits[1];
             else
-            {
-                // There is no vain found that had to be drawn
-                // This could mean that it is the first vain we are trying to draw
-                // Return by default the exit that is not null
-                return this.exits[0] == null ? this.exits[1] : this.exits[0];
-            }
+                return exits[0];
         }
 
         public override VainDrawer CalculateNextPosition(Vain last)
@@ -69,17 +39,11 @@ namespace Assets.Scripts.VainBuilder
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
                 position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
             }
-            else if(v == exits[1])
-            {
-                // We are leaving from the left top side
-                // Set the position to continue on left top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x - (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
-            }
             else
             {
-                // We are leaving from the right top side
-                // Set the position to continue on right top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x + (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
+                // We are leaving from the top side
+                // Set the position to continue on top and set the exit position to a calculation from the current vain
+                position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
             }
 
             // Return the information in the VainDrawer format
@@ -118,7 +82,7 @@ namespace Assets.Scripts.VainBuilder
 
         protected override bool HasSecondExit()
         {
-            return true;
+            return false;
         }
     }
 }

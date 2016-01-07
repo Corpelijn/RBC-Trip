@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.MapGeneration.ObjectPool;
+﻿using Assets.Scripts.VainBuilder.OBJPool;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +9,37 @@ namespace Assets.Scripts.VainBuilder
 {
     public class Vain
     {
+        #region "Attributes"
+
         private int id;
-        private string type;
         protected Vain[] exits;
         protected GameObject obj;
         private bool isDrawn;
+        protected float scale;
+        private int zrotation;
+        private float flip;
+
+        protected Vector3 size;
+
+        private int drawcalls = 1;
+
+        #endregion
+
+        #region "Constructors"
 
         public Vain()
         {
             isDrawn = false;
         }
 
+        #endregion
+
+        #region "Static Methods"
+
         public static Vain GetVain(string data)
         {
-            string[] d = data.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            data = data.Replace("\r", "");
+            string[] d = data.Split(new char[] { ';' }, StringSplitOptions.None);
 
             Vain vain = null;
             switch (d[2])
@@ -36,27 +53,65 @@ namespace Assets.Scripts.VainBuilder
                 case "S":
                     vain = new SVain();
                     break;
+                case "D":
+                    vain = new DVain();
+                    break;
+                case "E":
+                    vain = new EVain();
+                    break;
             }
+
             vain.id = Convert.ToInt32(d[1]);
+            vain.scale = (float)Convert.ToDouble(d[3]);
+            if (d[4] != "")
+            {
+                vain.zrotation = Convert.ToInt32(d[4]);
+            }
+            if (d[5] != "")
+            {
+                vain.flip = (float)Convert.ToDouble(d[5]);
+            }
 
             return vain;
         }
 
-        public int ID
+        #endregion
+
+        #region "Properties"
+
+        public int GetID()
         {
-            get { return id; }
-            set { id = value; }
+            return this.id;
         }
 
-        public string Type
+        public void SetID(int value)
         {
-            get { return type; }
-            set { type = value; }
+            this.id = value;
         }
 
-        public GameObject GameObject
+        public bool HasDrawcalls()
         {
-            get { return obj; }
+            return drawcalls > -1;
+        }
+
+        public void AddDrawcall()
+        {
+            drawcalls++;
+        }
+
+        public void RemoveDrawcall()
+        {
+            drawcalls--;
+        }
+
+        public bool IsDrawn()
+        {
+            return this.isDrawn;
+        }
+
+        public GameObject GetGameObject()
+        {
+            return obj;
         }
 
         public Vain[] GetExits()
@@ -72,6 +127,18 @@ namespace Assets.Scripts.VainBuilder
                 return null;
             }
             return exits[id];
+        }
+
+        public int GetExit(Vain vain)
+        {
+            for (int i = 0; i < exits.Length; i++)
+            {
+                if (exits[i] == vain)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         public void SetExit(int index, Vain vain)
@@ -90,103 +157,113 @@ namespace Assets.Scripts.VainBuilder
             exits[index] = vain;
         }
 
-        public virtual Vain[] DrawNext(Vain ingang, Transform parent)
-        {
-            if (ingang == null)
-            {
-                return null;
-            }
-
-            List<Vain> last = new List<Vain>();
-            for (int i = 0; i < exits.Length; i++)
-            {
-                if (exits[i] != ingang && exits[i] != null)
-                {
-                    last.Add(exits[i]);
-                }
-            }
-            return last.ToArray();
-        }
-
-        public virtual void UpdatePosition(Transform last, Vector3 position, Vector3 rotation, Vain exit)
-        {
-            obj.transform.position = new Vector3(last.position.x + position.x, last.position.y + position.y, last.position.z + position.z);
-            obj.transform.eulerAngles = rotation;
-        }
-
-        public virtual GameObject DrawMe(Transform parent)
-        {
-            if (!isDrawn)
-            {
-                this.obj = ObjectPool.GetInstance().GetObject(this.GetType());
-                this.obj.transform.parent = parent;
-                this.isDrawn = true;
-            }
-
-            return this.obj;
-        }
-
-        public virtual GameObject DrawMe(Transform parent, GameObject previous)
-        {
-            return DrawMe(parent);
-        }
-
-        public virtual void DestroyMe()
-        {
-            this.isDrawn = false;
-            ObjectPool.GetInstance().SetBeschikbaar(this.obj);
-            this.obj = null;
-        }
-
-        public virtual int GetExitCount()
+        /// <summary>
+        /// Returns the amount of exits the current vain has
+        /// </summary>
+        /// <returns>The amount of exits</returns>
+        public int GetExitCount()
         {
             return this.exits.Length;
         }
 
-        public virtual int GetNext(Vain previous)
+        #endregion
+
+        #region "Methods"
+
+        /// <summary>
+        /// Draw the current vain to the gamescene
+        /// </summary>
+        /// <param name="parent">The parent transform for the vain to be part of</param>
+        /// <param name="drawinfo">The information given by the CalculateNextPosition() method</param>
+        /// <returns>Returns true if there is a second exit</returns>
+        public bool DrawMe(Transform parent, VainDrawer drawinfo)
         {
-            if (exits.Length > 2 || exits.Length < 1)
-                return -1;
-
-            if (exits[0] == null || exits[1] == null)
+            // Check if the vain is already drawn. If it is drawn already, skip creating the object
+            if (!isDrawn)
             {
-                if (exits[0] == previous)
-                    return 1;
-                else if (exits[1] == previous)
-                    return 0;
-            }
+                // Get the next available object from the object pool
+                //this.obj = ObjectPool.GetInstance().GetObject(this.GetType());
+                this.obj = ObjectPool.INSTANCE.GetNext(this.GetType());
 
-            return -1;
-        }
+                // Set the parent of the object to the VainBuilder
+                this.obj.transform.parent = parent;
 
-        public virtual Vain GetStraight(Vain previous)
-        {
-            if (previous == null) return null;
-            if (exits[0] == null)
-            {
-                if (exits[1] == null)
+                // Set the scale of the object
+                this.obj.transform.localScale = new Vector3(this.scale, this.scale, this.scale);
+
+                // Set the flip of the object
+                for (int i = 0; i < this.obj.transform.childCount; i++)
                 {
-                    return null;
+                    this.obj.transform.GetChild(i).eulerAngles = new Vector3(0, 180 - this.flip, this.zrotation * 30.0f);
                 }
-                else
-                    return exits[1];
+
+                // Remember that the vain is now drawn
+                this.isDrawn = true;
+
+                // Set the position and rotation of the vain
+                if (!drawinfo.IsEmpty())
+                    this.SetPosition(drawinfo);
             }
 
-            if (exits[0] == previous)
-                return exits[1];
-            else
-                return exits[0];
+            // Return true if the vain has a second exit
+            return true;
         }
 
-        public virtual VainDrawer CalculateNextPosition()
+        /// <summary>
+        /// Destorys the object in the scene
+        /// </summary>
+        public void DestroyMe()
         {
-            return new VainDrawer();
+            // Forget that we have drawn the object
+            this.isDrawn = false;
+
+            // Give the object back to the objectpool
+            //ObjectPool.GetInstance().SetBeschikbaar(this.obj);
+            ObjectPool.INSTANCE.GivebackObject(this.obj, this.GetType());
+
+            // Set the gameobject property to null
+            this.obj = null;
         }
 
-        public virtual void SetTransform(VainDrawer vd)
+        /// <summary>
+        /// Sets the position and rotation of the new vain object to the correct parameters
+        /// </summary>
+        /// <param name="drawinfo">The information about how to rotate and position</param>
+        protected virtual void SetPosition(VainDrawer drawinfo)
         {
-            this.GameObject.transform.position = vd.Position;
-            this.GameObject.transform.eulerAngles = vd.Rotation;
+            Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: SetPosition()");
         }
+
+        /// <summary>
+        /// Get the next vain in the logic order
+        /// </summary>
+        /// <returns>The next vain from the current viewpoint</returns>
+        public virtual Vain GetStraight(Vain last)
+        {
+            Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: GetStraight()");
+            return null;
+        }
+
+        /// <summary>
+        /// Calculate the position of the next vain according to the ideas of the current vain
+        /// </summary>
+        /// <returns>The new position information</returns>
+        public virtual VainDrawer CalculateNextPosition(Vain last)
+        {
+            Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: CalculateNextPosition()");
+            return null;
+        }
+
+        /// <summary>
+        /// Checks if the vain has second exit. For example the Y-shaped vain
+        /// </summary>
+        /// <returns>Return true if the vain has a second exit; otherwise false</returns>
+        protected virtual bool HasSecondExit()
+        {
+            Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: HasSecondExit()");
+            return false;
+        }
+
+        #endregion
     }
 }

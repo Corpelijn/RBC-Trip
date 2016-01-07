@@ -60,6 +60,10 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
             {
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainT);
             }
+            else if (type == typeof(DVain))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainD);
+            }
 
 
             if (go != null)

@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.MapGeneration.ObjectPool;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.VainBuilder
 {
-    class YVain : Vain
+    class EVain : Vain
     {
-        public YVain()
+        public EVain()
             : base()
         {
             this.exits = new Vain[3];
@@ -69,17 +68,11 @@ namespace Assets.Scripts.VainBuilder
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
                 position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
             }
-            else if(v == exits[1])
-            {
-                // We are leaving from the left top side
-                // Set the position to continue on left top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x - (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
-            }
             else
             {
-                // We are leaving from the right top side
-                // Set the position to continue on right top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x + (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
+                // We are leaving from the top side
+                // Set the position to continue on top and set the exit position to a calculation from the current vain
+                position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
             }
 
             // Return the information in the VainDrawer format

@@ -12,59 +12,77 @@ namespace Assets.Scripts.VainBuilder
             : base()
         {
             this.exits = new Vain[2];
+            this.size = new Vector3(1, 1, 3);
         }
 
-        public override Vain[] DrawNext(Vain ingang, UnityEngine.Transform parent)
+        public override Vain GetStraight(Vain last)
         {
-            if (ingang == null)
-            {
-                return null;
-            }
-
-            // Komt aan vanaf de onderkant (enkele ingang/uitgang)
-            if (ingang == exits[0])
-            {
-                exits[1].DrawMe(parent);
-                exits[1].UpdatePosition(this.obj.transform, new Vector3(0, 0, 3), new Vector3(), exits[1]);
-            }
-            // Komt aan vanaf de bovenkant
-            else if(ingang == exits[1])
-            {
-                exits[0].DrawMe(parent);
-                exits[0].UpdatePosition(this.obj.transform, new Vector3(0, 0, -3), new Vector3(), exits[0]);
-            }
-
-            return base.DrawNext(ingang, parent);
+            if (exits[0] == last)
+                return exits[1];
+            else
+                return exits[0];
         }
 
-        public override GameObject DrawMe(Transform parent, GameObject previous)
+        public override VainDrawer CalculateNextPosition(Vain last)
         {
-            GameObject go = DrawMe(parent);
-            
+            // Get the vain we are moving towards
+            Vain v = GetStraight(last);
 
-            if (previous != null)
+            // Define some variables
+            Vector3 position = this.obj.transform.position;
+            Vector3 rotation = this.obj.transform.eulerAngles;
+
+            // Check from wich end we are leaving
+            if (v == exits[0])
             {
-                Transform prev = previous.transform;
-                go.transform.position = new Vector3(prev.position.x, prev.position.y, prev.position.z + 3);
+                // We are leaving from the bottom side
+                // Set the position to continue on bottom and set the exit position to a calculation from the current vain
+                position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
             }
-            
-            return go;
+            else
+            {
+                // We are leaving from the top side
+                // Set the position to continue on top and set the exit position to a calculation from the current vain
+                position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
+            }
+
+            // Return the information in the VainDrawer format
+            return new VainDrawer(position, rotation);
         }
 
-        public override Vain GetStraight(Vain previous)
+        protected override void SetPosition(VainDrawer drawinfo)
         {
-            if (previous == null)
-                return this.exits[1];
-            return base.GetStraight(previous);
+            // Apply the rotation before calculations
+            this.obj.transform.eulerAngles = drawinfo.ExitRotation;
+            this.obj.transform.position = drawinfo.ExitPosition;
+
+            // Caculate the centerpoint of the of this vain
+            Vector3 VainExit = new Vector3();
+            if (drawinfo.DestinationExit == 0)
+            {
+                VainExit = new Vector3(this.obj.transform.position.x, this.obj.transform.position.y, this.obj.transform.position.z);
+            }
+            else if (drawinfo.DestinationExit == 1)
+            {
+                VainExit = new Vector3(this.obj.transform.position.x, this.obj.transform.position.y, this.obj.transform.position.z + (size.z * this.scale));
+            }
+
+            // Check if there is a differance between the 2 coordinates
+            Vector3 delta = drawinfo.ExitPosition - VainExit;
+            if (delta.x == 0 && delta.y == 0 && delta.z == 0)
+            {
+                // Apply the new position to the vain
+                this.obj.transform.position = VainExit;
+            }
+            else
+            {
+                this.obj.transform.position = drawinfo.ExitPosition + delta;
+            }
         }
 
-        public override VainDrawer CalculateNextPosition()
+        protected override bool HasSecondExit()
         {
-            Vector3 position = new Vector3(this.obj.transform.position.x, this.obj.transform.position.y, this.obj.transform.position.z + 3);
-            Vector3 rotation = new Vector3();
-            Vector3 exit = new Vector3(0, 0, 0);
-
-            return new VainDrawer(position, rotation, exit);
+            return false;
         }
     }
 }

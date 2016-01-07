@@ -8,8 +8,8 @@ namespace Assets.Scripts
 {
     class Player : MonoBehaviour
     {
-        public GameObject player;
-        public GameObject currentVain;
+        public GameObject player = null;
+        public GameObject currentVain = null;
 
         public static Player Instance { get; private set; }
 
