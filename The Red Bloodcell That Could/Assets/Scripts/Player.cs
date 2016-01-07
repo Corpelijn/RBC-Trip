@@ -23,6 +23,8 @@ namespace Assets.Scripts
 
         public void Update()
         {
+            //this.transform.position = this.transform.position + new Vector3(0, 0, 0.1f);
+
             Ray rayRight = new Ray(player.transform.position, Vector3.right);
             Ray rayLeft = new Ray(player.transform.position, Vector3.left);
             Ray rayTop = new Ray(player.transform.position, Vector3.up);

@@ -51,6 +51,7 @@ public class CameraOrbit : MonoBehaviour {
     {
         movePlayer();
     }
+
     public float ClampAngle(float angle, float min, float max)
     {
         if (angle < -360)
@@ -61,10 +62,11 @@ public class CameraOrbit : MonoBehaviour {
     }
 
     public void movePlayer()
-    {
+    {   
         directionToMove = target.transform.position - this.transform.position;
-        directionToMove.x = 0;
-        Debug.Log("direction to Move: " + directionToMove.ToString());
-        target.GetComponent<Rigidbody>().AddForce(directionToMove/1000);
+        //directionToMove.x = 0;
+        target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
+        target.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Debug.Log(directionToMove);
     }
 }

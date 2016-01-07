@@ -7,7 +7,7 @@ namespace Assets.Scripts.VainBuilder
 {
     public class VainBuilder : MonoBehaviour
     {
-        public TextAsset vainData;
+        public List<TextAsset> vainData;
         private List<VainExit> exits;
         private List<Vain> vains;
 
@@ -27,13 +27,16 @@ namespace Assets.Scripts.VainBuilder
             visible = new List<Vain>();
 
             // Quickly read the data from the file and put it in some classes for later
-            string[] lines = vainData.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < lines.Length; i++)
+            foreach (TextAsset info in vainData)
             {
-                if (lines[i].StartsWith("e"))
-                    exits.Add(new VainExit(lines[i]));
-                else if (lines[i].StartsWith("v"))
-                    vains.Add(Vain.GetVain(lines[i]));
+                string[] lines = info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].StartsWith("e"))
+                        exits.Add(new VainExit(lines[i]));
+                    else if (lines[i].StartsWith("v"))
+                        vains.Add(Vain.GetVain(lines[i]));
+                }
             }
 
             // Read the classes and put them together
@@ -70,7 +73,7 @@ namespace Assets.Scripts.VainBuilder
 
                     // Add the vain to the visible object
                     visible.Add(vains[0]);
-                    
+
 
                     // Return the method. We do not want to draw anything else at the moment
                     return;
@@ -90,46 +93,96 @@ namespace Assets.Scripts.VainBuilder
                 }
             }
 
-            Vain currentVain = currentPlayerVain;
-            Vain lastVain = lastPlayerVain;
+            List<Vain> currentVains = new List<Vain>(new Vain[] { currentPlayerVain });
+            List<Vain> lastVains = new List<Vain>(new Vain[] { lastPlayerVain });
 
             // Continue here to see if there are more vains needed to be drawn
             for (int i = 0; i < renderDistance; i++)
             {
-                // Get the next vain
-                Vain next = currentVain.GetStraight(lastVain);
-
-                // Check if the vain is not empty
-                if (next == null)
-                    continue;
-
-                // Get the information where the next object should be drawed
-                VainDrawer drawinfo = currentVain.CalculateNextPosition(lastVain);
-                
-                // Get the exit to wich the last vain was connected
-                int exit = next.GetExit(currentVain);
-
-                // Check if the exit id not equals -1
-                if (exit == -1)
+                List<Vain> newCurrents = new List<Vain>();
+                for (int j = 0; j < currentVains.Count; j++)
                 {
-                    throw new Exception("Seriously?!?! How did you manage to trigger this exception?!?!");
+                    Vain currentVain = currentVains[j];
+                    Vain lastVain = lastVains.Count == currentVains.Count ? lastVains[j] : lastVains[0];
+
+                    // Get the next vain
+                    Vain next = currentVain.GetStraight(lastVain);
+
+                    // Check if the vain is not empty
+                    if (next == null)
+                        continue;
+
+                    // Get the information where the next object should be drawed
+                    VainDrawer drawinfo = currentVain.CalculateNextPosition(lastVain, next);
+
+                    // Get the exit to wich the last vain was connected
+                    int exit = next.GetExit(currentVain);
+
+                    // Check if the exit id not equals -1
+                    if (exit == -1)
+                    {
+                        throw new Exception("Seriously?!?! How did you manage to trigger this exception?!?!");
+                    }
+
+                    // Put the information into the drawinformation
+                    drawinfo.DestinationExit = exit;
+
+                    // Draw the next vain
+                    next.DrawMe(this.transform, drawinfo);
+
+                    next.AddDrawcall();
+
+                    // Add the vain to the visible object
+                    if (!visible.Contains(next))
+                        visible.Add(next);
+
+                    // Add the next vain to the new current list
+                    newCurrents.Add(next);
+
+                    // Check if a second vain needs to be drawn
+                    if (currentVain.HasSecondExit())
+                    {
+                        // Get the second vain
+                        next = currentVain.GetSecond(lastVain);
+
+                        // Check if the vain is not empty
+                        if (next == null)
+                            continue;
+
+                        // Get the information where the next object should be drawed
+                        drawinfo = currentVain.CalculateNextPosition(lastVain, next);
+
+                        // Get the exit to wich the last vain was connected
+                        exit = next.GetExit(currentVain);
+
+                        // Check if the exit id not equals -1
+                        if (exit == -1)
+                        {
+                            throw new Exception("Seriously?!?! How did you manage to trigger this exception?!?!");
+                        }
+
+                        // Put the information into the drawinformation
+                        drawinfo.DestinationExit = exit;
+
+                        // Draw the next vain
+                        next.DrawMe(this.transform, drawinfo);
+
+                        next.AddDrawcall();
+
+                        // Add the vain to the visible object
+                        if (!visible.Contains(next))
+                            visible.Add(next);
+
+                        // Add the next vain to the new current list
+                        newCurrents.Add(next);
+                    }
                 }
 
-                // Put the information into the drawinformation
-                drawinfo.DestinationExit = exit;
-
-                // Draw the next vain
-                next.DrawMe(this.transform, drawinfo);
-
-                next.AddDrawcall();
-
-                // Add the vain to the visible object
-                if (!visible.Contains(next))
-                    visible.Add(next);
-
                 // Set the next vain as the last
-                lastVain = currentVain;
-                currentVain = next;
+                lastVains = currentVains;
+                currentVains = newCurrents;
+                //lastVain = currentVain;
+                //currentVain = next;
             }
 
             // Check if there are items that can be removed

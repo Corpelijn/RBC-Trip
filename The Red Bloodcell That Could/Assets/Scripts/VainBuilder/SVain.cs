@@ -23,17 +23,17 @@ namespace Assets.Scripts.VainBuilder
                 return exits[0];
         }
 
-        public override VainDrawer CalculateNextPosition(Vain last)
+        public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
             // Get the vain we are moving towards
-            Vain v = GetStraight(last);
+            //Vain v = GetStraight(last);
 
             // Define some variables
             Vector3 position = this.obj.transform.position;
             Vector3 rotation = this.obj.transform.eulerAngles;
 
             // Check from wich end we are leaving
-            if (v == exits[0])
+            if (next == exits[0])
             {
                 // We are leaving from the bottom side
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
@@ -80,7 +80,7 @@ namespace Assets.Scripts.VainBuilder
             }
         }
 
-        protected override bool HasSecondExit()
+        public override bool HasSecondExit()
         {
             return false;
         }
