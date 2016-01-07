@@ -18,30 +18,15 @@ namespace Assets.Scripts.VainBuilder
 
         public override Vain GetStraight(Vain last)
         {
-            // Find the end of the vain that is already drawn
-            int found = -1;
-            for (int i = 0; i < exits.Length; i++)
-            {
-                if (exits[i] == null)
-                    continue;
-                if (exits[i].IsDrawn())
-                {
-                    // You found the vain that is drawn at the moment
-                    // End your quest
-                    found = i;
-                    break;
-                }
-            }
-
             // Return the opposite exit of the found one
-            if (found == 0)
+            if (exits[0] == last)
             {
                 // Return the opposite exit from the 0-exit
                 return this.exits[1];
             }
-            else if (found == 1)
+            else if (exits[1] == last || exits[2] == last)
             {
-                // Return the opposite exit from the 1-exit
+                // Return the opposite exit from the 1-exit or 2-exit
                 return this.exits[0];
             }
             else
@@ -53,23 +38,23 @@ namespace Assets.Scripts.VainBuilder
             }
         }
 
-        public override VainDrawer CalculateNextPosition(Vain last)
+        public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
             // Get the vain we are moving towards
-            Vain v = GetStraight(last);
+            //Vain v = GetStraight(last);
 
             // Define some variables
             Vector3 position = this.obj.transform.position;
             Vector3 rotation = this.obj.transform.eulerAngles;
 
             // Check from wich end we are leaving
-            if (v == exits[0])
+            if (next == exits[0])
             {
                 // We are leaving from the bottom side
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
                 position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
             }
-            else if(v == exits[1])
+            else if(next == exits[1])
             {
                 // We are leaving from the left top side
                 // Set the position to continue on left top and set the exit position to a calculation from the current vain
@@ -116,9 +101,51 @@ namespace Assets.Scripts.VainBuilder
             }
         }
 
-        protected override bool HasSecondExit()
+        public override bool HasSecondExit()
         {
-            return true;
+            return false;
+        }
+
+        public override Vain GetSecond(Vain last)
+        {
+            // Find the end of the vain that is already drawn
+            int found = -1;
+            for (int i = 0; i < exits.Length; i++)
+            {
+                if (exits[i] == null)
+                    continue;
+                if (exits[i].IsDrawn())
+                {
+                    // You found the vain that is drawn at the moment
+                    // End your quest
+                    found = i;
+                    break;
+                }
+            }
+
+            // Return the opposite exit of the found one
+            if (found == 0)
+            {
+                // Return the opposite exit from the 0-exit
+                return this.exits[2];
+            }
+            else if (found == 1)
+            {
+                // Return the opposite exit from the 1-exit
+                return this.exits[2];
+            }
+            else if (found == 2)
+            {
+                // Return the opposite exit from the 2-exit
+                return this.exits[1];
+            }
+            else
+            {
+                // There is no vain found that had to be drawn
+                // This could mean that it is the first vain we are trying to draw
+                // Return by default the exit that is not null
+                return this.exits[0] == null ? this.exits[1] : this.exits[0];
+            }
         }
     }
 }

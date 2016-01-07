@@ -51,7 +51,7 @@ namespace Assets.Scripts.VainBuilder
             }
         }
 
-        public override VainDrawer CalculateNextPosition(Vain last)
+        public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
             // Get the vain we are moving towards
             Vain v = GetStraight(last);

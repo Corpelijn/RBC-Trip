@@ -206,7 +206,7 @@ namespace Assets.Scripts.VainBuilder
             }
 
             // Return true if the vain has a second exit
-            return true;
+            return this.HasSecondExit();
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Assets.Scripts.VainBuilder
         /// Calculate the position of the next vain according to the ideas of the current vain
         /// </summary>
         /// <returns>The new position information</returns>
-        public virtual VainDrawer CalculateNextPosition(Vain last)
+        public virtual VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
             Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: CalculateNextPosition()");
             return null;
@@ -258,10 +258,21 @@ namespace Assets.Scripts.VainBuilder
         /// Checks if the vain has second exit. For example the Y-shaped vain
         /// </summary>
         /// <returns>Return true if the vain has a second exit; otherwise false</returns>
-        protected virtual bool HasSecondExit()
+        public virtual bool HasSecondExit()
         {
             Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: HasSecondExit()");
             return false;
+        }
+
+        /// <summary>
+        /// Get the other vain of the logic order
+        /// </summary>
+        /// <param name="last"></param>
+        /// <returns></returns>
+        public virtual Vain GetSecond(Vain last)
+        {
+            Debug.LogError("No method defined for subtype of vain: " + this.GetType().ToString() + " method: GetSecond()");
+            return null;
         }
 
         #endregion
