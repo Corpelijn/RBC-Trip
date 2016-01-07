@@ -8,6 +8,7 @@ public class colorChanger : MonoBehaviour {
     public float lerpTimer = 0;
     public float lerpSpeed = 2;
     public bool canShoot = true;
+    public bool canGet = true;
     public GameObject cel;
     public int timesShot = 0;
 
@@ -29,14 +30,32 @@ public class colorChanger : MonoBehaviour {
         if (canShoot)
         {
             timesShot++;
-        }       
+        }
         lerpTimer += Time.deltaTime * 4;
         lerpedColordoel = Color.Lerp(Color.blue, Color.white, lerpTimer);
         lerpedColorCel = Color.Lerp(Color.white, Color.blue, lerpTimer);
         if (lerpedColordoel.r == 1.000f)
         {
             canShoot = false;
+            canGet = true;
             Debug.Log(timesShot);
-        }       
+        }
+        
+    }
+    
+    public void getOxigen()
+    {
+        if (canGet)
+        {
+            timesShot++;
+        }
+        lerpTimer += Time.deltaTime * 4;
+        lerpedColorCel = Color.Lerp(Color.blue, Color.white, lerpTimer);
+        if (lerpedColorCel.r == 1.000f)
+        {
+            canShoot = true;
+            canGet = false;
+            Debug.Log(timesShot);
+        }
     }
 }
