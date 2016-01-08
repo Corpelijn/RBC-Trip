@@ -6,18 +6,21 @@ public class ParticleShooter : MonoBehaviour
     public ParticleSystem oxygen;
     public float distance;
     public GameObject doel;
+    public Camera playerCam;
 
     // Use this for initialization
     void Start()
     {
         distance = 10;
+        doel = GameObject.FindGameObjectWithTag("Target");
     }
 
     // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
-        Ray ray = new Ray(transform.position, Vector3.forward);
+        Ray ray = playerCam.ScreenPointToRay(Vector3.forward);
+        //Ray ray = new Ray(transform.position, Vector3.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.yellow);
         if (Physics.Raycast(ray, out hit, distance))
         {
