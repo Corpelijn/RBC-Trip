@@ -5,6 +5,7 @@ public class ParticleShooter : MonoBehaviour
 {
     public ParticleSystem oxygen;
     public float distance;
+    public GameObject doel;
 
     // Use this for initialization
     void Start()
@@ -36,14 +37,16 @@ public class ParticleShooter : MonoBehaviour
             {
                 oxygen.Stop();
             }
-            if (hit.collider.tag == "oxigenGetter")
-            {
-                oxygen.Stop();
-                if (hit.collider.GetComponent<colorChanger>().canGet == true)
-                {
-                    hit.collider.GetComponent<colorChanger>().getOxigen();
-                }
-            }
         }
+        else
+        {
+            oxygen.Stop();
+        }
+    }
+
+    void OnParticleCollision()
+    {
+        Debug.Log("I feel triggered");
+        doel.GetComponent<colorChanger>().getOxigen();
     }
 }
