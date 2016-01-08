@@ -9,6 +9,15 @@ namespace Assets.Scripts.VainBuilder
 {
     class YVain : Vain
     {
+        /**     1   2
+         *      \   /
+         *       \ /
+         *        |
+         *        |
+         *        0
+         */
+
+
         public YVain()
             : base()
         {
@@ -40,31 +49,65 @@ namespace Assets.Scripts.VainBuilder
 
         public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
-            // Get the vain we are moving towards
-            //Vain v = GetStraight(last);
-
             // Define some variables
             Vector3 position = this.obj.transform.position;
             Vector3 rotation = this.obj.transform.eulerAngles;
+
+            // Check in what direction the vain is placed
+            bool flip = this.obj.transform.GetChild(0).transform.forward.z != -1f;
+            Vector3 origin = this.obj.transform.position;
+            Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2);
+
+            Vector3 exit0 = flip ? (far + new Vector3(0f, 0f, size.z * this.scale)) : origin;
+            Vector3 exit1 = (flip ? origin : far) + new Vector3(-0.574f, 0f, 0f);
+            Vector3 exit2 = (flip ? origin : far) + new Vector3(0.574f, 0f, 0f);
+
+            Debug.Log("0 : " + exit0);
+            Debug.Log("1 : " + exit1);
+            Debug.Log("2 : " + exit2);
 
             // Check from wich end we are leaving
             if (next == exits[0])
             {
                 // We are leaving from the bottom side
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
+                //if (direction.z == -1f)
+                //{
+                //    position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
+                //}
+                //else
+                //{
+                //    position = new Vector3(position.x, position.y, position.z);
+                //}
+                position = exit0;
             }
             else if(next == exits[1])
             {
                 // We are leaving from the left top side
                 // Set the position to continue on left top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x - (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
+                //if (direction.z == -1f)
+                //{
+                //    position = new Vector3(position.x - (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
+                //}
+                //else
+                //{
+                //    position = new Vector3(position.x + (0.574f * this.scale), position.y, position.z);
+                //}
+                position = exit1;
             }
             else
             {
                 // We are leaving from the right top side
                 // Set the position to continue on right top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x + (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
+                //if (direction.z == -1f)
+                //{
+                //    position = new Vector3(position.x + (0.574f * this.scale), position.y, position.z + (size.z * this.scale));
+                //}
+                //else
+                //{
+                //    position = new Vector3(position.x - (0.574f * this.scale), position.y, position.z);
+                //}
+                position = exit2;
             }
 
             // Return the information in the VainDrawer format
@@ -85,11 +128,18 @@ namespace Assets.Scripts.VainBuilder
             }
             else if (drawinfo.DestinationExit == 1)
             {
-                VainExit = new Vector3(this.obj.transform.position.x, this.obj.transform.position.y, this.obj.transform.position.z + (size.z * this.scale));
+                VainExit = new Vector3(this.obj.transform.position.x - (0.574f * this.scale), this.obj.transform.position.y, this.obj.transform.position.z);
+            }
+            else
+            {
+                VainExit = new Vector3(this.obj.transform.position.x + (0.574f * this.scale), this.obj.transform.position.y, this.obj.transform.position.z);
             }
 
             // Check if there is a differance between the 2 coordinates
             Vector3 delta = drawinfo.ExitPosition - VainExit;
+            delta.x = Mathf.Abs(delta.x);
+            delta.y = Mathf.Abs(delta.y);
+            delta.z = Mathf.Abs(delta.z);
             if (delta.x == 0 && delta.y == 0 && delta.z == 0)
             {
                 // Apply the new position to the vain

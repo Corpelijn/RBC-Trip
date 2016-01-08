@@ -1,0 +1,14 @@
+Vain;Index;Type;Scale;Zrotation;Flip
+Exit;Vain1_id;Vain1_exit;Vain2_id;Vain2_exit;
+Organ;Index;Type;;;
+;;;;;
+o;-1;hartl;;;
+o;-2;hartr;;;
+o;-3;hersenen;;;
+o;-4;longl;;;
+o;-5;longr;;;
+o;-6;lever;;;
+o;-7;maag;;;
+o;-8;darm;;;
+o;-9;nierl;;;
+o;-10;nierr;;;
