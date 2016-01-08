@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraOrbit : MonoBehaviour {
 
     public GameObject target;
-    public float distance = 10f;            //10f
+    public float distance = 1.5f;            //10f
     public float xSpeed = 250f;             //250f
     public float ySpeed = 120f;             //120f
     public float yMinLimit = -20f;          //-20f
@@ -66,8 +66,8 @@ public class CameraOrbit : MonoBehaviour {
         directionToMove = target.transform.position - this.transform.position;
         //directionToMove.x = 0;
         if (directionToMove.y > 2) { directionToMove.y = 2; }
-        target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
+        target.GetComponent<Rigidbody>().AddForce(directionToMove / 150000);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log(directionToMove);
+        //Debug.Log(directionToMove);
     }
 }

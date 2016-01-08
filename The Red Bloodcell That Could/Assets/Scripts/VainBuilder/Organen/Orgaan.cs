@@ -23,7 +23,7 @@ namespace Assets.Scripts.VainBuilder.Organen
             Vain vain = new Orgaan();
 
             vain.SetID(Convert.ToInt32(d[1]));
-            vain.SetScale(4f);
+            vain.SetScale(1f);
 
             return vain;
         }

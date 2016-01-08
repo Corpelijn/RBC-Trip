@@ -12,19 +12,22 @@ public class colorChanger : MonoBehaviour {
     public bool canShoot = true;
     public bool canGet = false;
     public GameObject cel;
-    public GameObject orgaanS;
+    private GameObject[] orgaanS;
     public int timesShot = 0;
 
+    
     // Use this for initialization
     void Start () {
         lerpedColordoel = Color.blue;
         lerpedColorCel = Color.red;
-        orgaanS.GetComponent<Renderer>().material.color = Color.blue;
+        orgaanS = GameObject.FindGameObjectsWithTag("Target");
+        cel = GameObject.FindGameObjectWithTag("Player");
+        orgaanS[0].GetComponent<Renderer>().material.color = Color.blue;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        orgaanS.GetComponent<Renderer>().material.color = lerpedColordoel;
+        orgaanS[0].GetComponent<Renderer>().material.color = lerpedColordoel;
         cel.GetComponent<Renderer>().material.color = lerpedColorCel;
         if (doelTimer > 0)
         {
@@ -78,4 +81,7 @@ public class colorChanger : MonoBehaviour {
             }
         }        
     }
+
+    
 }
+
