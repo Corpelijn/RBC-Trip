@@ -103,7 +103,7 @@ namespace Assets.Scripts.VainBuilder
 
         public override bool HasSecondExit()
         {
-            return false;
+            return true;
         }
 
         public override Vain GetSecond(Vain last)

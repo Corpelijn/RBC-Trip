@@ -36,6 +36,8 @@ namespace Assets.Scripts.VainBuilder
                         exits.Add(new VainExit(lines[i]));
                     else if (lines[i].StartsWith("v"))
                         vains.Add(Vain.GetVain(lines[i]));
+                    else if (lines[i].StartsWith("o"))
+                        vains.Add(Organen.Orgaan.GetOrgaan(lines[i]));
                 }
             }
 

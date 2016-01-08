@@ -7,6 +7,7 @@ using UnityEngine;
 namespace Assets.Scripts.MapGeneration.ObjectPool
 {
     using Assets.Scripts.VainBuilder;
+    using Assets.Scripts.VainBuilder.Organen;
     using Object = UnityEngine.Object;
 
     class ObjectPool
@@ -49,7 +50,6 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
             GameObject go = null;
             if (type == typeof(YVain))
             {
-
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainY);
             }
             else if (type == typeof(SVain))
@@ -63,6 +63,14 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
             else if (type == typeof(DVain))
             {
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainD);
+            }
+            else if (type == typeof(EVain))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainE);
+            }
+            else if (type == typeof(Orgaan))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Orgaan);
             }
 
 

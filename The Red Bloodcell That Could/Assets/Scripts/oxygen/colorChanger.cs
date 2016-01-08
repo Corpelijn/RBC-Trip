@@ -12,23 +12,24 @@ public class colorChanger : MonoBehaviour {
     public bool canShoot = true;
     public bool canGet = false;
     public GameObject cel;
+    public GameObject orgaanS;
     public int timesShot = 0;
 
     // Use this for initialization
     void Start () {
         lerpedColordoel = Color.blue;
-        lerpedColorCel = Color.white;
-        this.GetComponent<Renderer>().material.color = Color.blue;
+        lerpedColorCel = Color.red;
+        orgaanS.GetComponent<Renderer>().material.color = Color.blue;
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        this.GetComponent<Renderer>().material.color = lerpedColordoel;
+        orgaanS.GetComponent<Renderer>().material.color = lerpedColordoel;
         cel.GetComponent<Renderer>().material.color = lerpedColorCel;
         if (doelTimer > 0)
         {
             doelTimer -= 0.001f;
-            lerpedColordoel = Color.Lerp(Color.blue, Color.white, doelTimer);
+            lerpedColordoel = Color.Lerp(Color.blue, Color.red, doelTimer);
         }
     }
 
@@ -43,8 +44,8 @@ public class colorChanger : MonoBehaviour {
 
             Debug.Log("doel "+ doelTimer);
             Debug.Log("cel "+celTimer);
-            lerpedColordoel = Color.Lerp(Color.blue, Color.white, doelTimer);
-            lerpedColorCel = Color.Lerp(Color.white, Color.blue, celTimer);
+            lerpedColordoel = Color.Lerp(Color.blue, Color.red, doelTimer);
+            lerpedColorCel = Color.Lerp(Color.red, Color.blue, celTimer);
             if (celTimer >= 1 || doelTimer >=1)
             {
                 celTimer = 1;
@@ -66,7 +67,7 @@ public class colorChanger : MonoBehaviour {
 
             Debug.Log("cel " + celTimer);
             timesShot++;
-            lerpedColorCel = Color.Lerp(Color.white, Color.blue, celTimer);
+            lerpedColorCel = Color.Lerp(Color.red, Color.blue, celTimer);
             if (celTimer <= 0)
             {
                 celTimer = 0;
