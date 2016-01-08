@@ -166,6 +166,11 @@ namespace Assets.Scripts.VainBuilder
             return this.exits.Length;
         }
 
+        public void SetScale(float value)
+        {
+            this.scale = value;
+        }
+
         #endregion
 
         #region "Methods"

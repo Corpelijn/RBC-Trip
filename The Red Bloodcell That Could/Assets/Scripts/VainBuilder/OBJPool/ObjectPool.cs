@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.MapGeneration.ObjectPool;
+using Assets.Scripts.VainBuilder.Organen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,10 @@ namespace Assets.Scripts.VainBuilder.OBJPool
             else if (type == typeof(TVain))
             {
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainT);
+            }
+            else if (type == typeof(Orgaan))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Orgaan);
             }
 
             // Add the object to the list
