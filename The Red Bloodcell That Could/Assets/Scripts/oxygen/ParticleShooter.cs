@@ -21,7 +21,7 @@ public class ParticleShooter : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * distance, Color.yellow);
         if (Physics.Raycast(ray, out hit, distance))
         {
-            if (hit.collider.tag == "target")
+            if (hit.collider.tag == "Target")
             {
                 if (hit.collider.GetComponent<colorChanger>().canShoot == true)
                 {
