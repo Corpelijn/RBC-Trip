@@ -65,6 +65,7 @@ public class CameraOrbit : MonoBehaviour {
     {   
         directionToMove = target.transform.position - this.transform.position;
         //directionToMove.x = 0;
+        if (directionToMove.y > 2) { directionToMove.y = 2; }
         target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Debug.Log(directionToMove);
