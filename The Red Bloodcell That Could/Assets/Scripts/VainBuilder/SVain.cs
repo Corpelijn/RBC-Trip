@@ -42,10 +42,10 @@ namespace Assets.Scripts.VainBuilder
             Vector3 origin = this.obj.transform.position;
             Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2);
 
-            Vector3 exit0 = flip ? (far + new Vector3(0f, 0f, size.z * this.scale)) : origin;
+            Vector3 exit0 = flip ? far : origin;
             Vector3 exit1 = flip ? origin : far;
 
-            Debug.Log(this.GetID() + " : e0 " + exit0 + " : e1 " + exit1);
+            //Debug.Log(this.GetID() + " : e0 " + exit0 + " : e1 " + exit1);
 
             // Check from wich end we are leaving
             if (next == exits[0])

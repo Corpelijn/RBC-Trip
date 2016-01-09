@@ -57,7 +57,7 @@ namespace Assets.Scripts.VainBuilder
             Vector3 origin = this.obj.transform.position;
             Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2);
 
-            Vector3 exit0 = flip ? (far + new Vector3(0f, 0f, size.z * this.scale)) : origin;
+            Vector3 exit0 = flip ? far : origin;
             Vector3 exit1 = (flip ? origin : far) + new Vector3(-0.574f, 0f, 0f);
             Vector3 exit2 = (flip ? origin : far) + new Vector3(0.574f, 0f, 0f);
 
