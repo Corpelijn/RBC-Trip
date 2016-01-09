@@ -193,6 +193,8 @@ namespace Assets.Scripts.VainBuilder
                 // Set the parent of the object to the VainBuilder
                 this.obj.transform.parent = parent;
 
+                this.obj.name = this.id.ToString();
+
                 // Set the scale of the object
                 this.obj.transform.localScale = new Vector3(this.scale, this.scale, this.scale);
 

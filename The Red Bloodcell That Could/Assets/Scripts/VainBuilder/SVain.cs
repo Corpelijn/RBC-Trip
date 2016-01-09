@@ -8,6 +8,14 @@ namespace Assets.Scripts.VainBuilder
 {
     class SVain : Vain
     {
+        /**
+         *      | 1 |
+         *      |   |
+         *      |   |
+         *      |   |
+         *      | 0 |
+         */
+
         public SVain()
             : base()
         {
@@ -25,25 +33,34 @@ namespace Assets.Scripts.VainBuilder
 
         public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
-            // Get the vain we are moving towards
-            //Vain v = GetStraight(last);
-
             // Define some variables
             Vector3 position = this.obj.transform.position;
             Vector3 rotation = this.obj.transform.eulerAngles;
+
+            // Check in what direction the vain is placed
+            bool flip = this.obj.transform.GetChild(0).transform.forward.z != -1f;
+            Vector3 origin = this.obj.transform.position;
+            Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2);
+
+            Vector3 exit0 = flip ? (far + new Vector3(0f, 0f, size.z * this.scale)) : origin;
+            Vector3 exit1 = flip ? origin : far;
+
+            Debug.Log(this.GetID() + " : e0 " + exit0 + " : e1 " + exit1);
 
             // Check from wich end we are leaving
             if (next == exits[0])
             {
                 // We are leaving from the bottom side
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
+                //position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
+                position = exit0;
             }
             else
             {
                 // We are leaving from the top side
                 // Set the position to continue on top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
+                //position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
+                position = exit1;
             }
 
             // Return the information in the VainDrawer format

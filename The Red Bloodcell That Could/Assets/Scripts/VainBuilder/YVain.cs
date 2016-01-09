@@ -17,7 +17,6 @@ namespace Assets.Scripts.VainBuilder
          *        0
          */
 
-
         public YVain()
             : base()
         {
@@ -62,9 +61,9 @@ namespace Assets.Scripts.VainBuilder
             Vector3 exit1 = (flip ? origin : far) + new Vector3(-0.574f, 0f, 0f);
             Vector3 exit2 = (flip ? origin : far) + new Vector3(0.574f, 0f, 0f);
 
-            Debug.Log("0 : " + exit0);
-            Debug.Log("1 : " + exit1);
-            Debug.Log("2 : " + exit2);
+            //Debug.Log("0 : " + exit0);
+            //Debug.Log("1 : " + exit1);
+            //Debug.Log("2 : " + exit2);
 
             // Check from wich end we are leaving
             if (next == exits[0])
