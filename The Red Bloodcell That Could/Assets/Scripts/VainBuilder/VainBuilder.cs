@@ -29,8 +29,9 @@ namespace Assets.Scripts.VainBuilder
             // Quickly read the data from the file and put it in some classes for later
             foreach (TextAsset info in vainData)
             {
-                string[] lines = info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < lines.Length; i++)
+                List<string> lines = new List<string>( info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                //string[] lines = info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+                for (int i = 0; i < lines.Count; /*lines.Length;*/ i++)
                 {
                     if (lines[i].StartsWith("e"))
                         exits.Add(new VainExit(lines[i]));
@@ -38,6 +39,8 @@ namespace Assets.Scripts.VainBuilder
                         vains.Add(Vain.GetVain(lines[i]));
                     else if (lines[i].StartsWith("o"))
                         vains.Add(Organen.Orgaan.GetOrgaan(lines[i]));
+                    else if (lines[i].StartsWith("r"))
+                        lines.AddRange(VainExit.GetExits(lines[i]));
                 }
             }
 
