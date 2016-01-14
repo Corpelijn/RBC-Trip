@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.VainBuilder
 {
@@ -10,6 +11,8 @@ namespace Assets.Scripts.VainBuilder
         public List<TextAsset> vainData;
         private List<VainExit> exits;
         private List<Vain> vains;
+
+        public Text label;
 
         public int renderDistance = 5;
 
@@ -40,7 +43,11 @@ namespace Assets.Scripts.VainBuilder
                     else if (lines[i].StartsWith("o"))
                         vains.Add(Organen.Orgaan.GetOrgaan(lines[i]));
                     else if (lines[i].StartsWith("r"))
-                        lines.AddRange(VainExit.GetExits(lines[i]));
+                    {
+                        string[] newLines = VainExit.GetExits(lines[i]);
+                        lines.AddRange(newLines);
+                        Distance.AddDistance(newLines);
+                    }
                 }
             }
 
@@ -97,6 +104,8 @@ namespace Assets.Scripts.VainBuilder
                     currentPlayerVain = cv;
                 }
             }
+
+            label.text = Distance.GetLocatie(currentPlayerVain.GetID()).ToString().Replace("_", " ") + "\n" + Distance.GetDistance(currentPlayerVain.GetID()).ToString();
 
             List<Vain> currentVains = new List<Vain>(new Vain[] { currentPlayerVain });
             List<Vain> lastVains = new List<Vain>(new Vain[] { lastPlayerVain });
