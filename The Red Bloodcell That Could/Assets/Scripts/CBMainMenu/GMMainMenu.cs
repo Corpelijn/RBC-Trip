@@ -175,7 +175,7 @@ public class GMMainMenu : MonoBehaviour
 
     public void Play()
     {
-        //Application.LoadLevel("TestMap");
+        Application.LoadLevel("MiniMapTest");
     }
 
     public void Quit()
