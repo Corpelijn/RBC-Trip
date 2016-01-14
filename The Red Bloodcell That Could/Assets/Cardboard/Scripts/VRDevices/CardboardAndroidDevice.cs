@@ -15,28 +15,32 @@
 
 using UnityEngine;
 
-public class CardboardAndroidDevice : BaseCardboardDevice {
-  private const string ActivityListenerClass =
-      "com.google.vr.platform.unity.UnityVrActivityListener";
+public class CardboardAndroidDevice : BaseCardboardDevice
+{
+    private const string ActivityListenerClass =
+        "com.google.vr.platform.unity.UnityVrActivityListener";
 
-  private static AndroidJavaObject activityListener;
+    private static AndroidJavaObject activityListener;
 
-  public override void Init() {
-    SetApplicationState();
-    base.Init();
-    ConnectToActivity();
-  }
-
-  protected override void ConnectToActivity() {
-    base.ConnectToActivity();
-    if (androidActivity != null && activityListener == null) {
-      activityListener = Create(ActivityListenerClass);
+    public override void Init()
+    {
+        SetApplicationState();
+        base.Init();
+        ConnectToActivity();
     }
-  }
 
-  // Returns landscape orientation display metrics.
-  public override DisplayMetrics GetDisplayMetrics() {
-    using (var listenerClass = GetClass(ActivityListenerClass)) {
+    protected override void ConnectToActivity()
+    {
+        base.ConnectToActivity();
+        if (androidActivity != null && activityListener == null)
+        {
+            activityListener = Create(ActivityListenerClass);
+        }
+    }
+
+    // Returns landscape orientation display metrics.
+    public override DisplayMetrics GetDisplayMetrics() {
+        var listenerClass = GetClass(ActivityListenerClass);
       // Sadly some Android devices still don't report accurate values.  If this
       // doesn't work correctly on your device, comment out this function to try
       // the Unity implementation.
@@ -52,64 +56,76 @@ public class CardboardAndroidDevice : BaseCardboardDevice {
       }
       // DPI-x (metrics[2]) on Android appears to refer to the narrow dimension of the screen.
       return new DisplayMetrics { width = width, height = height, xdpi = metrics[3], ydpi = metrics[2] };
+
+  }
+
+    public override void SetVRModeEnabled(bool enabled)
+    {
+        CallObjectMethod(activityListener, "setVRModeEnabled", enabled);
     }
-  }
 
-  public override void SetVRModeEnabled(bool enabled) {
-    CallObjectMethod(activityListener, "setVRModeEnabled", enabled);
-  }
-
-  public override void SetSettingsButtonEnabled(bool enabled) {
-    CallObjectMethod(activityListener, "setSettingsButtonEnabled", enabled);
-  }
-
-  public override void SetAlignmentMarkerEnabled(bool enabled) {
-    CallObjectMethod(activityListener, "setAlignmentMarkerEnabled", enabled);
-  }
-
-  public override void SetVRBackButtonEnabled(bool enabled) {
-    CallObjectMethod(activityListener, "setVRBackButtonEnabled", enabled);
-  }
-
-  public override void SetShowVrBackButtonOnlyInVR(bool only) {
-    CallObjectMethod(activityListener, "setShowVrBackButtonOnlyInVR", only);
-  }
-
-  public override void SetTapIsTrigger(bool enabled) {
-    CallObjectMethod(activityListener, "setTapIsTrigger", enabled);
-  }
-
-  public override void SetTouchCoordinates(int x, int y) {
-    CallObjectMethod(activityListener, "setTouchCoordinates", x, y);
-  }
-
-  public override void ShowSettingsDialog() {
-    CallObjectMethod(activityListener, "launchConfigureActivity");
-  }
-
-  protected override void ProcessEvents() {
-    base.ProcessEvents();
-    if (!Cardboard.SDK.TapIsTrigger) {
-      if (triggered) {
-        CallObjectMethod(activityListener, "injectSingleTap");
-      }
-      if (backButtonPressed) {
-        CallObjectMethod(activityListener, "injectKeyPress", 111);  // Escape key.
-      }
+    public override void SetSettingsButtonEnabled(bool enabled)
+    {
+        CallObjectMethod(activityListener, "setSettingsButtonEnabled", enabled);
     }
-  }
 
-  public override void OnPause(bool pause) {
-    base.OnPause(pause);
-    CallObjectMethod(activityListener, "onPause", pause);
-  }
+    public override void SetAlignmentMarkerEnabled(bool enabled)
+    {
+        CallObjectMethod(activityListener, "setAlignmentMarkerEnabled", enabled);
+    }
 
-  private void SetApplicationState() {
+    public override void SetVRBackButtonEnabled(bool enabled)
+    {
+        CallObjectMethod(activityListener, "setVRBackButtonEnabled", enabled);
+    }
+
+    public override void SetShowVrBackButtonOnlyInVR(bool only)
+    {
+        CallObjectMethod(activityListener, "setShowVrBackButtonOnlyInVR", only);
+    }
+
+    public override void SetTapIsTrigger(bool enabled)
+    {
+        CallObjectMethod(activityListener, "setTapIsTrigger", enabled);
+    }
+
+    public override void SetTouchCoordinates(int x, int y)
+    {
+        CallObjectMethod(activityListener, "setTouchCoordinates", x, y);
+    }
+
+    public override void ShowSettingsDialog()
+    {
+        CallObjectMethod(activityListener, "launchConfigureActivity");
+    }
+
+    protected override void ProcessEvents()
+    {
+        base.ProcessEvents();
+        if (!Cardboard.SDK.TapIsTrigger)
+        {
+            if (triggered)
+            {
+                CallObjectMethod(activityListener, "injectSingleTap");
+            }
+            if (backButtonPressed)
+            {
+                CallObjectMethod(activityListener, "injectKeyPress", 111);  // Escape key.
+            }
+        }
+    }
+
+    public override void OnPause(bool pause)
+    {
+        base.OnPause(pause);
+        CallObjectMethod(activityListener, "onPause", pause);
+    }
+
+    private void SetApplicationState() {
     if (activityListener == null) {
-      using (var listenerClass = GetClass(ActivityListenerClass)) {
+        var listenerClass = GetClass(ActivityListenerClass);
         CallStaticMethod(listenerClass, "setUnityApplicationState");
       }
-    }
   }
 }
 
