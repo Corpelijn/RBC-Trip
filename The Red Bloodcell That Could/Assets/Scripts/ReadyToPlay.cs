@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ReadyToPlay : MonoBehaviour {
 
     public Camera cam;
-    public Slider readySlider;
+    public Slider sliderReady;
     public GameObject ready;
     public float maxSliderValue;
     public float currentSliderValue;
@@ -13,12 +13,13 @@ public class ReadyToPlay : MonoBehaviour {
     public float decreaseSpeed;
     private Vector3 readyOriginal;
     private Vector3 readyTarget;
+    public float movespeed = 0.5f;
 
 	// Use this for initialization
 	void Start ()
     {
-        readySlider.maxValue = maxSliderValue;
-        readySlider.value = 0;
+        sliderReady.maxValue = maxSliderValue;
+        sliderReady.value = 0;
 
         readyOriginal = ready.transform.position;
         readyTarget = new Vector3(ready.transform.position.x, ready.transform.position.y, ready.transform.position.z - 1);
@@ -37,7 +38,13 @@ public class ReadyToPlay : MonoBehaviour {
         {
             if (hit.collider.tag == "Ready")
             {
+                float step = movespeed * Time.deltaTime;
+                ready.transform.position = Vector3.MoveTowards(ready.transform.position, readyTarget, step);
 
+                if (sliderReady.value != maxSliderValue)
+                {
+                    sliderReady.value += fillSpeed;
+                }
             }
         }
 	}
