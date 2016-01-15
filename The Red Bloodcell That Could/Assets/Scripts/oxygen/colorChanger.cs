@@ -109,10 +109,10 @@ public class colorChanger : MonoBehaviour
                     organ.GetComponentInChildren<Renderer>().material.color = lerpedColorLeftKidney;
                 }
             }
-            if (rightKidneyTimer > 0)
+            if (rightKidney > 0)
             {
-                rightKidneyTimer -= 0.001f;
-                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyTimer);
+                rightKidney -= 0.001f;
+                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidney);
                 if (organ.tag == "RightKidney")
                 {
                     organ.GetComponentInChildren<Renderer>().material.color = lerpedColorRightKidney;
@@ -200,16 +200,16 @@ public class colorChanger : MonoBehaviour
             }
             if (other.tag == "RightKidney")
             {
-                rightKidneyTimer += 0.1f;
+                rightKidney += 0.1f;
                 celTimer -= 0.1f;
                 canGet = true;
 
-                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyTimer);
+                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidney);
                 lerpedColorCel = Color.Lerp(Color.blue, Color.red, celTimer);
-                if (celTimer <= 0 || rightKidneyTimer >= 1)
+                if (celTimer <= 0 || rightKidney >= 1)
                 {
                     celTimer = 0;
-                    rightKidneyTimer = 1;
+                    rightKidney = 1;
                     canShoot = false;
                     canGet = true;
                 }
@@ -246,7 +246,7 @@ public class colorChanger : MonoBehaviour
                 celTimer = 0;
                 canShoot = true;
                 canGet = false;
-                timesShot = 0;
+                //timesShot = 0;
             }
         }
     }

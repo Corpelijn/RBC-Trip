@@ -58,8 +58,8 @@ namespace Assets.Scripts.VainBuilder
             Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2) * scale;
 
             Vector3 exit0 = flip ? far : origin;
-            Vector3 exit1 = (flip ? origin : far) + new Vector3(-0.574f * scale, 0f, 0f);
-            Vector3 exit2 = (flip ? origin : far) + new Vector3(0.574f * scale, 0f, 0f);
+            Vector3 exit1 = (flip ? origin : far) + new Vector3(-0.573125f * scale, 0f, 0f);
+            Vector3 exit2 = (flip ? origin : far) + new Vector3(0.5825f * scale, 0f, 0f);
 
             //Debug.Log("0 : " + exit0);
             //Debug.Log("1 : " + exit1);

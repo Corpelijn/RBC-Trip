@@ -76,9 +76,37 @@ namespace Assets.Scripts.VainBuilder.OBJPool
             {
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.VainT);
             }
-            else if (type == typeof(Orgaan))
+
+            /**
+            * Set the data for the organs
+            */
+            else if (type == typeof(Hart))
             {
-                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Orgaan);
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Hart);
+            }
+            else if (type == typeof(Hersenen))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Hersenen);
+            }
+            else if (type == typeof(Long))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Long);
+            }
+            else if (type == typeof(Nier))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Nier);
+            }
+            else if (type == typeof(Maag))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Maag);
+            }
+            else if (type == typeof(Darmen))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Darmen);
+            }
+            else if (type == typeof(Lever))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Lever);
             }
 
             // Add the object to the list

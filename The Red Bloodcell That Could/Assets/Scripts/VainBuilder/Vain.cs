@@ -181,7 +181,7 @@ namespace Assets.Scripts.VainBuilder
         /// <param name="parent">The parent transform for the vain to be part of</param>
         /// <param name="drawinfo">The information given by the CalculateNextPosition() method</param>
         /// <returns>Returns true if there is a second exit</returns>
-        public bool DrawMe(Transform parent, VainDrawer drawinfo)
+        public virtual bool DrawMe(Transform parent, VainDrawer drawinfo)
         {
             // Check if the vain is already drawn. If it is drawn already, skip creating the object
             if (!isDrawn)
@@ -189,6 +189,7 @@ namespace Assets.Scripts.VainBuilder
                 // Get the next available object from the object pool
                 //this.obj = ObjectPool.GetInstance().GetObject(this.GetType());
                 this.obj = ObjectPool.INSTANCE.GetNext(this.GetType());
+                this.obj.SetActive(true);
 
                 // Set the parent of the object to the VainBuilder
                 this.obj.transform.parent = parent;
@@ -226,6 +227,7 @@ namespace Assets.Scripts.VainBuilder
 
             // Give the object back to the objectpool
             //ObjectPool.GetInstance().SetBeschikbaar(this.obj);
+            obj.SetActive(false);
             ObjectPool.INSTANCE.GivebackObject(this.obj, this.GetType());
 
             // Set the gameobject property to null
