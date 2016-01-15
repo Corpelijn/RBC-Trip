@@ -253,7 +253,7 @@ namespace Assets.Scripts.VainBuilder
             return null;
         }
 
-        private Vain GetVain(GameObject obj)
+        public Vain GetVain(GameObject obj)
         {
             foreach (Vain v in vains)
             {

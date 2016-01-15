@@ -14,6 +14,7 @@ public class ReadyToPlay : MonoBehaviour {
     private Vector3 readyOriginal;
     private Vector3 readyTarget;
     public float movespeed = 0.5f;
+    private CameraOrbit co;
 
 	// Use this for initialization
 	void Start ()
@@ -45,12 +46,16 @@ public class ReadyToPlay : MonoBehaviour {
                 {
                     sliderReady.value += fillSpeed;
                 }
+                else if (sliderReady.value == maxSliderValue)
+                {
+                    Ready();
+                }
             }
         }
 	}
 
-    public void makeReady()
+    public void Ready()
     {
-
+        co.setReady();
     }
 }
