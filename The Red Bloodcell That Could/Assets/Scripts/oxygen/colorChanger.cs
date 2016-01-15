@@ -18,8 +18,8 @@ public class colorChanger : MonoBehaviour
     public float stomachOxygenLevel = 1;
     public float liverOxygenLevel = 1;
     public float leftKidneyOxygenLevel = 1;
-    public float rightKidney = 1;
-    public float intestinesTimer = 1;
+    public float rightKidneyLevel = 1;
+    public float intestinesLevel = 1;
     public float celTimer = 0;
 
     //Gameobject of the organs
@@ -109,19 +109,19 @@ public class colorChanger : MonoBehaviour
                     organ.GetComponentInChildren<Renderer>().material.color = lerpedColorLeftKidney;
                 }
             }
-            if (rightKidneyTimer > 0)
+            if (rightKidneyLevel > 0)
             {
-                rightKidneyTimer -= 0.001f;
-                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyTimer);
+                rightKidneyLevel -= 0.001f;
+                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyLevel);
                 if (organ.tag == "RightKidney")
                 {
                     organ.GetComponentInChildren<Renderer>().material.color = lerpedColorRightKidney;
                 }
             }
-            if (intestinesTimer > 0)
+            if (intestinesLevel > 0)
             {
-                intestinesTimer -= 0.001f;
-                lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesTimer);
+                intestinesLevel -= 0.001f;
+                lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesLevel);
                 if (organ.tag == "Intestines")
                 {
                     organ.GetComponentInChildren<Renderer>().material.color = lerpedColorIntestines;
@@ -200,32 +200,32 @@ public class colorChanger : MonoBehaviour
             }
             if (other.tag == "RightKidney")
             {
-                rightKidneyTimer += 0.1f;
+                rightKidneyLevel += 0.1f;
                 celTimer -= 0.1f;
                 canGet = true;
 
-                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyTimer);
+                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyLevel);
                 lerpedColorCel = Color.Lerp(Color.blue, Color.red, celTimer);
-                if (celTimer <= 0 || rightKidneyTimer >= 1)
+                if (celTimer <= 0 || rightKidneyLevel >= 1)
                 {
                     celTimer = 0;
-                    rightKidneyTimer = 1;
+                    rightKidneyLevel = 1;
                     canShoot = false;
                     canGet = true;
                 }
             }
             if (other.tag == "Intestines")
             {
-                intestinesTimer += 0.1f;
+                intestinesLevel += 0.1f;
                 celTimer -= 0.1f;
                 canGet = true;
 
-                lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesTimer);
+                lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesLevel);
                 lerpedColorCel = Color.Lerp(Color.blue, Color.red, celTimer);
-                if (celTimer <= 0 || intestinesTimer >= 1)
+                if (celTimer <= 0 || intestinesLevel >= 1)
                 {
                     celTimer = 0;
-                    intestinesTimer = 1;
+                    intestinesLevel = 1;
                     canShoot = false;
                     canGet = true;
                 }
@@ -246,7 +246,6 @@ public class colorChanger : MonoBehaviour
                 celTimer = 0;
                 canShoot = true;
                 canGet = false;
-                timesShot = 0;
             }
         }
     }
