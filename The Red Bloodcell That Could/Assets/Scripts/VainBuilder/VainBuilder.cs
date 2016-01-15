@@ -39,7 +39,7 @@ namespace Assets.Scripts.VainBuilder
             {
                 List<string> lines = new List<string>(info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
                 //string[] lines = info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
-                for (int i = 0; i < lines.Count; /*lines.Length;*/ i++)
+                for (int i = 0; i < lines.Count; i++)
                 {
                     if (lines[i].StartsWith("e"))
                         exits.Add(new VainExit(lines[i]));
@@ -226,15 +226,15 @@ namespace Assets.Scripts.VainBuilder
                 index++;
             }
 
-            if (currentPlayerVain.GetType() == typeof(Orgaan))
+            if (currentPlayerVain.GetType().IsSubclassOf(typeof(Orgaan)))
             {
                 if (currentPlayerVain.GetID() == -4 || currentPlayerVain.GetID() == -5)
                 {
-                    VainMaterial.color = redVain;
+                    VainMaterial.color = Color.Lerp(blueVain, redVain, 1);//colorChanger.instance.celTimer);
                 }
                 else if(currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
                 {
-                    VainMaterial.color = blueVain;
+                    VainMaterial.color = Color.Lerp(redVain, blueVain, 1);//colorChanger.instance.celTimer);
                 }
 
             }
@@ -253,7 +253,7 @@ namespace Assets.Scripts.VainBuilder
             return null;
         }
 
-        private Vain GetVain(GameObject obj)
+        public Vain GetVain(GameObject obj)
         {
             foreach (Vain v in vains)
             {
