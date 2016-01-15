@@ -5,7 +5,6 @@ public class ParticleShooter : MonoBehaviour
 {
     public ParticleSystem oxygen;
     public float distance;
-    public GameObject doel;
     public Camera playerCam;
     private ReadyToPlay rtp;
 
@@ -13,7 +12,6 @@ public class ParticleShooter : MonoBehaviour
     void Start()
     {
         distance = 10;
-        doel = GameObject.FindGameObjectWithTag("Target");
     }
 
     // Update is called once per frame
@@ -29,7 +27,7 @@ public class ParticleShooter : MonoBehaviour
         //Debug.DrawRay(ray.origin, ray.direction * distance, Color.yellow);
         if (Physics.Raycast(rayStart, rayDirection, out hit, distance))
         {
-            if (hit.collider.tag == "Target")
+            if (hit.collider.tag == "Brain" || hit.collider.tag == "Liver" || hit.collider.tag == "Stomach" || hit.collider.tag == "LeftKidney" || hit.collider.tag == "RightKidney" || hit.collider.tag == "Intestines")
             {
                 if (hit.collider.GetComponent<colorChanger>().canShoot == true)
                 {
@@ -55,6 +53,7 @@ public class ParticleShooter : MonoBehaviour
     void OnParticleCollision()
     {
         Debug.Log("I feel triggered");
-        doel.GetComponent<colorChanger>().getOxigen();
+        colorChanger cc = new colorChanger();
+        cc.getOxigen();
     }
 }
