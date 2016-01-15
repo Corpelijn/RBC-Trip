@@ -69,63 +69,67 @@ public class colorChanger : MonoBehaviour
         //rightKidney.GetComponent<Renderer>().material.color = lerpedColorRightKidney;
         //intestines.GetComponent<Renderer>().material.color = lerpedColorIntestines;
         //cel.GetComponent<Renderer>().material.color = lerpedColorCel;
-        if (brainTimer > 0)
+        if(organ != null)
         {
-            brainTimer -= 0.001f;
-            lerpedColorBrain = Color.Lerp(Color.blue, Color.red, brainTimer);
-            if(organ.tag == "BrainS")
+            if (brainTimer > 0)
             {
-                organ.GetComponent<Renderer>().material.color = lerpedColorBrain;
+                brainTimer -= 0.001f;
+                lerpedColorBrain = Color.Lerp(Color.blue, Color.red, brainTimer);
+                if (organ.tag == "BrainS")
+                {
+                    Debug.Log("orgaan gevonden");
+                    organ.GetComponent<Renderer>().material.color = lerpedColorBrain;
+                }
             }
-        }
-        if (stomachTimer > 0)
-        {
-            stomachTimer -= 0.001f;
-            lerpedColorStomach = Color.Lerp(Color.blue, Color.red, stomachTimer);
-            if (organ.tag == "StomachS")
+            if (stomachTimer > 0)
             {
-                organ.GetComponent<Renderer>().material.color = lerpedColorStomach;
+                stomachTimer -= 0.001f;
+                lerpedColorStomach = Color.Lerp(Color.blue, Color.red, stomachTimer);
+                if (organ.tag == "StomachS")
+                {
+                    organ.GetComponent<Renderer>().material.color = lerpedColorStomach;
+                }
             }
-        }
-        if (liverTimer > 0)
-        {
-            liverTimer -= 0.001f;
-            lerpedColorLiver = Color.Lerp(Color.blue, Color.red, liverTimer);
-            if (organ.tag == "LiverS")
+            if (liverTimer > 0)
             {
-                organ.GetComponent<Renderer>().material.color = lerpedColorLiver;
+                liverTimer -= 0.001f;
+                lerpedColorLiver = Color.Lerp(Color.blue, Color.red, liverTimer);
+                if (organ.tag == "LiverS")
+                {
+                    organ.GetComponent<Renderer>().material.color = lerpedColorLiver;
+                }
             }
-        }
-        if (leftKidneyTimer > 0)
-        {
-            leftKidneyTimer -= 0.001f;
-            lerpedColorLeftKidney = Color.Lerp(Color.blue, Color.red, leftKidneyTimer);
-            if (organ.tag == "LeftKidneyS")
+            if (leftKidneyTimer > 0)
             {
-                organ.GetComponent<Renderer>().material.color = lerpedColorLeftKidney;
+                leftKidneyTimer -= 0.001f;
+                lerpedColorLeftKidney = Color.Lerp(Color.blue, Color.red, leftKidneyTimer);
+                if (organ.tag == "LeftKidneyS")
+                {
+                    organ.GetComponent<Renderer>().material.color = lerpedColorLeftKidney;
+                }
             }
-        }
-        if (rightKidneyTimer > 0)
-        {
-            rightKidneyTimer -= 0.001f;
-            lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyTimer);
-            if (organ.tag == "RightKidneyS")
+            if (rightKidneyTimer > 0)
             {
-                organ.GetComponent<Renderer>().material.color = lerpedColorRightKidney;
+                rightKidneyTimer -= 0.001f;
+                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyTimer);
+                if (organ.tag == "RightKidneyS")
+                {
+                    organ.GetComponent<Renderer>().material.color = lerpedColorRightKidney;
+                }
             }
-        }
-        if (intestinesTimer > 0)
-        {
-            intestinesTimer -= 0.001f;
-            lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesTimer);
-            if (organ.tag == "IntestinesS")
+            if (intestinesTimer > 0)
             {
-                organ.GetComponent<Renderer>().material.color = lerpedColorIntestines;
+                intestinesTimer -= 0.001f;
+                lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesTimer);
+                if (organ.tag == "IntestinesS")
+                {
+                    organ.GetComponent<Renderer>().material.color = lerpedColorIntestines;
+                }
             }
         }
     }
 
-    void OnParticleCollision(Collider other)
+    void OnParticleCollision(GameObject other)
     {
         if (canShoot)
         {
