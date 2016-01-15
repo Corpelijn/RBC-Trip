@@ -14,7 +14,7 @@ namespace Assets.Scripts.VainBuilder
 
         public VainExit(string data)
         {
-            string[] d = data.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            string[] d = data.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             this.vain1 = Convert.ToInt32(d[1]);
             this.vain1Exit = Convert.ToInt32(d[2]);
@@ -55,15 +55,39 @@ namespace Assets.Scripts.VainBuilder
 
         public static string[] GetExits(string data)
         {
-            string[] d = data.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] d = data.Replace("\r","").Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             List<string> exits = new List<string>();
 
             string currentID = d[1];
             string currentExit = d[2];
+
+            float startSize = (float)Convert.ToDouble(d[6]);
+            float endSize = startSize;
+            if (d.Length >= 8)
+                endSize = (float)Convert.ToDouble(d[7]);
+
+            int count = Convert.ToInt32(d[5]);
+
+            // Calculate the amount of steps
+            float tempStartSize = startSize;
+            int steps = 0;
+            while (tempStartSize != endSize)
+            {
+                steps++;
+                if (tempStartSize < endSize)
+                {
+                    tempStartSize = tempStartSize * 2;
+                }
+                else
+                {
+                    tempStartSize = tempStartSize / 2;
+                }
+            }
+
             string nextID = GetNextID().ToString();
             string nextExit = "0";
-            for (int i = 0; i < Convert.ToInt32(d[5]); i++)
+            for (int i = 0; i < count; i++)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("e;");
@@ -73,7 +97,29 @@ namespace Assets.Scripts.VainBuilder
 
                 sb.Append(currentID).Append(";").Append(currentExit).Append(";");
                 sb.Append(nextID).Append(";").Append(nextExit).Append(";");
-                exits.Add("v;" + nextID + ";S;1;;;");
+                if (steps > 0)
+                {
+                    StringBuilder vain = new StringBuilder();
+                    vain.Append("v;").Append(nextID).Append(";D;").Append(startSize);
+                    
+                    if (startSize < endSize)
+                    {
+                        startSize *= 2;
+                        vain.Append(";;180;");
+                    }
+                    else
+                    {
+                        startSize /= 2;
+                        vain.Append(";;;");
+                    }
+                    steps--;
+
+                    exits.Add(vain.ToString());
+                }
+                else
+                {
+                    exits.Add("v;" + nextID + ";S;" + startSize + ";;;");
+                }
 
                 currentID = nextID;
                 currentExit = "1";

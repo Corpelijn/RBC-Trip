@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
+using Assets.Scripts.VainBuilder.Organen;
 
 namespace Assets.Scripts.VainBuilder
 {
@@ -11,6 +12,10 @@ namespace Assets.Scripts.VainBuilder
         public List<TextAsset> vainData;
         private List<VainExit> exits;
         private List<Vain> vains;
+
+        public Material VainMaterial = null;
+        private Color redVain = new Color(1f / 255f * 255f, 1f / 255f * 66f, 1f / 255f * 66f);
+        private Color blueVain = new Color(1f / 255f * 60f, 1f / 255f * 50f, 1f / 255f * 160f);
 
         public Text label;
 
@@ -32,7 +37,7 @@ namespace Assets.Scripts.VainBuilder
             // Quickly read the data from the file and put it in some classes for later
             foreach (TextAsset info in vainData)
             {
-                List<string> lines = new List<string>( info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
+                List<string> lines = new List<string>(info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries));
                 //string[] lines = info.text.Split(new string[] { "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
                 for (int i = 0; i < lines.Count; /*lines.Length;*/ i++)
                 {
@@ -219,6 +224,19 @@ namespace Assets.Scripts.VainBuilder
                     continue;
                 }
                 index++;
+            }
+
+            if (currentPlayerVain.GetType() == typeof(Orgaan))
+            {
+                if (currentPlayerVain.GetID() == -4 || currentPlayerVain.GetID() == -5)
+                {
+                    VainMaterial.color = redVain;
+                }
+                else if(currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
+                {
+                    VainMaterial.color = blueVain;
+                }
+
             }
         }
 
