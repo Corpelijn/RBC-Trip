@@ -8,10 +8,11 @@ namespace Assets.Scripts
 {
     class Player : MonoBehaviour
     {
+        //public LayerMask mask;
         public GameObject player = null;
         public GameObject currentVain = null;
 
-        private const float SPEED = 0.05f;
+        private const float SPEED = 0.1f;
 
         public static Player Instance { get; private set; }
 
@@ -25,7 +26,7 @@ namespace Assets.Scripts
 
         public void Update()
         {
-            //this.transform.position = this.transform.position + new Vector3(Input.GetKey(KeyCode.LeftArrow) ? -SPEED : Input.GetKey(KeyCode.RightArrow) ? SPEED : 0, 0, SPEED);
+            //this.transform.position = this.transform.position + new Vector3(Input.GetKey(KeyCode.LeftArrow) ? -SPEED : Input.GetKey(KeyCode.RightArrow) ? SPEED : 0, 0, Input.GetKey(KeyCode.UpArrow) ? SPEED * 2 : 0);
 
             Ray rayRight = new Ray(player.transform.position, Vector3.right);
             Ray rayLeft = new Ray(player.transform.position, Vector3.left);
@@ -37,6 +38,8 @@ namespace Assets.Scripts
             RaycastHit[] hit = new RaycastHit[6];
             bool[] hitting = new bool[6];
 
+            // 11011111
+            //int m = ~223;
             hitting[0] = Physics.Raycast(rayRight, out hit[0]);
             hitting[1] = Physics.Raycast(rayLeft, out hit[1]);
             hitting[2] = Physics.Raycast(rayTop, out hit[2]);
