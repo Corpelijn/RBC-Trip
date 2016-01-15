@@ -37,10 +37,14 @@ public class colorChanger : MonoBehaviour
     public bool canGet = false;
     private int timesShot = 0;
 
+    public static colorChanger instance { private set; get; }
 
     // Use this for initialization
     void Start()
     {
+        // Set the instance
+        instance = this;
+
         lerpedColorBrain = Color.red;
         lerpedColorStomach = Color.red;
         lerpedColorLiver = Color.red;
