@@ -3,21 +3,24 @@ using System.Collections;
 
 public class CameraOrbit : MonoBehaviour {
 
+    public static CameraOrbit instance = new CameraOrbit();
     public GameObject target;
-    public float distance = 1.5f;            //10f
-    public float xSpeed = 250f;             //250f
-    public float ySpeed = 120f;             //120f
-    public float yMinLimit = -20f;          //-20f
-    public float yMaxLimit = 80f;           //80f;
-    private float x = 0.0f;                 //0.0f
-    private float y = 0.0f;                 //0.0f
+    //public float distance = 1.5f;            //10f
+    //public float xSpeed = 250f;             //250f
+    //public float ySpeed = 120f;             //120f
+    //public float yMinLimit = -20f;          //-20f
+    //public float yMaxLimit = 80f;           //80f;
+    //private float x = 0.0f;                 //0.0f
+    //private float y = 0.0f;                 //0.0f
 
     public Vector3 directionToMove;
+
+    private bool ready = false;
 
 	// Use this for initialization
 	void Start ()
     {
-        
+        instance = this;
         //Vector3 angles = transform.eulerAngles;
         //x = angles.y;
         //y = angles.x;
@@ -49,7 +52,13 @@ public class CameraOrbit : MonoBehaviour {
 
     void FixedUpdate()
     {
-        movePlayer();
+        if (ready)
+            movePlayer();
+    }
+
+    public void setReady()
+    {
+        ready = true;
     }
 
     public float ClampAngle(float angle, float min, float max)
@@ -66,7 +75,7 @@ public class CameraOrbit : MonoBehaviour {
         directionToMove = target.transform.position - this.transform.position;
         //directionToMove.x = 0;
         if (directionToMove.y > 2) { directionToMove.y = 2; }
-        target.GetComponent<Rigidbody>().AddForce(directionToMove / 150000);
+        target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
         //Debug.Log(directionToMove);
     }

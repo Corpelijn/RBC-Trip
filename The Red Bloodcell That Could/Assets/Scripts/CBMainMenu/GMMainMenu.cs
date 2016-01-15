@@ -62,7 +62,7 @@ public class GMMainMenu : MonoBehaviour
         optionsTarget = new Vector3(options.transform.position.x - 1, options.transform.position.y, options.transform.position.z);
 
         //cam.transform.LookAt(startOriginal);
-        UI.transform.rotation = new Quaternion(UI.transform.rotation.x, cam.transform.rotation.y, UI.transform.rotation.z, UI.transform.rotation.w);
+        //UI.transform.rotation = new Quaternion(UI.transform.rotation.x, cam.transform.rotation.y, UI.transform.rotation.z, UI.transform.rotation.w);
     }
 
     // Update is called once per frame
