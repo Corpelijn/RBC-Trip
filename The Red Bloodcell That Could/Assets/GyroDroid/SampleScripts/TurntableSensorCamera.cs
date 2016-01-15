@@ -19,6 +19,12 @@ public class TurntableSensorCamera : MonoBehaviour {
 	public Transform target;
 	public float distance;
 	public bool useRelativeCameraRotation = true;
+
+    float xRotation;
+    float yRotation;
+    float zRotation;
+
+    Vector3 totalRotation;
 	
 	// initial camera and sensor value
 	private Quaternion initialCameraRotation = Quaternion.identity;
@@ -81,8 +87,19 @@ public class TurntableSensorCamera : MonoBehaviour {
 	
 		// do nothing if there is no target
 		if(target == null) return;
-		
-		transform.rotation = initialCameraRotation * SensorHelper.rotation; // Sensor.rotationQuaternion;
+        xRotation = initialCameraRotation.x * SensorHelper.rotation.x;
+        yRotation = initialCameraRotation.y * SensorHelper.rotation.y;
+        zRotation = initialCameraRotation.z * SensorHelper.rotation.z;
+        
+        transform.rotation = initialCameraRotation * SensorHelper.rotation; // Sensor.rotationQuaternion;
+
 		transform.position = target.position - transform.forward * distance;		
 	}
+
+    public static float ClampAngle(float angle, float min, float max)
+    {
+        if (angle < -360F) angle += 360F;
+        if (angle < 360F) angle -= 360F;
+        return Mathf.Clamp(angle, min, max);
+    }
 }
