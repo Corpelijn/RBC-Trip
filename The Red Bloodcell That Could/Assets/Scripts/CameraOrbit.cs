@@ -80,7 +80,7 @@ public class CameraOrbit : MonoBehaviour {
         if (directionToMove.y > 2) { directionToMove.y = 2; }
         target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Debug.Log(directionToMove);
+        //Debug.Log(directionToMove);
     }
 
     IEnumerator Countdown()

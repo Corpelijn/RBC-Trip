@@ -23,6 +23,8 @@ public class MiniMap : MonoBehaviour {
     public Image dotHeartIntestines;
     public Image dotHeartKidneys;
 
+    private List<Image> dots;
+
     private Image activeImage;
 
     public Slider head;
@@ -70,7 +72,24 @@ public class MiniMap : MonoBehaviour {
             s.value = 50;
             s.wholeNumbers = false;
         }
-	}
+
+        dots = new List<Image>();
+        dots.Add(dotHead);
+        dots.Add(dotLungsLeft);
+        dots.Add(dotLungsRight);
+        dots.Add(dotHeart);
+        dots.Add(dotLiver);
+        dots.Add(dotStomach);
+        dots.Add(dotKidneyLeft);
+        dots.Add(dotKindeyRight);
+        dots.Add(dotIntestines);
+        dots.Add(dotHeartLung);
+        dots.Add(dotHeartHead);
+        dots.Add(dotHeartStomach);
+        dots.Add(dotHeartLiver);
+        dots.Add(dotHeartIntestines);
+        dots.Add(dotHeartKidneys);
+    }
 	
 	// Update is called once per frame
 	void FixedUpdate ()
@@ -117,97 +136,92 @@ public class MiniMap : MonoBehaviour {
         }
 
         BloedLocatie loc = Distance.GetLocatie(VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetID());
+        Debug.Log("loc: " + loc);
         if (loc == BloedLocatie.Darmen)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotIntestines.enabled = true;
-            activeImage = dotIntestines;
         }
         if (loc == BloedLocatie.HartL || loc == BloedLocatie.HartR)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeart.enabled = true;
-            activeImage = dotHeart;
         }
         if (loc == BloedLocatie.LongL)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotLungsLeft.enabled = true;
-            activeImage = dotLungsLeft;
         }
         if (loc == BloedLocatie.LongR)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotLungsRight.enabled = true;
-            activeImage = dotLungsRight;
         }
         if (loc == BloedLocatie.Hersenen)
         {
-            activeImage.enabled = false;
+            Debug.Log("Ik ben in de hersenen");
+            setImagesInactive();
             dotHead.enabled = true;
-            activeImage = dotHead;
         }
         if (loc == BloedLocatie.Maag)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotStomach.enabled = true;
-            activeImage = dotStomach;
         }
         if (loc == BloedLocatie.Lever)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotLiver.enabled = true;
-            activeImage = dotLiver;
         }
         if (loc == BloedLocatie.NierL)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotKidneyLeft.enabled = true;
-            activeImage = dotKidneyLeft;
         }
         if (loc == BloedLocatie.NierR)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotKindeyRight.enabled = true;
-            activeImage = dotKindeyRight;
         }
         if (loc == BloedLocatie.Ingang_Longen || loc == BloedLocatie.Uitgang_Longen)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeartLung.enabled = true;
-            activeImage = dotHeartLung;
         }
         if (loc == BloedLocatie.Heen_HersenenHart || loc == BloedLocatie.Terug_HersenenHart)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeartHead.enabled = true;
-            activeImage = dotHeartHead;
         }
         if (loc == BloedLocatie.Heen_Maag || loc == BloedLocatie.Terug_Maag)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeartStomach.enabled = true;
-            activeImage = dotHeartStomach;
         }
         if (loc == BloedLocatie.Heen_Lever || loc == BloedLocatie.Terug_Lever)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeartLiver.enabled = true;
-            activeImage = dotHeartLiver;
         }
         if (loc == BloedLocatie.Heen_Darmen)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeartIntestines.enabled = true;
-            activeImage = dotHeartIntestines;
         }
         if (loc == BloedLocatie.Splitsing_Nieren || loc == BloedLocatie.Samenkoming_Nieren)
         {
-            activeImage.enabled = false;
+            setImagesInactive();
             dotHeartKidneys.enabled = true;
-            activeImage = dotHeartKidneys;
         }
 	}
+
+    public void setImagesInactive()
+    {
+        foreach(Image i in dots)
+        {
+             i.enabled = false;
+        }
+    }
 
     IEnumerator ReduceOxygen()
     {
