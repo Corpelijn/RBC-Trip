@@ -34,7 +34,7 @@ public class ReadyToPlay : MonoBehaviour {
         if (Input.GetKey(KeyCode.Space))
         {
             Debug.Log("space");
-            //co.setReady();
+            co.setReady();
         }
 
         //float length = 20.0f;
@@ -63,6 +63,6 @@ public class ReadyToPlay : MonoBehaviour {
 
     public void Ready()
     {
-        //co.setReady();
+        co.setReady();
     }
 }

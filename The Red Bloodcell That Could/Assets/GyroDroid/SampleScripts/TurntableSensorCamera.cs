@@ -24,14 +24,7 @@ public class TurntableSensorCamera : MonoBehaviour {
     float yRotation;
     float zRotation;
 
-    float minXRotation = -75f;
-    float maxXRotation = 75f;
-    float minYRotation = -75f;
-    float maxYRotation = 75f;
-    float minZRotation = -75f;
-    float maxZRotation = 75f;
-
-    Quaternion totalRotation;
+    Vector3 totalRotation;
 	
 	// initial camera and sensor value
 	private Quaternion initialCameraRotation = Quaternion.identity;
@@ -94,45 +87,19 @@ public class TurntableSensorCamera : MonoBehaviour {
 	
 		// do nothing if there is no target
 		if(target == null) return;
-        //xRotation = initialCameraRotation.x * SensorHelper.rotation.x;
-        //yRotation = initialCameraRotation.y * SensorHelper.rotation.y;
-        //zRotation = initialCameraRotation.z * SensorHelper.rotation.z;
+        xRotation = initialCameraRotation.x * SensorHelper.rotation.x;
+        yRotation = initialCameraRotation.y * SensorHelper.rotation.y;
+        zRotation = initialCameraRotation.z * SensorHelper.rotation.z;
+        
+        transform.rotation = initialCameraRotation * SensorHelper.rotation; // Sensor.rotationQuaternion;
 
-        //xRotation = ClampAngle(xRotation, minXRotation, maxXRotation);
-        //Debug.Log("XRot: " + xRotation);
-        //yRotation = ClampAngle(yRotation, minYRotation, maxYRotation);
-        //Debug.Log("YRot: " + yRotation);
-        //zRotation = ClampAngle(zRotation, minZRotation, maxZRotation);
-        //Debug.Log("ZRot: " + zRotation);
-
-        //totalRotation = new Quaternion(xRotation, yRotation, zRotation, SensorHelper.rotation.w);
-       
-
-        //* totalRotation; // Sensor.rotationQuaternion;
-        transform.rotation = initialCameraRotation * SensorHelper.rotation;
-        if (transform.eulerAngles.y < 290 && transform.eulerAngles.y > 180)
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 290, transform.eulerAngles.z);
-        }
-        if (transform.eulerAngles.y > 70 && transform.eulerAngles.y < 180)
-        {
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 70, transform.eulerAngles.z);
-        }
-        if (transform.eulerAngles.x > 70 && transform.eulerAngles.x < 180)
-        {
-            transform.eulerAngles = new Vector3(70, transform.eulerAngles.y, transform.eulerAngles.z);
-        }
-        //if(transform.eulerAngles.x < 290 && transform.eulerAngles.y > 180)
-        //{
-        //    transform.eulerAngles = new Vector3(290, transform.eulerAngles.y, transform.eulerAngles.z);
-        //}
-        transform.position = target.position - transform.forward * distance;
+		transform.position = target.position - transform.forward * distance;		
 	}
 
     public static float ClampAngle(float angle, float min, float max)
     {
         if (angle < -360F) angle += 360F;
-        if (angle > 360F) angle -= 360F;
+        if (angle < 360F) angle -= 360F;
         return Mathf.Clamp(angle, min, max);
     }
 }
