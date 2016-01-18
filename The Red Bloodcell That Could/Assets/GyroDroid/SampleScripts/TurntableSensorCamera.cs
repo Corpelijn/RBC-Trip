@@ -105,7 +105,7 @@ public class TurntableSensorCamera : MonoBehaviour {
             transform.eulerAngles = new Vector3(70, transform.eulerAngles.y, transform.eulerAngles.z);
         }
 
-        transform.position = target.position - transform.forward * distance;		
+        transform.position = target.position - transform.forward * distance;
 	}
 
     public static float ClampAngle(float angle, float min, float max)
