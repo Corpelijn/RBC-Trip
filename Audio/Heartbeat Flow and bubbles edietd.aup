@@ -1,0 +1,151 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Heartbeat Flow and bubbles edietd_data" version="1.3.0" audacityversion="2.1.1" sel0="0.9808616780" sel1="5.0864172336" vpos="448" h="0.0000000000" zoom="71.3665167621" rate="48000.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="major_brand" value="mp42"/>
+		<tag name="Software" value="Lavf53.32.100"/>
+		<tag name="minor_version" value="0"/>
+		<tag name="compatible_brands" value="isommp42"/>
+		<tag name="Encoding time" value="2013-08-27 09:56:00"/>
+	</tags>
+	<wavetrack name="Bubbles 1" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.0" pan="0.0">
+		<waveclip offset="1.41641723">
+			<sequence maxsamples="524288" sampleformat="131073" numsamples="183902">
+				<waveblock start="0">
+					<simpleblockfile filename="e00005ad.au" len="183902" min="-0.02829" max="0.017181" rms="0.003376"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Bubbles 2" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.0" pan="0.0">
+		<waveclip offset="1.41641723">
+			<sequence maxsamples="524288" sampleformat="131073" numsamples="183902">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000f5d.au" len="183902" min="-0.034241" max="0.01767" rms="0.002894"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Bubbles 3" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.0" pan="0.0">
+		<waveclip offset="1.41641723">
+			<sequence maxsamples="524288" sampleformat="131073" numsamples="183902">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000b29.au" len="183902" min="-0.027008" max="0.016083" rms="0.003887"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Flow Sound" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="48000" gain="1.0" pan="0.0">
+		<waveclip offset="2.82247973">
+			<sequence maxsamples="524288" sampleformat="131073" numsamples="108669">
+				<waveblock start="0">
+					<simpleblockfile filename="e00004b5.au" len="108669" min="-0.01825" max="0.021179" rms="0.004521"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Heartbeat sound" channel="0" linked="1" mute="1" solo="0" height="150" minimized="1" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="2817792">
+				<waveblock start="0">
+					<simpleblockfile filename="e00001c0.au" len="262144" min="-0.806657" max="0.734153" rms="0.071544"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0000e84.au" len="262144" min="-0.813109" max="0.743671" rms="0.076428"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0000873.au" len="262144" min="-0.804479" max="0.738906" rms="0.076468"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e00002d5.au" len="262144" min="-0.816281" max="0.743138" rms="0.076169"/>
+				</waveblock>
+				<waveblock start="1048576">
+					<simpleblockfile filename="e000070b.au" len="262144" min="-0.820492" max="0.753936" rms="0.074007"/>
+				</waveblock>
+				<waveblock start="1310720">
+					<simpleblockfile filename="e0000848.au" len="262144" min="-0.812704" max="0.756591" rms="0.076573"/>
+				</waveblock>
+				<waveblock start="1572864">
+					<simpleblockfile filename="e0000cd1.au" len="262144" min="-0.808717" max="0.715896" rms="0.075698"/>
+				</waveblock>
+				<waveblock start="1835008">
+					<simpleblockfile filename="e00005a1.au" len="262144" min="-0.820423" max="0.755398" rms="0.075065"/>
+				</waveblock>
+				<waveblock start="2097152">
+					<simpleblockfile filename="e0000cfc.au" len="262144" min="-0.816915" max="0.735126" rms="0.075565"/>
+				</waveblock>
+				<waveblock start="2359296">
+					<simpleblockfile filename="e0000029.au" len="262144" min="-0.816101" max="0.711375" rms="0.075786"/>
+				</waveblock>
+				<waveblock start="2621440">
+					<simpleblockfile filename="e000029f.au" len="196352" min="-0.808258" max="0.746478" rms="0.063869"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Heartbeat sound" channel="1" linked="0" mute="1" solo="0" height="150" minimized="1" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="2817792">
+				<waveblock start="0">
+					<simpleblockfile filename="e000019e.au" len="262144" min="-0.834138" max="0.768837" rms="0.074103"/>
+				</waveblock>
+				<waveblock start="262144">
+					<simpleblockfile filename="e0000730.au" len="262144" min="-0.838255" max="0.779682" rms="0.079344"/>
+				</waveblock>
+				<waveblock start="524288">
+					<simpleblockfile filename="e0000e9f.au" len="262144" min="-0.831893" max="0.774012" rms="0.079343"/>
+				</waveblock>
+				<waveblock start="786432">
+					<simpleblockfile filename="e0000c43.au" len="262144" min="-0.843282" max="0.779093" rms="0.078982"/>
+				</waveblock>
+				<waveblock start="1048576">
+					<simpleblockfile filename="e0000daf.au" len="262144" min="-0.84844" max="0.791449" rms="0.076898"/>
+				</waveblock>
+				<waveblock start="1310720">
+					<simpleblockfile filename="e0000a88.au" len="262144" min="-0.839657" max="0.795383" rms="0.079554"/>
+				</waveblock>
+				<waveblock start="1572864">
+					<simpleblockfile filename="e0000569.au" len="262144" min="-0.834408" max="0.749367" rms="0.078408"/>
+				</waveblock>
+				<waveblock start="1835008">
+					<simpleblockfile filename="e00005f8.au" len="262144" min="-0.848071" max="0.793609" rms="0.078052"/>
+				</waveblock>
+				<waveblock start="2097152">
+					<simpleblockfile filename="e00006c3.au" len="262144" min="-0.844303" max="0.768498" rms="0.078232"/>
+				</waveblock>
+				<waveblock start="2359296">
+					<simpleblockfile filename="e0000e22.au" len="262144" min="-0.84387" max="0.741853" rms="0.078501"/>
+				</waveblock>
+				<waveblock start="2621440">
+					<simpleblockfile filename="e0000b3e.au" len="196352" min="-0.834582" max="0.781722" rms="0.066203"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Heartbeat sound" channel="0" linked="1" mute="0" solo="1" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.98086168">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="181055">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000c26.au" len="181055" min="-0.107753" max="0.097704" rms="0.009234"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Heartbeat sound" channel="1" linked="0" mute="0" solo="1" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.98086168">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="181055">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000226.au" len="181055" min="-0.111291" max="0.102239" rms="0.009577"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

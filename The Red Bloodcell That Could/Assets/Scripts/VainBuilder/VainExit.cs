@@ -100,16 +100,18 @@ namespace Assets.Scripts.VainBuilder
                 if (steps > 0)
                 {
                     StringBuilder vain = new StringBuilder();
-                    vain.Append("v;").Append(nextID).Append(";D;").Append(startSize);
+                    vain.Append("v;").Append(nextID).Append(";D;");
                     
                     if (startSize < endSize)
                     {
+                        vain.Append(startSize * 2);
                         startSize *= 2;
                         vain.Append(";;180;");
                     }
                     else
                     {
-                        startSize /= 2;
+                        vain.Append(startSize);
+                        startSize /= 2;                        
                         vain.Append(";;;");
                     }
                     steps--;

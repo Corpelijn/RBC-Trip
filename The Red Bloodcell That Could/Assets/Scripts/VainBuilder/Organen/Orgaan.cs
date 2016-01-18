@@ -6,9 +6,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.VainBuilder.Organen
 {
-    class Orgaan : Vain
+    public class Orgaan : Vain
     {
-        public Orgaan()
+        protected Orgaan()
             : base()
         {
             this.exits = new Vain[2];
@@ -20,12 +20,40 @@ namespace Assets.Scripts.VainBuilder.Organen
             data = data.Replace("\r", "");
             string[] d = data.Split(new char[] { ';' }, StringSplitOptions.None);
 
-            Vain vain = new Orgaan();
+            Orgaan organ = null;
 
-            vain.SetID(Convert.ToInt32(d[1]));
-            vain.SetScale(1f);
+            switch (d[2])
+            {
+                case "hartr":
+                case "hartl":
+                    organ = new Hart();
+                    break;
+                case "hersenen":
+                    organ = new Hersenen();
+                    break;
+                case "longr":
+                case "longl":
+                    organ = new Long();
+                    break;
+                case "lever":
+                    organ = new Lever();
+                    break;
+                case "maag":
+                    organ = new Maag();
+                    break;
+                case "darm":
+                    organ = new Darmen();
+                    break;
+                case "nierl":
+                case "nierr":
+                    organ = new Nier();
+                    break;
+            }
 
-            return vain;
+            organ.SetID(Convert.ToInt32(d[1]));
+            organ.SetScale(1f);
+
+            return organ;
         }
 
         public override Vain GetStraight(Vain last)
@@ -38,25 +66,34 @@ namespace Assets.Scripts.VainBuilder.Organen
 
         public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
-            // Get the vain we are moving towards
-            //Vain v = GetStraight(last);
-
             // Define some variables
             Vector3 position = this.obj.transform.position;
             Vector3 rotation = this.obj.transform.eulerAngles;
+
+            // Check in what direction the vain is placed
+            bool flip = this.obj.transform.GetChild(0).transform.forward.z != -1f;
+            Vector3 origin = this.obj.transform.position;
+            Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2) * scale;
+
+            Vector3 exit0 = flip ? far : origin;
+            Vector3 exit1 = flip ? origin : far;
+
+            //Debug.Log(this.GetID() + " : e0 " + exit0 + " : e1 " + exit1);
 
             // Check from wich end we are leaving
             if (next == exits[0])
             {
                 // We are leaving from the bottom side
                 // Set the position to continue on bottom and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
+                //position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
+                position = exit0;
             }
             else
             {
                 // We are leaving from the top side
                 // Set the position to continue on top and set the exit position to a calculation from the current vain
-                position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
+                //position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
+                position = exit1;
             }
 
             // Return the information in the VainDrawer format

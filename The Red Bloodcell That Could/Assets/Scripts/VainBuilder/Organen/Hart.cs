@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.VainBuilder.Organen
 {
-    class Hart
+    public class Hart : Orgaan
     {
     }
 }

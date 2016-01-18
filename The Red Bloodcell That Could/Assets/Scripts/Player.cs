@@ -12,7 +12,7 @@ namespace Assets.Scripts
         public GameObject player = null;
         public GameObject currentVain = null;
 
-        private const float SPEED = 0.05f;
+        private const float SPEED = 0.1f;
 
         public static Player Instance { get; private set; }
 
@@ -26,7 +26,7 @@ namespace Assets.Scripts
 
         public void Update()
         {
-            //this.transform.position = this.transform.position + new Vector3(Input.GetKey(KeyCode.LeftArrow) ? -SPEED : Input.GetKey(KeyCode.RightArrow) ? SPEED : 0, 0, SPEED);
+            this.transform.position = this.transform.position + new Vector3(Input.GetKey(KeyCode.LeftArrow) ? -SPEED : Input.GetKey(KeyCode.RightArrow) ? SPEED : 0, 0, Input.GetKey(KeyCode.UpArrow) ? SPEED * 2 : 0);
 
             Ray rayRight = new Ray(player.transform.position, Vector3.right);
             Ray rayLeft = new Ray(player.transform.position, Vector3.left);
