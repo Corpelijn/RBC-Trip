@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CameraOrbit : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class CameraOrbit : MonoBehaviour {
 
     public Vector3 directionToMove;
 
+    public Text countdown;
+    public int coundownValue = 10;
     private bool ready = false;
 
 	// Use this for initialization
@@ -78,5 +81,13 @@ public class CameraOrbit : MonoBehaviour {
         target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Debug.Log(directionToMove);
+    }
+
+    IEnumerator Countdown()
+    {
+        yield return new WaitForSeconds(1f);
+        coundownValue -= 1;
+        countdown.text = coundownValue.ToString();
+        StartCoroutine(Countdown());
     }
 }

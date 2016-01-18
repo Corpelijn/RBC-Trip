@@ -92,8 +92,20 @@ public class TurntableSensorCamera : MonoBehaviour {
         zRotation = initialCameraRotation.z * SensorHelper.rotation.z;
         
         transform.rotation = initialCameraRotation * SensorHelper.rotation; // Sensor.rotationQuaternion;
+        if (transform.eulerAngles.y < 290 && transform.eulerAngles.y > 180)
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 290, transform.eulerAngles.z);
+        }
+        if (transform.eulerAngles.y > 70 && transform.eulerAngles.y < 180)
+        {
+            transform.eulerAngles = new Vector3(transform.eulerAngles.x, 70, transform.eulerAngles.z);
+        }
+        if (transform.eulerAngles.x > 70 && transform.eulerAngles.x < 180)
+        {
+            transform.eulerAngles = new Vector3(70, transform.eulerAngles.y, transform.eulerAngles.z);
+        }
 
-		transform.position = target.position - transform.forward * distance;		
+        transform.position = target.position - transform.forward * distance;		
 	}
 
     public static float ClampAngle(float angle, float min, float max)
