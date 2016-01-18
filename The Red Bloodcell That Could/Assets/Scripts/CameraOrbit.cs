@@ -17,7 +17,7 @@ public class CameraOrbit : MonoBehaviour {
     public Vector3 directionToMove;
 
     public Text countdown;
-    public int coundownValue = 10;
+    public int countdownValue = 10;
     private bool ready = false;
 
 	// Use this for initialization
@@ -30,6 +30,9 @@ public class CameraOrbit : MonoBehaviour {
 
         if (GetComponent<Rigidbody>())
             GetComponent<Rigidbody>().freezeRotation = true;
+
+        countdown.text = countdownValue.ToString();
+        StartCoroutine(Countdown());
 	}
 	
 	// Update is called once per frame
@@ -55,7 +58,7 @@ public class CameraOrbit : MonoBehaviour {
 
     void FixedUpdate()
     {
-        //if (ready)
+        if (ready)
             movePlayer();
     }
 
@@ -86,8 +89,17 @@ public class CameraOrbit : MonoBehaviour {
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(1f);
-        coundownValue -= 1;
-        countdown.text = coundownValue.ToString();
-        StartCoroutine(Countdown());
+        
+        if (countdownValue != 1)
+        {
+            countdownValue -= 1;
+            countdown.text = countdownValue.ToString();
+            StartCoroutine(Countdown());
+        }
+        else
+        {
+            ready = true;
+        }
+        
     }
 }
