@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class CameraOrbit : MonoBehaviour {
 
@@ -15,6 +16,8 @@ public class CameraOrbit : MonoBehaviour {
 
     public Vector3 directionToMove;
 
+    public Text countdown;
+    public int countdownvalue = 5;
     private bool ready = false;
 
 	// Use this for initialization
@@ -27,6 +30,9 @@ public class CameraOrbit : MonoBehaviour {
 
         if (GetComponent<Rigidbody>())
             GetComponent<Rigidbody>().freezeRotation = true;
+
+        countdown.text = countdownvalue.ToString();
+        StartCoroutine(Coundown());
 	}
 	
 	// Update is called once per frame
@@ -52,31 +58,35 @@ public class CameraOrbit : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if (ready)
+        //if (ready)
             movePlayer();
-    }
-
-    public void setReady()
-    {
-        ready = true;
-    }
-
-    public float ClampAngle(float angle, float min, float max)
-    {
-        if (angle < -360)
-            angle += 360;
-        if (angle > 360)
-            angle -= 360;
-        return Mathf.Clamp(angle, min, max);
     }
 
     public void movePlayer()
     {   
         directionToMove = target.transform.position - this.transform.position;
-        //directionToMove.x = 0;
+        directionToMove.x = 0;
         if (directionToMove.y > 2) { directionToMove.y = 2; }
-        target.GetComponent<Rigidbody>().AddForce(directionToMove / 100000);
+        target.GetComponent<Rigidbody>().AddForce(directionToMove / 1000);
         target.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        
         //Debug.Log(directionToMove);
+    }
+
+    IEnumerator Coundown()
+    {
+        yield return new WaitForSeconds(1f);
+        if (countdownvalue != 0)
+        {
+            countdownvalue -= 1;
+            countdown.text = countdownvalue.ToString();
+            StartCoroutine(Coundown());
+        }
+        else
+        {
+            countdownvalue = 0;
+            countdown.text = countdownvalue.ToString();
+            ready = true;
+        }   
     }
 }
