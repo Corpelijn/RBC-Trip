@@ -136,7 +136,7 @@ public class MiniMap : MonoBehaviour {
         }
 
         BloedLocatie loc = Distance.GetLocatie(VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetID());
-        Debug.Log("loc: " + loc);
+        //Debug.Log("loc: " + loc);
         if (loc == BloedLocatie.Darmen)
         {
             setImagesInactive();
@@ -159,7 +159,7 @@ public class MiniMap : MonoBehaviour {
         }
         if (loc == BloedLocatie.Hersenen)
         {
-            Debug.Log("Ik ben in de hersenen");
+            //Debug.Log("Ik ben in de hersenen");
             setImagesInactive();
             dotHead.enabled = true;
         }
