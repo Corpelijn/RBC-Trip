@@ -16,7 +16,8 @@ namespace Assets.Scripts.MapGeneration.ObjectPool
 
 
         public GameObject Hersenen = null;
-        public GameObject Long = null;
+        public GameObject LongR = null;
+        public GameObject LongL = null;
         public GameObject Hart = null;
         public GameObject Maag = null;
         public GameObject Lever = null;

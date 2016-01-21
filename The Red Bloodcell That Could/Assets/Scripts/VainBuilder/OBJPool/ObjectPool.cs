@@ -88,9 +88,13 @@ namespace Assets.Scripts.VainBuilder.OBJPool
             {
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.Hersenen);
             }
-            else if (type == typeof(Long))
+            else if (type == typeof(LongR))
             {
-                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Long);
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.LongR);
+            }
+            else if (type == typeof(LongL))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.LongL);
             }
             else if (type == typeof(Nier))
             {

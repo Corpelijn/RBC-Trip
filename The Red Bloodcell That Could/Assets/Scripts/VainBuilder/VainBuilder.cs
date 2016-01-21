@@ -267,9 +267,14 @@ namespace Assets.Scripts.VainBuilder
                 }
             }
 
-            if (obj.tag == "Brain")
+            switch (obj.tag)
             {
-                return GetVain(-3);
+                case "Brain":
+                    return GetVain(-3);
+                case "LungR":
+                    return GetVain(-5);
+                case "LungL":
+                    return GetVain(-4);
             }
 
             return null;

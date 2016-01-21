@@ -42,7 +42,7 @@ public class betterColorChanger : MonoBehaviour
                 int action = 0;
 
                 if (o.GetType() == typeof(Hart)) { action = 0; }
-                else if (o.GetType() == typeof(Long)) { action = 1; }
+                else if (o.GetType() == typeof(LongR) || o.GetType() == typeof(LongL)) { action = 1; }
                 else { action = 2; }
 
                 if (action == 1 && organ.transform.localScale.x == 0.25f)

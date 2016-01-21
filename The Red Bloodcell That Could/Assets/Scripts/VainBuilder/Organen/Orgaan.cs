@@ -36,8 +36,10 @@ namespace Assets.Scripts.VainBuilder.Organen
                     organ = new Hersenen();
                     break;
                 case "longr":
+                    organ = new LongR();
+                    break;
                 case "longl":
-                    organ = new Long();
+                    organ = new LongL();
                     break;
                 case "lever":
                     organ = new Lever();
