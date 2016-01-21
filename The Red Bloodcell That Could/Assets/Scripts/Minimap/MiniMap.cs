@@ -51,9 +51,12 @@ public class MiniMap : MonoBehaviour {
     private bool canIncreaseKidneyLeft = true;
     private bool canIncreaseKidneyRight = true;
 
+    private colorChanger cc;
+
     // Use this for initialization
     void Start ()
     {
+        cc = new colorChanger();
         activeImage = dotHeart;
 
         sliders = new List<Slider>();
@@ -65,9 +68,9 @@ public class MiniMap : MonoBehaviour {
         sliders.Add(kidneyright);
         foreach (Slider s in sliders)
         {
-            s.maxValue = 50;
+            s.maxValue = 100;
             s.minValue = 0;
-            s.value = 50;
+            s.value = 100;
             s.wholeNumbers = false;
         }
 	}
@@ -75,6 +78,13 @@ public class MiniMap : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
+        head.value = cc.brainOxygenLevel;
+        liver.value = cc.liverOxygenLevel;
+        intestines.value = cc.intestinesLevel;
+        stomach.value = cc.stomachOxygenLevel;
+        kidneyleft.value = cc.leftKidneyOxygenLevel;
+        kidneyright.value = cc.rightKidneyLevel;
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.G))
         {
             if (Input.GetKey(KeyCode.A))
@@ -91,30 +101,30 @@ public class MiniMap : MonoBehaviour {
                 kidneyright.value += increaseOxygenAmount;
             }
         }
-        else
-        {
-            if (canReduceOxygen)
-                StartCoroutine(ReduceOxygen());
+        //else
+        //{
+        //    if (canReduceOxygen)
+        //        StartCoroutine(ReduceOxygen());
 
-            if (canIncreaseHead)
-                StartCoroutine(IncreaseOxygenHead());
+        //    if (canIncreaseHead)
+        //        StartCoroutine(IncreaseOxygenHead());
 
-            if (canIncreaseIntestines)
-                StartCoroutine(IncreaseOxygenIntestines());
+        //    if (canIncreaseIntestines)
+        //        StartCoroutine(IncreaseOxygenIntestines());
 
-            if (canIncreaseKidneyLeft)
-                StartCoroutine(IncreaseOxygenKidneyLeft());
+        //    if (canIncreaseKidneyLeft)
+        //        StartCoroutine(IncreaseOxygenKidneyLeft());
 
-            if (canIncreaseKidneyRight)
-                StartCoroutine(IncreaseOxygenKidneyRight());
+        //    if (canIncreaseKidneyRight)
+        //        StartCoroutine(IncreaseOxygenKidneyRight());
 
-            if (canIncreaseLiver)
-                StartCoroutine(IncreaseOxygenLiver());
+        //    if (canIncreaseLiver)
+        //        StartCoroutine(IncreaseOxygenLiver());
 
-            if (canIncreaseStomach)
-                StartCoroutine(IncreaseOxygenStomach());
+        //    if (canIncreaseStomach)
+        //        StartCoroutine(IncreaseOxygenStomach());
 
-        }
+        //}
 
         BloedLocatie loc = Distance.GetLocatie(VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetID());
         if (loc == BloedLocatie.Darmen)
