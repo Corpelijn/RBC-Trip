@@ -157,6 +157,11 @@ namespace Assets.Scripts.VainBuilder
             exits[index] = vain;
         }
 
+        public float GetScale()
+        {
+            return this.scale;
+        }
+
         /// <summary>
         /// Returns the amount of exits the current vain has
         /// </summary>
