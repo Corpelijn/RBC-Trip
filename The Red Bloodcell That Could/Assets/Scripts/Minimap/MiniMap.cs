@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.VainBuilder;
 using Assets.Scripts;
+using Assets.Scripts.VainBuilder.Organen;
 
 public class MiniMap : MonoBehaviour {
 
@@ -53,12 +54,12 @@ public class MiniMap : MonoBehaviour {
     private bool canIncreaseKidneyLeft = true;
     private bool canIncreaseKidneyRight = true;
 
-    private colorChanger cc;
+    //private colorChanger cc;
 
     // Use this for initialization
     void Start ()
     {
-        cc = new colorChanger();
+        //cc = new colorChanger();
         activeImage = dotHeart;
 
         sliders = new List<Slider>();
@@ -97,12 +98,19 @@ public class MiniMap : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        head.value = cc.brainOxygenLevel * 100;
-        liver.value = cc.liverOxygenLevel * 100;
-        intestines.value = cc.intestinesLevel * 100;
-        stomach.value = cc.stomachOxygenLevel * 100;
-        kidneyleft.value = cc.leftKidneyOxygenLevel * 100;
-        kidneyright.value = cc.rightKidneyLevel * 100;
+        //head.value = cc.brainOxygenLevel * 100;
+        //liver.value = cc.liverOxygenLevel * 100;
+        //intestines.value = cc.intestinesLevel * 100;
+        //stomach.value = cc.stomachOxygenLevel * 100;
+        //kidneyleft.value = cc.leftKidneyOxygenLevel * 100;
+        //kidneyright.value = cc.rightKidneyLevel * 100;
+
+        head.value = ((Orgaan)VainBuilder.Instance.GetVain((int)BloedLocatie.Brain)).GetZuurstof() * 100;
+        liver.value = ((Orgaan)VainBuilder.Instance.GetVain((int)BloedLocatie.Liver)).GetZuurstof() * 100;
+        intestines.value = ((Orgaan)VainBuilder.Instance.GetVain((int)BloedLocatie.Colon)).GetZuurstof() * 100;
+        stomach.value = ((Orgaan)VainBuilder.Instance.GetVain((int)BloedLocatie.Stomach)).GetZuurstof() * 100;
+        kidneyleft.value = ((Orgaan)VainBuilder.Instance.GetVain((int)BloedLocatie.left_Kidney)).GetZuurstof() * 100;
+        kidneyright.value = ((Orgaan)VainBuilder.Instance.GetVain((int)BloedLocatie.right_Kidney)).GetZuurstof() * 100;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.G))
         {

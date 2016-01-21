@@ -174,5 +174,28 @@ namespace Assets.Scripts.VainBuilder.Organen
             // Return true if the vain has a second exit
             return this.HasSecondExit();
         }
+
+        public void AddZuurstof(float value)
+        {
+            this.zuurstof += value;
+            if (this.zuurstof > 1)
+            {
+                zuurstof = 1;
+            }
+        }
+
+        public void RemoveZuurstof(float value)
+        {
+            this.zuurstof -= value;
+            if (this.zuurstof < 0)
+            {
+                zuurstof = 0;
+            }
+        }
+
+        public float GetZuurstof()
+        {
+            return this.zuurstof;
+        }
     }
 }

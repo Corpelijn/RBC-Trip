@@ -244,7 +244,7 @@ namespace Assets.Scripts.VainBuilder
             }
         }
 
-        private Vain GetVain(int id)
+        public Vain GetVain(int id)
         {
             foreach (Vain v in vains)
             {
