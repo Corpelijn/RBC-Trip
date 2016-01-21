@@ -7,29 +7,29 @@ namespace Assets.Scripts.VainBuilder
 {
     public enum BloedLocatie
     {
-        HartL                   = -1,
-        HartR                   = -2,
-        Hersenen                = -3,   
-        LongL                   = -4,
-        LongR                   = -5,
-        Maag                    = -7,
-        Lever                   = -6,
-        Darmen                  = -8,
-        NierR                   = -10,
-        NierL                   = -9,
+        left_Ventricle          = -1,
+        right_Ventricle         = -2,
+        Brain                   = -3,
+        right_Pulmonary_Artery  = -4,
+        left_Pulmonary_Artery   = -5,
+        Stomach                 = -7,
+        Liver                   = -6,
+        Colon                   = -8,
+        right_Kidney            = -10,
+        left_Kidney             = -9,
 
-        Heen_HersenenHart       = 0,
-        Heen_Maag               = 1,
-        Heen_Lever              = 2,
-        Heen_Darmen             = 3,
-        Splitsing_Nieren        = 4,
+        Common_Carotid_Artery   = 0,
+        Gastric_Artery          = 1,
+        Hepatic_Artery          = 2,
+        Inferior_Mesenteric_Artery  = 3,
+        Renal_Artery            = 4,
 
-        Samenkoming_Nieren      = 5,
-        Terug_Lever             = 6,
-        Terug_Maag              = 7,
-        Terug_HersenenHart      = 8,
+        Renal_Veins             = 5,
+        Hepatic_Vein            = 6,
+        Gastric_Vein            = 7,
+        Common_Carotid_Vein     = 8,
 
-        Ingang_Longen           = 9,
-        Uitgang_Longen          = 10
+        Pulmonary_Artery        = 9,
+        Pulmonary_Vein          = 10
     }
 }
