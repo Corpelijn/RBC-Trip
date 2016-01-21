@@ -11,10 +11,10 @@ namespace Assets.Scripts.VainBuilder
     {
         #region "Attributes"
 
-        private int id;
+        protected int id;
         protected Vain[] exits;
         protected GameObject obj;
-        private bool isDrawn;
+        protected bool isDrawn;
         protected float scale;
         private int zrotation;
         private float flip;
