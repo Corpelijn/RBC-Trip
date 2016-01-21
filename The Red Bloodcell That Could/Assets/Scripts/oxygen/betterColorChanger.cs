@@ -9,14 +9,17 @@ public class betterColorChanger : MonoBehaviour
     public GameObject cel;
     private GameObject organ;
 
-    private float celTimer;
+    public float celTimer;
 
     private const float DOWN_SPEED = 0.001f;
     private const float UP_SPEED = 0.01f;
 
+    public static betterColorChanger Instance { private set; get; }
+
     // Use this for initialization
     void Start()
     {
+        Instance = this;
         celTimer = 1;
     }
 
@@ -56,7 +59,7 @@ public class betterColorChanger : MonoBehaviour
                     o.AddZuurstof(UP_SPEED);
                 }
 
-                Debug.Log(celTimer);
+                //Debug.Log(celTimer);
             }
         }
 
@@ -64,7 +67,7 @@ public class betterColorChanger : MonoBehaviour
         {
             Orgaan o = (Orgaan)VainBuilder.Instance.GetVain(i);
             o.RemoveZuurstof(DOWN_SPEED);
-            Debug.Log(o.GetType().Name + ": " + o.GetZuurstof());
+            //Debug.Log(o.GetType().Name + ": " + o.GetZuurstof());
         }
     }
 }

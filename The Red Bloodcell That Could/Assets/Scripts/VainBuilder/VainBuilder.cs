@@ -234,11 +234,11 @@ namespace Assets.Scripts.VainBuilder
             {
                 if (currentPlayerVain.GetID() == -4 || currentPlayerVain.GetID() == -5)
                 {
-                    VainMaterial.color = Color.Lerp(blueVain, redVain, 1);//colorChanger.instance.celTimer);
+                    VainMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                 }
                 else if (currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
                 {
-                    VainMaterial.color = Color.Lerp(redVain, blueVain, 1);//colorChanger.instance.celTimer);
+                    VainMaterial.color = Color.Lerp(redVain, blueVain, betterColorChanger.Instance.celTimer);
                 }
 
             }
