@@ -26,7 +26,7 @@ namespace Assets.Scripts
 
         public void Update()
         {
-            this.transform.position = this.transform.position + new Vector3(Input.GetKey(KeyCode.LeftArrow) ? -SPEED : Input.GetKey(KeyCode.RightArrow) ? SPEED : 0, 0, Input.GetKey(KeyCode.UpArrow) ? SPEED * 2 : 0);
+            //this.transform.position = this.transform.position + new Vector3(Input.GetKey(KeyCode.LeftArrow) ? -SPEED : Input.GetKey(KeyCode.RightArrow) ? SPEED : 0, 0, Input.GetKey(KeyCode.UpArrow) ? SPEED * 2 : 0);
 
             Ray rayRight = new Ray(player.transform.position, Vector3.right);
             Ray rayLeft = new Ray(player.transform.position, Vector3.left);
