@@ -13,6 +13,8 @@ namespace Assets.Scripts.VainBuilder
         private List<VainExit> exits;
         private List<Vain> vains;
 
+        public bool showDebug = false;
+
         public Material VainMaterial = null;
         private Color redVain = new Color(1f / 255f * 255f, 1f / 255f * 66f, 1f / 255f * 66f);
         private Color blueVain = new Color(1f / 255f * 60f, 1f / 255f * 50f, 1f / 255f * 160f);
@@ -29,6 +31,8 @@ namespace Assets.Scripts.VainBuilder
 
         private void Start()
         {
+            this.VainMaterial.color = redVain;
+
             Instance = this;
             exits = new List<VainExit>();
             vains = new List<Vain>();
@@ -232,7 +236,7 @@ namespace Assets.Scripts.VainBuilder
                 {
                     VainMaterial.color = Color.Lerp(blueVain, redVain, 1);//colorChanger.instance.celTimer);
                 }
-                else if(currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
+                else if (currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
                 {
                     VainMaterial.color = Color.Lerp(redVain, blueVain, 1);//colorChanger.instance.celTimer);
                 }
@@ -261,6 +265,11 @@ namespace Assets.Scripts.VainBuilder
                 {
                     return v;
                 }
+            }
+
+            if (obj.tag == "Brain")
+            {
+                return GetVain(-3);
             }
 
             return null;
