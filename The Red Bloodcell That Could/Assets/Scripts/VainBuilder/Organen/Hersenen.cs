@@ -11,26 +11,34 @@ namespace Assets.Scripts.VainBuilder.Organen
         public Hersenen()
             : base()
         {
-            //this.size = new UnityEngine.Vector3(1.0f, 1.0f, 16.5f);
+            this.size = new UnityEngine.Vector3(1f, 1f, 40.5f);
         }
 
-        //public override VainDrawer CalculateNextPosition(Vain last, Vain next)
+        //public override Vain GetStraight(Vain last)
         //{
-        //    Vector3 position = this.obj.transform.position;
-
-        //    if(next == exits[1])
-        //    {
-        //        // Leave through bottom
-        //        position += new Vector3(0, 0, size.z);
-        //    }
+        //    if (exits[0] == last)
+        //        return exits[1];
         //    else
-        //    {
-        //        // Leave through top
-        //        position += new Vector3(0, 0, size.z);
-        //    }
-
-        //    return new VainDrawer(position, new Vector3());
+        //        return exits[0];
         //}
+
+        public override VainDrawer CalculateNextPosition(Vain last, Vain next)
+        {
+            Vector3 position = this.obj.transform.position;
+
+            if (next == exits[1])
+            {
+                // Leave through bottom
+                position += new Vector3(0, 0, size.z);
+            }
+            else
+            {
+                // Leave through top
+                position += new Vector3(0, 0, size.z);
+            }
+
+            return new VainDrawer(position, new Vector3());
+        }
 
         //public override bool DrawMe(Transform parent, VainDrawer drawinfo)
         //{

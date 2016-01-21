@@ -147,78 +147,78 @@ public class MiniMap : MonoBehaviour {
 
         BloedLocatie loc = Distance.GetLocatie(VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetID());
         //Debug.Log("loc: " + loc);
-        if (loc == BloedLocatie.Darmen)
+        if (loc == BloedLocatie.Colon)
         {
             setImagesInactive();
             dotIntestines.enabled = true;
         }
-        if (loc == BloedLocatie.HartL || loc == BloedLocatie.HartR)
+        if (loc == BloedLocatie.left_Ventricle || loc == BloedLocatie.right_Ventricle)
         {
             setImagesInactive();
             dotHeart.enabled = true;
         }
-        if (loc == BloedLocatie.LongL)
+        if (loc == BloedLocatie.right_Pulmonary_Artery)
         {
             setImagesInactive();
             dotLungsLeft.enabled = true;
         }
-        if (loc == BloedLocatie.LongR)
+        if (loc == BloedLocatie.left_Pulmonary_Artery)
         {
             setImagesInactive();
             dotLungsRight.enabled = true;
         }
-        if (loc == BloedLocatie.Hersenen)
+        if (loc == BloedLocatie.Brain)
         {
             //Debug.Log("Ik ben in de hersenen");
             setImagesInactive();
             dotHead.enabled = true;
         }
-        if (loc == BloedLocatie.Maag)
+        if (loc == BloedLocatie.Stomach)
         {
             setImagesInactive();
             dotStomach.enabled = true;
         }
-        if (loc == BloedLocatie.Lever)
+        if (loc == BloedLocatie.Liver)
         {
             setImagesInactive();
             dotLiver.enabled = true;
         }
-        if (loc == BloedLocatie.NierL)
+        if (loc == BloedLocatie.left_Kidney)
         {
             setImagesInactive();
             dotKidneyLeft.enabled = true;
         }
-        if (loc == BloedLocatie.NierR)
+        if (loc == BloedLocatie.right_Kidney)
         {
             setImagesInactive();
             dotKindeyRight.enabled = true;
         }
-        if (loc == BloedLocatie.Ingang_Longen || loc == BloedLocatie.Uitgang_Longen)
+        if (loc == BloedLocatie.Pulmonary_Artery || loc == BloedLocatie.Pulmonary_Vein)
         {
             setImagesInactive();
             dotHeartLung.enabled = true;
         }
-        if (loc == BloedLocatie.Heen_HersenenHart || loc == BloedLocatie.Terug_HersenenHart)
+        if (loc == BloedLocatie.Common_Carotid_Artery || loc == BloedLocatie.Common_Carotid_Vein)
         {
             setImagesInactive();
             dotHeartHead.enabled = true;
         }
-        if (loc == BloedLocatie.Heen_Maag || loc == BloedLocatie.Terug_Maag)
+        if (loc == BloedLocatie.Gastric_Artery || loc == BloedLocatie.Gastric_Vein)
         {
             setImagesInactive();
             dotHeartStomach.enabled = true;
         }
-        if (loc == BloedLocatie.Heen_Lever || loc == BloedLocatie.Terug_Lever)
+        if (loc == BloedLocatie.Hepatic_Artery || loc == BloedLocatie.Hepatic_Vein)
         {
             setImagesInactive();
             dotHeartLiver.enabled = true;
         }
-        if (loc == BloedLocatie.Heen_Darmen)
+        if (loc == BloedLocatie.Inferior_Mesenteric_Artery)
         {
             setImagesInactive();
             dotHeartIntestines.enabled = true;
         }
-        if (loc == BloedLocatie.Splitsing_Nieren || loc == BloedLocatie.Samenkoming_Nieren)
+        if (loc == BloedLocatie.Renal_Artery || loc == BloedLocatie.Renal_Veins)
         {
             setImagesInactive();
             dotHeartKidneys.enabled = true;

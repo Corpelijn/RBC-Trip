@@ -11,10 +11,10 @@ namespace Assets.Scripts.VainBuilder
     {
         #region "Attributes"
 
-        private int id;
+        protected int id;
         protected Vain[] exits;
         protected GameObject obj;
-        private bool isDrawn;
+        protected bool isDrawn;
         protected float scale;
         private int zrotation;
         private float flip;
@@ -155,6 +155,11 @@ namespace Assets.Scripts.VainBuilder
                 Debug.Log("Exit " + index + " of vain " + this.id + " cannot be set to " + vain.id);
             }
             exits[index] = vain;
+        }
+
+        public float GetScale()
+        {
+            return this.scale;
         }
 
         /// <summary>

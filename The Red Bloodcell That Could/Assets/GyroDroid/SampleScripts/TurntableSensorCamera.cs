@@ -29,9 +29,18 @@ public class TurntableSensorCamera : MonoBehaviour {
 	// initial camera and sensor value
 	private Quaternion initialCameraRotation = Quaternion.identity;
 	private bool gotFirstValue = false;
-	
-	// Use this for initialization
-	void Start ()
+
+    private float distanceDown;
+    private float distanceUp;
+    private float distanceLeft;
+    private float distanceRight;
+    private float distanceY;
+    private float distanceX;
+    private float marginX;
+    private float marginY;
+
+    // Use this for initialization
+    void Start ()
 	{
 		// for distance calculation --> its much easier to make adjusments in the editor, just put
 		// your camera where you want it to be
@@ -92,6 +101,7 @@ public class TurntableSensorCamera : MonoBehaviour {
         zRotation = initialCameraRotation.z * SensorHelper.rotation.z;
         
         transform.rotation = initialCameraRotation * SensorHelper.rotation; // Sensor.rotationQuaternion;
+        //Limit rotation
         if (transform.eulerAngles.y < 290 && transform.eulerAngles.y > 180)
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, 290, transform.eulerAngles.z);
@@ -106,7 +116,52 @@ public class TurntableSensorCamera : MonoBehaviour {
         }
 
         transform.position = target.position - transform.forward * distance;
-	}
+
+        //Limit inside veins
+        RaycastHit raycastUp;
+        RaycastHit raycastDown;
+        RaycastHit raycastLeft;
+        RaycastHit raycastRight;
+        Ray rayUp = new Ray(transform.position, Vector3.up);
+        Ray rayDown = new Ray(transform.position, Vector3.down);
+        Ray rayLeft = new Ray(transform.position, Vector3.left);
+        Ray rayRight = new Ray(transform.position, Vector3.right);
+        Debug.DrawRay(rayUp.origin, rayUp.direction * 500, Color.magenta);
+        Debug.DrawRay(rayDown.origin, rayDown.direction * 500, Color.magenta);
+        Debug.DrawRay(rayLeft.origin, rayLeft.direction * 500, Color.magenta);
+        Debug.DrawRay(rayRight.origin, rayRight.direction * 500, Color.magenta);
+
+        if (Physics.Raycast(rayDown, out raycastDown, 500)){
+            distanceDown = raycastDown.distance;
+            Debug.Log("Distance DOWN: " + distanceDown);
+        }
+
+        if (Physics.Raycast(rayUp, out raycastUp, 500)){
+            distanceUp = raycastUp.distance;
+            Debug.Log("Distance UP: " + distanceUp);
+        }
+
+        if (Physics.Raycast(rayLeft, out raycastLeft, 500)){
+            distanceLeft = raycastLeft.distance;
+            Debug.Log("Distance LEFT: " + distanceLeft);
+        }
+
+        if (Physics.Raycast(rayRight, out raycastRight, 500)){
+            distanceRight = raycastRight.distance;
+            Debug.Log("Distance RIGHT: " + distanceRight);
+        }
+
+        distanceY = distanceUp + distanceDown;
+        distanceX = distanceLeft + distanceRight;
+        marginX = distanceX / 10;
+        marginY = distanceY / 10;
+
+        if (distanceUp <= marginY || distanceDown <= marginY)
+            this.transform.position = new Vector3(transform.position.x, transform.position.y * 0.95f, transform.position.z);
+        if (distanceLeft <= marginX || distanceRight <= marginX)
+            this.transform.position = new Vector3(transform.position.x * 0.95f, transform.position.y, transform.position.z);
+
+    }
 
     public static float ClampAngle(float angle, float min, float max)
     {

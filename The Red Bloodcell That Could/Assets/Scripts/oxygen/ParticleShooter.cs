@@ -6,7 +6,7 @@ public class ParticleShooter : MonoBehaviour
     public ParticleSystem oxygen;
     public float distance;
     public Camera playerCam;
-    private ReadyToPlay rtp;
+
 
     // Use this for initialization
     void Start()

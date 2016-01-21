@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.VainBuilder.OBJPool;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -138,23 +139,40 @@ namespace Assets.Scripts.VainBuilder.Organen
             return false;
         }
 
-        public void AddZuurstof(float value)
+        public override bool DrawMe(Transform parent, VainDrawer drawinfo)
         {
-            this.zuurstof += value;
-            if (this.zuurstof > 1)
-                this.zuurstof = 1;
-        }
+            // Check if the vain is already drawn. If it is drawn already, skip creating the object
+            if (!isDrawn)
+            {
+                // Get the next available object from the object pool
+                //this.obj = ObjectPool.GetInstance().GetObject(this.GetType());
+                this.obj = ObjectPool.INSTANCE.GetNext(this.GetType());
+                this.obj.SetActive(true);
 
-        public void RemoveZuurstof(float value)
-        {
-            this.zuurstof -= value;
-            if (this.zuurstof < 0)
-                this.zuurstof = 0;
-        }
+                // Set the parent of the object to the VainBuilder
+                this.obj.transform.parent = parent;
 
-        public float GetZuurstof()
-        {
-            return this.zuurstof;
+                this.obj.name = this.id.ToString();
+
+                // Set the scale of the object
+                this.obj.transform.localScale = new Vector3(this.scale, this.scale, this.scale);
+
+                //// Set the flip of the object
+                //for (int i = 0; i < this.obj.transform.childCount; i++)
+                //{
+                //    this.obj.transform.GetChild(i).eulerAngles = new Vector3(0, 0, 0);
+                //}
+
+                // Remember that the vain is now drawn
+                this.isDrawn = true;
+
+                // Set the position and rotation of the vain
+                if (!drawinfo.IsEmpty())
+                    this.SetPosition(drawinfo);
+            }
+
+            // Return true if the vain has a second exit
+            return this.HasSecondExit();
         }
     }
 }
