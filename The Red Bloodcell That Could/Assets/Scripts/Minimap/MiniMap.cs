@@ -97,12 +97,12 @@ public class MiniMap : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate ()
     {
-        head.value = cc.brainOxygenLevel;
-        liver.value = cc.liverOxygenLevel;
-        intestines.value = cc.intestinesLevel;
-        stomach.value = cc.stomachOxygenLevel;
-        kidneyleft.value = cc.leftKidneyOxygenLevel;
-        kidneyright.value = cc.rightKidneyLevel;
+        head.value = cc.brainOxygenLevel * 100;
+        liver.value = cc.liverOxygenLevel * 100;
+        intestines.value = cc.intestinesLevel * 100;
+        stomach.value = cc.stomachOxygenLevel * 100;
+        kidneyleft.value = cc.leftKidneyOxygenLevel * 100;
+        kidneyright.value = cc.rightKidneyLevel * 100;
 
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.F) || Input.GetKey(KeyCode.G))
         {

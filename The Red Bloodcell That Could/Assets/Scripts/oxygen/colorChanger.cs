@@ -132,6 +132,7 @@ public class colorChanger : MonoBehaviour
 
     void OnParticleCollision(GameObject other)
     {
+        Debug.Log(other.tag);
         if (canShoot)
         {
             if (other.tag == "Brain")
