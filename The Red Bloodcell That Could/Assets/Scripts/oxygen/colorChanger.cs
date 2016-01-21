@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.VainBuilder.Organen;
+using Assets.Scripts.VainBuilder;
 
 public class colorChanger : MonoBehaviour
 {
@@ -35,6 +37,8 @@ public class colorChanger : MonoBehaviour
     public bool canShoot = true;
     public bool canGet = false;
 
+    private int action = 0;
+
     public static colorChanger instance { private set; get; }
 
     // Use this for initialization
@@ -63,7 +67,9 @@ public class colorChanger : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        organ = Assets.Scripts.Player.Instance.currentVain;
+        
+
+        //cel.GetComponent<Renderer>().material.color = lerpedColorCel;
         //brain.GetComponent<Renderer>().material.color = lerpedColorBrain;
         //stomach.GetComponent<Renderer>().material.color = lerpedColorStomach;
         //liver.GetComponent<Renderer>().material.color = lerpedColorLiver;
@@ -71,72 +77,72 @@ public class colorChanger : MonoBehaviour
         //rightKidney.GetComponent<Renderer>().material.color = lerpedColorRightKidney;
         //intestines.GetComponent<Renderer>().material.color = lerpedColorIntestines;
         //cel.GetComponent<Renderer>().material.color = lerpedColorCel;
-        if (organ != null)
-        {
-            if (brainOxygenLevel > 0)
-            {
-                brainOxygenLevel -= 0.001f;
-                lerpedColorBrain = Color.Lerp(Color.blue, Color.red, brainOxygenLevel);
-                if (organ.tag == "Brain")
-                {
-                    organ.GetComponentInChildren<Renderer>().material.color = lerpedColorBrain;
-                }
-            }
-            if (stomachOxygenLevel > 0)
-            {
-                stomachOxygenLevel -= 0.001f;
-                lerpedColorStomach = Color.Lerp(Color.blue, Color.red, stomachOxygenLevel);
-                if (organ.tag == "Stomach")
-                {
-                    organ.GetComponentInChildren<Renderer>().material.color = lerpedColorStomach;
-                }
-            }
-            if (liverOxygenLevel > 0)
-            {
-                liverOxygenLevel -= 0.001f;
-                lerpedColorLiver = Color.Lerp(Color.blue, Color.red, liverOxygenLevel);
-                if (organ.tag == "Liver")
-                {
-                    organ.GetComponentInChildren<Renderer>().material.color = lerpedColorLiver;
-                }
-            }
-            if (leftKidneyOxygenLevel > 0)
-            {
-                leftKidneyOxygenLevel -= 0.001f;
-                lerpedColorLeftKidney = Color.Lerp(Color.blue, Color.red, leftKidneyOxygenLevel);
-                if (organ.tag == "LeftKidney")
-                {
-                    organ.GetComponentInChildren<Renderer>().material.color = lerpedColorLeftKidney;
-                }
-            }
-            if (rightKidneyLevel > 0)
-            {
-                rightKidneyLevel -= 0.001f;
-                lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyLevel);
-                if (organ.tag == "RightKidney")
-                {
-                    organ.GetComponentInChildren<Renderer>().material.color = lerpedColorRightKidney;
-                }
-            }
-            if (intestinesLevel > 0)
-            {
-                intestinesLevel -= 0.001f;
-                lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesLevel);
-                if (organ.tag == "Intestines")
-                {
-                    organ.GetComponentInChildren<Renderer>().material.color = lerpedColorIntestines;
-                }
-            }
-        }
+        //if (organ != null)
+        //{
+        //    if (brainOxygenLevel > 0)
+        //    {
+        //        brainOxygenLevel -= 0.001f;
+        //        lerpedColorBrain = Color.Lerp(Color.blue, Color.red, brainOxygenLevel);
+        //        if (organ.tag == "Brain")
+        //        {
+        //            organ.GetComponentInChildren<Renderer>().material.color = lerpedColorBrain;
+        //        }
+        //    }
+        //    if (stomachOxygenLevel > 0)
+        //    {
+        //        stomachOxygenLevel -= 0.001f;
+        //        lerpedColorStomach = Color.Lerp(Color.blue, Color.red, stomachOxygenLevel);
+        //        if (organ.tag == "Stomach")
+        //        {
+        //            organ.GetComponentInChildren<Renderer>().material.color = lerpedColorStomach;
+        //        }
+        //    }
+        //    if (liverOxygenLevel > 0)
+        //    {
+        //        liverOxygenLevel -= 0.001f;
+        //        lerpedColorLiver = Color.Lerp(Color.blue, Color.red, liverOxygenLevel);
+        //        if (organ.tag == "Liver")
+        //        {
+        //            organ.GetComponentInChildren<Renderer>().material.color = lerpedColorLiver;
+        //        }
+        //    }
+        //    if (leftKidneyOxygenLevel > 0)
+        //    {
+        //        leftKidneyOxygenLevel -= 0.001f;
+        //        lerpedColorLeftKidney = Color.Lerp(Color.blue, Color.red, leftKidneyOxygenLevel);
+        //        if (organ.tag == "LeftKidney")
+        //        {
+        //            organ.GetComponentInChildren<Renderer>().material.color = lerpedColorLeftKidney;
+        //        }
+        //    }
+        //    if (rightKidneyLevel > 0)
+        //    {
+        //        rightKidneyLevel -= 0.001f;
+        //        lerpedColorRightKidney = Color.Lerp(Color.blue, Color.red, rightKidneyLevel);
+        //        if (organ.tag == "RightKidney")
+        //        {
+        //            organ.GetComponentInChildren<Renderer>().material.color = lerpedColorRightKidney;
+        //        }
+        //    }
+        //    if (intestinesLevel > 0)
+        //    {
+        //        intestinesLevel -= 0.001f;
+        //        lerpedColorIntestines = Color.Lerp(Color.blue, Color.red, intestinesLevel);
+        //        if (organ.tag == "Intestines")
+        //        {
+        //            organ.GetComponentInChildren<Renderer>().material.color = lerpedColorIntestines;
+        //        }
+        //    }
+        //}
     }
 
     void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.tag);
         if (canShoot)
         {
-            if (other.tag == "Brain")
+            if (organ.tag == "Brain")
             {
+                Debug.Log("i can change");
                 brainOxygenLevel += 0.1f;
                 celTimer -= 0.1f;
                 canGet = true;
@@ -151,7 +157,7 @@ public class colorChanger : MonoBehaviour
                     canGet = true;
                 }
             }
-            if (other.tag == "Stomach")
+            if (organ.tag == "Stomach")
             {
                 stomachOxygenLevel += 0.1f;
                 celTimer -= 0.1f;
@@ -167,7 +173,7 @@ public class colorChanger : MonoBehaviour
                     canGet = true;
                 }
             }
-            if (other.tag == "Liver")
+            if (organ.tag == "Liver")
             {
                 liverOxygenLevel += 0.1f;
                 celTimer -= 0.1f;
@@ -183,7 +189,7 @@ public class colorChanger : MonoBehaviour
                     canGet = true;
                 }
             }
-            if (other.tag == "LeftKidney")
+            if (organ.tag == "LeftKidney")
             {
                 leftKidneyOxygenLevel += 0.1f;
                 celTimer -= 0.1f;
@@ -199,7 +205,7 @@ public class colorChanger : MonoBehaviour
                     canGet = true;
                 }
             }
-            if (other.tag == "RightKidney")
+            if (organ.tag == "RightKidney")
             {
                 rightKidneyLevel += 0.1f;
                 celTimer -= 0.1f;
@@ -215,7 +221,7 @@ public class colorChanger : MonoBehaviour
                     canGet = true;
                 }
             }
-            if (other.tag == "Intestines")
+            if (organ.tag == "Intestines")
             {
                 intestinesLevel += 0.1f;
                 celTimer -= 0.1f;
@@ -236,6 +242,7 @@ public class colorChanger : MonoBehaviour
 
     public void getOxigen()
     {
+        Debug.Log("i feel triggered");
         if (canGet)
         {
             celTimer += 0.1f;

@@ -8,11 +8,14 @@ namespace Assets.Scripts.VainBuilder.Organen
 {
     public class Orgaan : Vain
     {
+        private float zuurstof = 0;
+
         protected Orgaan()
             : base()
         {
             this.exits = new Vain[2];
             this.size = new Vector3(1, 1, 3);
+            zuurstof = 1f;
         }
 
         public static Vain GetOrgaan(string data)
@@ -133,6 +136,25 @@ namespace Assets.Scripts.VainBuilder.Organen
         public override bool HasSecondExit()
         {
             return false;
+        }
+
+        public void AddZuurstof(float value)
+        {
+            this.zuurstof += value;
+            if (this.zuurstof > 1)
+                this.zuurstof = 1;
+        }
+
+        public void RemoveZuurstof(float value)
+        {
+            this.zuurstof -= value;
+            if (this.zuurstof < 0)
+                this.zuurstof = 0;
+        }
+
+        public float GetZuurstof()
+        {
+            return this.zuurstof;
         }
     }
 }

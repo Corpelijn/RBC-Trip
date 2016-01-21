@@ -12,7 +12,8 @@ public class ParticleShooter : MonoBehaviour
     void Start()
     {
         distance = 10;
-        oxygen.Stop();
+        //oxygen.Stop();
+        //oxygen.Play();
     }
 
     // Update is called once per frame
@@ -31,32 +32,34 @@ public class ParticleShooter : MonoBehaviour
             //Debug.Log(hit.collider.tag);
             if (hit.collider.tag == "Brain" || hit.collider.tag == "Liver" || hit.collider.tag == "Stomach" || hit.collider.tag == "LeftKidney" || hit.collider.tag == "RightKidney" || hit.collider.tag == "Intestines")
             {
-                Debug.Log("particle play: " + oxygen.isPlaying);
+                //Debug.Log("Im hitting: " + hit.collider.tag);
+                //Debug.Log("particle play: " + oxygen.isPlaying);
                 if (hit.collider.GetComponent<colorChanger>().canShoot == true)
                 {
                     if (!oxygen.isPlaying)
-                        Debug.Log(hit.collider.tag);
-                        oxygen.Play();
-                }
-                else
-                {
-                    oxygen.Stop();
+                    //Debug.Log(hit.collider.tag);
+                    oxygen.Play();
                 }
             }
             else
             {
-                oxygen.Stop();
+                if (oxygen.isPlaying)
+                {
+                    //Debug.Log("Stopping oxygen now!!!!!");
+                    oxygen.Stop();
+                }
+                    
             }
         }
         else
         {
-            oxygen.Stop();
+            //oxygen.Stop();
         }
     }
 
     void OnParticleCollision()
     {
-        Debug.Log("I feel triggered");
+        //Debug.Log("I feel triggered");
         colorChanger cc = new colorChanger();
         cc.getOxigen();
     }
