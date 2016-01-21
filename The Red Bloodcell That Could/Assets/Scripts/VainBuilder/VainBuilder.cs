@@ -238,7 +238,7 @@ namespace Assets.Scripts.VainBuilder
                 }
                 else if (currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
                 {
-                    VainMaterial.color = Color.Lerp(redVain, blueVain, betterColorChanger.Instance.celTimer);
+                    VainMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                 }
 
             }
