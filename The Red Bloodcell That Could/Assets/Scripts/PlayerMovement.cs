@@ -6,6 +6,14 @@ using Assets.Scripts;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public ParticleSystem red;
+    private float redstartspeed = 2.5f;
+    private float redemmission = 10f;
+    private float redmaxparticles = 100f;
+    public ParticleSystem white;
+    private float whitestartspeed = 2.5f;
+    public ParticleSystem purple;
+    private float purplestartspeed = 2.5f;
 
     public static PlayerMovement instance = new PlayerMovement();
     public GameObject target;
@@ -71,7 +79,11 @@ public class PlayerMovement : MonoBehaviour
     {
         scaleVain = VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetScale();
         //0.25, 0.5, 1, 2, 4
+        Debug.Log("scale: " + scaleVain);
         movespeed = (200000 / scaleVain); //* 0.2f);
+        red.startSpeed = redstartspeed * scaleVain;
+        red.maxParticles = (int)(redmaxparticles * scaleVain);
+        red.emissionRate = redemmission * scaleVain;
         //Debug.Log("Movement speed: " + movespeed);
 
         directionToMove = target.transform.position - this.transform.position;
