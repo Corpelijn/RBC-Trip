@@ -6,6 +6,7 @@ using Assets.Scripts.VainBuilder.Organen;
 public class betterColorChanger : MonoBehaviour
 {
 
+    public ParticleSystem oxygen;
     public GameObject cel;
     private GameObject organ;
 
@@ -54,9 +55,14 @@ public class betterColorChanger : MonoBehaviour
                 {
                     // Zuurstof aflopend
                     celTimer -= 0.1f;
+                    if (!oxygen.isPlaying)
+                        oxygen.Play();
                     if (celTimer < 0)
+                    {
                         celTimer = 0;
-                    o.AddZuurstof(UP_SPEED);
+                        oxygen.Stop();
+                        o.AddZuurstof(UP_SPEED);
+                    }                                        
                 }
 
                 //Debug.Log(celTimer);
