@@ -178,6 +178,7 @@ namespace Assets.Scripts.VainBuilder.Organen
             delta.x = Mathf.Abs(delta.x);
             delta.y = Mathf.Abs(delta.y);
             delta.z = Mathf.Abs(delta.z);
+
             if (delta.x == 0 && delta.y == 0 && delta.z == 0)
             {
                 // Apply the new position to the vain
