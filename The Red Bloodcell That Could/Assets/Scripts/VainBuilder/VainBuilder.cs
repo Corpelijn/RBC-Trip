@@ -16,6 +16,8 @@ namespace Assets.Scripts.VainBuilder
         public bool showDebug = false;
 
         public Material VainMaterial = null;
+        public Material CellMaterial = null;
+
         private Color redVain = new Color(1f / 255f * 255f, 1f / 255f * 66f, 1f / 255f * 66f);
         private Color blueVain = new Color(1f / 255f * 60f, 1f / 255f * 50f, 1f / 255f * 160f);
 
@@ -32,6 +34,7 @@ namespace Assets.Scripts.VainBuilder
         private void Start()
         {
             this.VainMaterial.color = redVain;
+            this.CellMaterial.color = redVain;
 
             Instance = this;
             exits = new List<VainExit>();
@@ -235,10 +238,12 @@ namespace Assets.Scripts.VainBuilder
                 if (currentPlayerVain.GetID() == -4 || currentPlayerVain.GetID() == -5)
                 {
                     VainMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
+                    CellMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                 }
                 else if (currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
                 {
                     VainMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
+                    CellMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                 }
 
             }
@@ -269,12 +274,26 @@ namespace Assets.Scripts.VainBuilder
 
             switch (obj.tag)
             {
+                case "HearthL":
+                    return GetVain((int)BloedLocatie.left_Ventricle);
+                case "HearthR":
+                    return GetVain((int)BloedLocatie.right_Ventricle);
                 case "Brain":
-                    return GetVain(-3);
+                    return GetVain((int)BloedLocatie.Brain);
                 case "LungR":
-                    return GetVain(-5);
+                    return GetVain((int)BloedLocatie.left_Pulmonary_Artery);
                 case "LungL":
-                    return GetVain(-4);
+                    return GetVain((int)BloedLocatie.right_Pulmonary_Artery);
+                case "Liver":
+                    return GetVain((int)BloedLocatie.Liver);
+                case "Stomach":
+                    return GetVain((int)BloedLocatie.Stomach);
+                case "Colon":
+                    return GetVain((int)BloedLocatie.Colon);
+                case "KidneyL":
+                    return GetVain((int)BloedLocatie.left_Kidney);
+                case "KidneyR":
+                    return GetVain((int)BloedLocatie.right_Kidney);
             }
 
             return null;
