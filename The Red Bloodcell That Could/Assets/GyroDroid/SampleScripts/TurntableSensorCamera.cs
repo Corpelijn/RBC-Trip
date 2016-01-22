@@ -133,22 +133,22 @@ public class TurntableSensorCamera : MonoBehaviour {
 
         if (Physics.Raycast(rayDown, out raycastDown, 500)){
             distanceDown = raycastDown.distance;
-            Debug.Log("Distance DOWN: " + distanceDown);
+            //Debug.Log("Distance DOWN: " + distanceDown);
         }
 
         if (Physics.Raycast(rayUp, out raycastUp, 500)){
             distanceUp = raycastUp.distance;
-            Debug.Log("Distance UP: " + distanceUp);
+            //Debug.Log("Distance UP: " + distanceUp);
         }
 
         if (Physics.Raycast(rayLeft, out raycastLeft, 500)){
             distanceLeft = raycastLeft.distance;
-            Debug.Log("Distance LEFT: " + distanceLeft);
+            //Debug.Log("Distance LEFT: " + distanceLeft);
         }
 
         if (Physics.Raycast(rayRight, out raycastRight, 500)){
             distanceRight = raycastRight.distance;
-            Debug.Log("Distance RIGHT: " + distanceRight);
+            //Debug.Log("Distance RIGHT: " + distanceRight);
         }
 
         distanceY = distanceUp + distanceDown;

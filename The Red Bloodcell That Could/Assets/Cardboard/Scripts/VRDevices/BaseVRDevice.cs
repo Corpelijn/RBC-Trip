@@ -101,8 +101,8 @@ public abstract class BaseVRDevice {
     float scale = Cardboard.SDK.StereoScreenScale;
     int width = Mathf.RoundToInt(recommendedTextureSize.x * scale);
     int height = Mathf.RoundToInt(recommendedTextureSize.y * scale);
-    Debug.Log("Creating new default cardboard screen texture "
-        + width+ "x" + height + ".");
+    //Debug.Log("Creating new default cardboard screen texture "
+        //+ width+ "x" + height + ".");
     var rt = new RenderTexture(width, height, 24, RenderTextureFormat.Default);
     rt.anisoLevel = 0;
     rt.antiAliasing = Mathf.Max(QualitySettings.antiAliasing, 1);

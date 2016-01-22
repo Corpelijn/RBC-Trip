@@ -84,7 +84,7 @@ public static class SensorHelper
 				    rotationHelper = new GetRotationHelper(RotationQuaternion);
 				    current = RotationFallbackType.RotationQuaternion;
 					
-					Debug.Log("RotationVector is available.");
+					//Debug.Log("RotationVector is available.");
 				    return true;
 			    }
 		        break;

@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         scaleVain = VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetScale();
         //0.25, 0.5, 1, 2, 4
         movespeed = (200000 / scaleVain); //* 0.2f);
-        Debug.Log("Movement speed: " + movespeed);
+        //Debug.Log("Movement speed: " + movespeed);
 
         directionToMove = target.transform.position - this.transform.position;
         //directionToMove.x = 0;
