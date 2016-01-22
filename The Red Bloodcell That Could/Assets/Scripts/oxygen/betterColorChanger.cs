@@ -12,7 +12,7 @@ public class betterColorChanger : MonoBehaviour
 
     public float celTimer;
 
-    private const float DOWN_SPEED = 0.001f;
+    private const float DOWN_SPEED = 0.0001f;
     private const float UP_SPEED = 0.01f;
 
     public static betterColorChanger Instance { private set; get; }
@@ -51,16 +51,17 @@ public class betterColorChanger : MonoBehaviour
                     // Zuurstof oplopend
                     celTimer += UP_SPEED;
                 }
+
                 else if (action == 2 && organ.transform.localScale.x == 0.25f)
                 {
                     // Zuurstof aflopend
-                    celTimer -= 0.1f;
+                    celTimer -= 0.05f;
                     if (!oxygen.isPlaying)
                         oxygen.Play();
                     if (celTimer < 0)
                     {
                         celTimer = 0;
-                        oxygen.Stop();
+                        //oxygen.Stop();
                         o.AddZuurstof(UP_SPEED);
                     }                                        
                 }
