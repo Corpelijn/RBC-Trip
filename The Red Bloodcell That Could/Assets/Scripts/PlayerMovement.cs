@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     {
         scaleVain = VainBuilder.Instance.GetVain(Player.Instance.currentVain).GetScale();
         //0.25, 0.5, 1, 2, 4
-        Debug.Log("scale: " + scaleVain);
+        //Debug.Log("scale: " + scaleVain);
         movespeed = (200000 / scaleVain); //* 0.2f);
         red.startSpeed = redstartspeed * scaleVain;
         red.maxParticles = (int)(redmaxparticles * scaleVain);

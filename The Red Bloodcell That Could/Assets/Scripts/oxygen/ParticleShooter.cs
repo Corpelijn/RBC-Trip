@@ -7,6 +7,7 @@ public class ParticleShooter : MonoBehaviour
     public float distance;
     public Camera playerCam;
 
+    public AudioSource bubbles;
 
     // Use this for initialization
     void Start()
@@ -37,8 +38,13 @@ public class ParticleShooter : MonoBehaviour
                 if (hit.collider.GetComponent<colorChanger>().canShoot == true)
                 {
                     if (!oxygen.isPlaying)
-                    //Debug.Log(hit.collider.tag);
-                    oxygen.Play();
+                    {
+                        //Debug.Log(hit.collider.tag);
+                        oxygen.Play();
+                        Debug.Log("SOUDNS");
+                        bubbles.Play();
+                    }
+                    
                 }
             }
             else
@@ -47,6 +53,7 @@ public class ParticleShooter : MonoBehaviour
                 {
                     //Debug.Log("Stopping oxygen now!!!!!");
                     oxygen.Stop();
+                    bubbles.Stop();
                 }
                     
             }

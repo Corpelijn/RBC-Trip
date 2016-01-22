@@ -7,6 +7,7 @@ public class betterColorChanger : MonoBehaviour
 {
 
     public ParticleSystem oxygen;
+    public AudioSource bubbles;
     public GameObject cel;
     private GameObject organ;
 
@@ -57,11 +58,14 @@ public class betterColorChanger : MonoBehaviour
                     // Zuurstof aflopend
                     celTimer -= 0.05f;
                     if (!oxygen.isPlaying)
+                    {
                         oxygen.Play();
+                        bubbles.Play();
+                    }
                     if (celTimer < 0)
                     {
                         celTimer = 0;
-                        //oxygen.Stop();
+                        oxygen.Stop();
                         o.AddZuurstof(UP_SPEED);
                     }                                        
                 }
