@@ -80,7 +80,11 @@ namespace Assets.Scripts.VainBuilder.OBJPool
             /**
             * Set the data for the organs
             */
-            else if (type == typeof(Hart))
+            else if (type == typeof(HartR))
+            {
+                go = GameObject.Instantiate(ObjectPoolObjects.Instance.Hart);
+            }
+            else if (type == typeof(HartL))
             {
                 go = GameObject.Instantiate(ObjectPoolObjects.Instance.Hart);
             }

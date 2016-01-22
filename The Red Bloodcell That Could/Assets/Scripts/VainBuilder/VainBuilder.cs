@@ -288,12 +288,12 @@ namespace Assets.Scripts.VainBuilder
                     return GetVain((int)BloedLocatie.Liver);
                 case "Stomach":
                     return GetVain((int)BloedLocatie.Stomach);
-                case "Colon":
-                    return GetVain((int)BloedLocatie.Colon);
                 case "KidneyL":
                     return GetVain((int)BloedLocatie.left_Kidney);
                 case "KidneyR":
                     return GetVain((int)BloedLocatie.right_Kidney);
+                case "Intestines":
+                    return GetVain((int)BloedLocatie.Colon);
             }
 
             return null;

@@ -42,7 +42,7 @@ public class betterColorChanger : MonoBehaviour
                 Orgaan o = (Orgaan)v;
                 int action = 0;
 
-                if (o.GetType() == typeof(Hart)) { action = 0; }
+                if (o.GetType() == typeof(HartL) || o.GetType() == typeof(HartR)) { action = 0; }
                 else if (o.GetType() == typeof(LongR) || o.GetType() == typeof(LongL)) { action = 1; }
                 else { action = 2; }
 

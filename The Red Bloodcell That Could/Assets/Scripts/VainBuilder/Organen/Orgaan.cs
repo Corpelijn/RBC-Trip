@@ -15,7 +15,8 @@ namespace Assets.Scripts.VainBuilder.Organen
             : base()
         {
             this.exits = new Vain[2];
-            this.size = new Vector3(1, 1, 3);
+            //this.size = new Vector3(1, 1, 3);
+            this.size = new UnityEngine.Vector3(1f, 1f, 40.5f);
             zuurstof = 1f;
         }
 
@@ -29,8 +30,10 @@ namespace Assets.Scripts.VainBuilder.Organen
             switch (d[2])
             {
                 case "hartr":
+                    organ = new HartR();
+                    break;
                 case "hartl":
-                    organ = new Hart();
+                    organ = new HartL();
                     break;
                 case "hersenen":
                     organ = new Hersenen();
@@ -72,38 +75,20 @@ namespace Assets.Scripts.VainBuilder.Organen
 
         public override VainDrawer CalculateNextPosition(Vain last, Vain next)
         {
-            // Define some variables
             Vector3 position = this.obj.transform.position;
-            Vector3 rotation = this.obj.transform.eulerAngles;
 
-            // Check in what direction the vain is placed
-            bool flip = this.obj.transform.GetChild(0).transform.forward.z != -1f;
-            Vector3 origin = this.obj.transform.position;
-            Vector3 far = origin + new Vector3(0f, 0f, this.obj.GetComponentInChildren<MeshFilter>().mesh.bounds.extents.z * 2) * scale;
-
-            Vector3 exit0 = flip ? far : origin;
-            Vector3 exit1 = flip ? origin : far;
-
-            //Debug.Log(this.GetID() + " : e0 " + exit0 + " : e1 " + exit1);
-
-            // Check from wich end we are leaving
-            if (next == exits[0])
+            if (next == exits[1])
             {
-                // We are leaving from the bottom side
-                // Set the position to continue on bottom and set the exit position to a calculation from the current vain
-                //position = new Vector3(position.x, position.y, position.z - (size.z * this.scale));
-                position = exit0;
+                // Leave through bottom
+                position += new Vector3(0, 0, size.z);
             }
             else
             {
-                // We are leaving from the top side
-                // Set the position to continue on top and set the exit position to a calculation from the current vain
-                //position = new Vector3(position.x, position.y, position.z + (size.z * this.scale));
-                position = exit1;
+                // Leave through top
+                position += new Vector3(0, 0, size.z);
             }
 
-            // Return the information in the VainDrawer format
-            return new VainDrawer(position, rotation);
+            return new VainDrawer(position, new Vector3());
         }
 
         protected override void SetPosition(VainDrawer drawinfo)
