@@ -1,0 +1,25 @@
+The red bloodcell that could
+
+Pieter van Gorkom zijn iddee was een programma dat helpt met het begrijpen 
+van de bloedsomloop en de relaties van de verschillende organen.
+Het programma zou een hulp middel zijn voor de lessen.
+
+In het spel bestuur je een rode bloedcel en breng je zuurstof rond in het lichaam.
+Zorg ervoor dat alle organen van genoeg zuurstof zijn voorzien.
+
+Cardboard Affairs
+Kitty van der Ploeg
+Joey Nieuwkoop
+Bas Corpelijn
+Ruud Hagens
+Hugo Leenen
+
+Immersive VR ervaring 
+Manage zuurstof levels
+Navigeer door de bloedstroom
+
+Android google Cardboard
+
+Instaleer het apk bestand op je android toestel.
+Google cardboard is verijsd stop je telefoon in de cardboard en start het spel.
+Kijk rond om de bloedcel te besturen.
