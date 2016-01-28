@@ -17,6 +17,7 @@ namespace Assets.Scripts.VainBuilder
 
         public Material VainMaterial = null;
         public Material CellMaterial = null;
+        public Material particlesMaterial = null;
 
         private Color redVain = new Color(1f / 255f * 255f, 1f / 255f * 66f, 1f / 255f * 66f);
         private Color blueVain = new Color(1f / 255f * 60f, 1f / 255f * 50f, 1f / 255f * 160f);
@@ -35,6 +36,8 @@ namespace Assets.Scripts.VainBuilder
         {
             this.VainMaterial.color = redVain;
             this.CellMaterial.color = redVain;
+            this.particlesMaterial.color = redVain;
+            Camera.main.backgroundColor = redVain;
 
             Instance = this;
             exits = new List<VainExit>();
@@ -239,11 +242,15 @@ namespace Assets.Scripts.VainBuilder
                 {
                     VainMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                     CellMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
+                    particlesMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
+                    Camera.main.backgroundColor = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                 }
                 else if (currentPlayerVain.GetID() < 0 && currentPlayerVain.GetID() != -1 && currentPlayerVain.GetID() != -2)
                 {
                     VainMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                     CellMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
+                    particlesMaterial.color = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
+                    Camera.main.backgroundColor = Color.Lerp(blueVain, redVain, betterColorChanger.Instance.celTimer);
                 }
 
             }

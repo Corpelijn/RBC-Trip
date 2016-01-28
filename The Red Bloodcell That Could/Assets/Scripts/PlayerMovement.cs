@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         //0.25, 0.5, 1, 2, 4
         //Debug.Log("scale: " + scaleVain);
         movespeed = (200000 / scaleVain); //* 0.2f);
-        red.startSpeed = redstartspeed * scaleVain;
+        //red.startSpeed = redstartspeed * scaleVain;
         red.maxParticles = (int)(redmaxparticles * scaleVain);
         red.emissionRate = redemmission * scaleVain;
         //Debug.Log("Movement speed: " + movespeed);
