@@ -1,0 +1,104 @@
+Vain;Index;Type;Scale;Zrotation;Flip;;
+Exit;Vain1_id;Vain1_exit;Vain2_id;Vain2_exit;;;
+Organ;Index;Type;;;;;
+;;;;;;;
+;vanuit hart (met zuurstof);;;;;;
+r;-1;1;0;0;2;4;
+;;;;;;;
+;naar hersenen;;;;;;
+r;0;2;-3;0;11;4;1
+;;;;;;;
+;naar de rest;;;;;;
+r;0;1;1;0;4;4;
+;;;;;;;
+;naar de maag;;;;;;
+r;1;1;-7;0;5;4;1
+;;;;;;;
+;naar de rest;;;;;;
+r;1;2;2;0;2;4;
+;;;;;;;
+;naar de lever;;;;;;
+r;2;1;-6;0;5;4;1
+;;;;;;;
+;naar de rest;;;;;;
+r;2;2;3;0;2;4;2
+;;;;;;;
+;naar de darmen;;;;;;
+r;3;1;-8;0;6;2;1
+;;;;;;;
+;naar de nieren;;;;;;
+r;3;2;4;0;5;2;
+;;;;;;;
+;naar nier links;;;;;;
+r;4;1;-9;0;5;2;1
+;;;;;;;
+;naar nier rechts;;;;;;
+r;4;2;-10;0;5;2;1
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;van darmen naar lever;;;;;;
+r;-8;1;-6;2;2;1;
+;;;;;;;
+;van nier rechts;;;;;;
+r;-10;1;5;1;5;1;2
+;;;;;;;
+;van nier links;;;;;;
+r;-9;1;5;2;5;1;2
+;;;;;;;
+;van nieren naar rest;;;;;;
+r;5;0;6;1;5;2;4
+;;;;;;;
+;van lever;;;;;;
+r;-6;1;6;2;6;1;4
+;;;;;;;
+;van lever naar rest;;;;;;
+r;6;0;7;1;3;4;
+;;;;;;;
+;van maag;;;;;;
+r;-7;1;7;2;4;1;4
+;;;;;;;
+;van maag naar rest;;;;;;
+r;7;0;8;1;5;4;
+;;;;;;;
+;van hersenen;;;;;;
+r;-3;1;8;2;11;1;4
+;;;;;;;
+;naar hart (zonder zuurstof);;;;;;
+r;8;0;-2;0;3;4;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;naar longen;;;;;;
+r;-2;1;9;0;4;4;
+;;;;;;;
+;naar rechter long;;;;;;
+r;9;2;-5;0;3;4;1
+;;;;;;;
+;naar linker long;;;;;;
+r;9;1;-4;0;3;4;1
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;vanaf linker long;;;;;;
+r;-4;1;10;2;3;1;4
+;;;;;;;
+;vanaf rechter long;;;;;;
+r;-5;1;10;1;3;1;4
+;;;;;;;
+;naar hart (met zuurstof);;;;;;
+r;10;0;-1;0;4;4;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;
+;;;;;;;

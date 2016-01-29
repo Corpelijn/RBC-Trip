@@ -50,7 +50,7 @@ public class betterColorChanger : MonoBehaviour
                 if (action == 1 && organ.transform.localScale.x == 0.25f)
                 {
                     // Zuurstof oplopend
-                    celTimer += UP_SPEED;
+                    celTimer += UP_SPEED * 2f;
                 }
 
                 else if (action == 2 && organ.transform.localScale.x == 0.25f)

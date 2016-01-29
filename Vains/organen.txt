@@ -1,0 +1,7 @@
+hersenen 	-> 	1 ingang, 1 uitgang
+Longen		-> 	1 ingang, 2 uitgang
+Hart		->	2 ingang, 2 uitgang
+Lever		-> 	2 ingang (1 via darm), 1 uitgang
+Darmen		-> 	1 ingang, 1 uitgang (via lever)
+Nieren		->	1 ingang, 2 uitgang
+Maag		->	1 ingang, 1 uitgang

@@ -1,0 +1,17 @@
+Vain;Index;Type;Scale;Zrotation;Flip
+Exit;Vain1_id;Vain1_exit;Vain2_id;Vain2_exit;
+Organ;Index;Type;;;
+;;;;;
+v;0;Y;4;;
+v;1;Y;4;;
+v;2;Y;4;;
+v;3;Y;3;;
+v;4;Y;3;;
+;;;;;
+v;5;Y;3;;180
+v;6;Y;4;;180
+v;7;Y;4;;180
+v;8;Y;4;;180
+;;;;;
+v;9;Y;4;;
+v;10;Y;4;;180
